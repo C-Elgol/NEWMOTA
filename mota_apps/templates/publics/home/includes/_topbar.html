@@ -28,8 +28,8 @@
       {% if user.is_authenticated %}
         <a href="{% url 'users:logout' %}" class="hover:text-secondary transition" title="{% trans 'Logout' %}">{% trans "Logout" %}</a>
       {% else %}
-        <a href="#" class="hover:text-secondary transition" title="{% trans 'Login' %}">{% trans "Login" %}</a>
-        <a href="#" class="hover:text-secondary transition" title="{% trans 'Register' %}">{% trans "Register" %}</a>
+        <a href="{% url 'users:login' %}" class="hover:text-secondary transition" title="{% trans 'Login' %}">{% trans "Login" %}</a>
+        <a href="{% url 'users:register' %}" class="hover:text-secondary transition" title="{% trans 'Register' %}">{% trans "Register" %}</a>
       {% endif %}
 
       <form method="post" action="#" class="inline" id="language-form">

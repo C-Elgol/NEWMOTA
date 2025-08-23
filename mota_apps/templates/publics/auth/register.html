@@ -1,4 +1,4 @@
-{% extends 'ecommerce/home/base.html' %}
+{% extends 'publics/home/base.html' %}
 {% load static %}
 {% load i18n %}
 
@@ -13,11 +13,11 @@
                      alt="SOPresCom IT Solutions" 
                      class="w-full h-full object-cover">
                 <div class="absolute inset-0 flex flex-col justify-center p-12 text-white">
-                    <h3 class="text-2xl font-bold mb-4">{% trans "Join SOPresCom" %}</h3>
+                    <h3 class="text-2xl font-bold mb-4">{% trans "Join Mota" %}</h3>
                     <p class="mb-6">{% trans "Create an account to access exclusive IT solutions, manage orders, and track shipments." %}</p>
                     <div class="flex items-center">
                         <div class="w-10 h-1 bg-yellow-500 mr-3"></div>
-                        <span class="text-sm">{% trans "SOPresCom Solutions" %}</span>
+                        <span class="text-sm">{% trans "Mota Solutions" %}</span>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                             <label class="flex items-center">
                                 <input type="checkbox" name="terms_accepted" class="form-checkbox h-4 w-4 text-blue-500 rounded focus:ring-blue-500 border-gray-300" {% if terms_accepted %}checked{% endif %} required>
                                 <span class="ml-2 text-sm text-gray-700">
-                                    {% trans "I agree to the" %} <a href="{% url 'users:terms_of_service' %}" class="text-blue-500 hover:underline">{% trans "Terms of Service" %}</a> {% trans "and" %} <a href="{% url 'users:privacy_policy' %}" class="text-blue-500 hover:underline">{% trans "Privacy Policy" %}</a>
+                                    {% trans "I agree to the" %} <a href="#" class="text-blue-500 hover:underline">{% trans "Terms of Service" %}</a> {% trans "and" %} <a href="#" class="text-blue-500 hover:underline">{% trans "Privacy Policy" %}</a>
                                 </span>
                             </label>
                         </div>
