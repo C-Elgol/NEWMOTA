@@ -1,0 +1,108 @@
+{% extends 'ecommerce/home/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row bg-white rounded-xl shadow-lg overflow-hidden max-w-4xl mx-auto">
+            <!-- Image on the left (hidden on mobile) -->
+            <div class="hidden lg:block lg:w-1/2 relative">
+                <div class="absolute inset-0 bg-gradient-to-b from-blue-500/80 to-blue-500/60"></div>
+                <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="SOPresCom IT Solutions" 
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 flex flex-col justify-center p-12 text-white">
+                    <h3 class="text-2xl font-bold mb-4">trans</h3>
+                    <p class="mb-6">{% trans "Your account gives you full control—monitor orders, track deliveries, and enjoy exclusive tech deals. Sign in to unlock a smarter shopping experience." %}</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-1 bg-yellow-500 mr-3"></div>
+                        <span class="text-sm">{% trans "SOPresCom Solutions" %}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Form on the right -->
+            <div class="w-full lg:w-1/2">
+                <div class="p-8 md:p-12">
+                    <div class="text-center mb-8">
+                        <img src="{% static 'images/Logo.bmp' %}" alt="SOPresCom Logo" class="h-12 mx-auto mb-4">
+                        <h2 class="text-2xl font-bold text-gray-800">{% trans "Welcome Back" %}</h2>
+                        <p class="text-gray-600">{% trans "Sign in to your account" %}</p>
+                    </div>
+                    {% if error %}
+                        <div id="error-message" class="text-red-500 mb-4 text-center">{{ error }}</div>
+                    {% else %}
+                        <div id="error-message" class="text-red-500 mb-4 hidden text-center"></div>
+                    {% endif %}
+                    <form id="login-form" action="{% url 'users:login' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-6">
+                            <label class="block text-gray-700 text-sm font-medium mb-2" for="email">
+                               {% trans " Email Address" %}
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                    </svg>
+                                </div>
+                                <input class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                       id="email" name="email" type="email" placeholder="your@email.com" value="{{ email|default_if_none:'' }}" required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 text-sm font-medium mb-2" for="password">
+                                {% trans "Password" %}
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <input class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                       id="password" name="password" type="password" placeholder="••••••••" required>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mb-8">
+                            <label class="flex items-center">
+                                <input type="checkbox" name="remember_me" class="form-checkbox h-4 w-4 text-blue-500 rounded focus:ring-blue-500 border-gray-300">
+                                <span class="ml-2 text-sm text-gray-700">{% trans "Remember me" %}</span>
+                            </label>
+                            <a href="#" class="text-sm text-blue-500 hover:underline font-medium">{% trans "Forgot password?" %}</a>
+                        </div>
+                        <button type="submit" id="login-button" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200 shadow-md flex items-center justify-center">
+                            <span id="login-text">{% trans "Sign In" %}</span>
+                            <span id="login-loader" class="hidden animate-spin h-5 w-5 border-2 border-t-white border-gray-300 rounded-full ml-2"></span>
+                        </button>
+                        <div class="text-center mt-6">
+                            <p class="text-sm text-gray-600">
+                                {% trans "Don't have an account?" %} <a href="{% url 'users:register' %}" class="text-blue-500 hover:underline font-medium">{% trans "Register now" %}</a>
+                            </p>
+                        </div>
+                       
+                      
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="global-loader"
+         class="fixed left-0 top-0 backdrop-brightness-65 z-99999 flex items-center justify-center w-full h-full hidden">
+        <div class="flex justify-center items-center h-auto">
+            <div class="flex space-x-12">
+                <div class="w-10 h-10 bg-gray-300 rounded-full animate-scaleDot animation-delay-0"></div>
+                <div class="w-10 h-10 bg-gray-300 rounded-full animate-scaleDot animation-delay-500"></div>
+                <div class="w-10 h-10 bg-gray-300 rounded-full animate-scaleDot animation-delay-1000"></div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{% static 'js/common/password.js' %}"></script>
+    <script src="{% static 'js/auth/login.js' %}"></script>
+{% endblock scripts %}

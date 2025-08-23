@@ -1,0 +1,158 @@
+{% load i18n static %}
+
+<header class="bg-white shadow-sm overflow-visible">
+  <div class="flex items-center justify-between px-6 py-4">
+    <!-- Mobile menu button -->
+    <button id="mobile-menu-button" type="button" class="admin-nav-bar:hidden text-gray-500 focus:outline-none">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+
+    <!-- Search -->
+    <div class="relative mx-4 flex-1 max-w-md">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <i class="fas fa-search text-gray-400"></i>
+      </div>
+      <input
+        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary sm:text-sm"
+        placeholder="{% trans 'Search...' %}" type="search">
+    </div>
+
+    <!-- Right side -->
+    <div class="flex items-center space-x-4">
+      <!-- Notifications -->
+      <button type="button"
+              class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary relative">
+        <i class="fas fa-bell text-xl"></i>
+        <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+      </button>
+
+      <!-- Messages -->
+      <button type="button"
+              class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary relative">
+        <i class="fas fa-envelope text-xl"></i>
+        <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+      </button>
+
+      <!-- User dropdown -->
+      <div class="relative js-dropdown">
+        <button type="button" class="flex items-center space-x-2 focus:outline-none js-dropdown-btn"
+                aria-haspopup="menu" aria-expanded="false">
+          {% with obj.user.get_profile_picture as profile_picture %}
+            {% if profile_picture %}
+              <img class="w-8 h-8 rounded-full" src="{{ profile_picture }}"
+                   alt="{% trans 'Profile Picture' %}">
+            {% else %}
+              <svg class="w-8 h-8 text-gray-400" aria-hidden="true"
+                   xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                   viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                      d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z"
+                      clip-rule="evenodd"></path>
+              </svg>
+            {% endif %}
+          {% endwith %}
+          <!-- <span class="hidden md:block text-sm font-medium text-gray-700">{{ user.fullname|default:user.email }}</span>
+          <i class="fas fa-chevron-down text-xs"></i> -->
+        </button>
+
+        <!-- Dropdown menu -->
+        <div class="js-dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+           <div class="px-4 py-2 text-sm text-gray-700">
+            <span class="font-medium">{{ user.fullname|default:user.email }}</span>
+          </div>
+          <a href="{% url 'users:account_details' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <i class="fas fa-user mr-2"></i> {% trans 'Profile' %}
+          </a>
+
+          <a href="{% url 'products:home' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <i class="fas fa-home mr-2"></i> {% trans 'Home' %}
+          </a>
+
+          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <i class="fas fa-envelope mr-2"></i> {% trans 'Messages' %}
+          </a>
+
+
+          <a href="{% url 'users:logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <i class="fas fa-sign-out-alt mr-2"></i> {% trans 'Sign out' %}
+          </a>
+        </div>
+        
+      </div>
+
+      <form method="post" action="{% url 'set_language' %}" class="inline" id="language-form">
+        {% csrf_token %}
+        <select name="language" class="bg-while border-none text-white focus:ring-0 pl-1 pr-6 py-0.5 " title="{% trans 'Select Language' %}" id="language-select">
+          <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧</option>
+          <option value="fr" {% if LANGUAGE_CODE == 'fr' %}selected{% endif %}>🇫🇷</option>
+        </select>
+      </form>
+    </div>
+  </div>
+</header>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const languageSelect = document.getElementById('language-select');
+    const languageForm = document.getElementById('language-form');
+    
+    if (languageSelect && languageForm) {
+      languageSelect.addEventListener('change', function() {
+        languageForm.submit();
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Gestion dropdown(s) de façon robuste (supporte plusieurs .js-dropdown si le header est inclus plusieurs fois)
+    const dropdowns = document.querySelectorAll('.js-dropdown');
+
+    dropdowns.forEach(function (dd) {
+      const btn = dd.querySelector('.js-dropdown-btn');
+      const menu = dd.querySelector('.js-dropdown-menu');
+      if (!btn || !menu) return;
+
+      const open = () => {
+        menu.classList.remove('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      };
+
+      const close = () => {
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+      };
+
+      const toggle = () => {
+        if (menu.classList.contains('hidden')) open(); else close();
+      };
+
+      // Ouvrir / fermer au clic sur le bouton
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        toggle();
+      });
+
+      // Fermer si clic à l'extérieur
+      document.addEventListener('click', function (e) {
+        if (!dd.contains(e.target)) close();
+      });
+
+      // Fermer avec Echap
+      dd.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') close();
+      });
+    });
+
+    // Menu mobile (affiche/masque la sidebar)
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const sidebar = document.querySelector('.admin-nav-bar');
+    if (mobileMenuButton && sidebar) {
+      mobileMenuButton.addEventListener('click', function () {
+        sidebar.classList.toggle('hidden');
+      });
+    }
+  });
+</script>

@@ -1,0 +1,14 @@
+{% load static %}
+
+<!-- Internationalization and Flowbite -->
+<script src="{% url 'javascript-catalog' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+<!-- Alert and Toast Managers -->
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/alert_manager.js' %}"></script>
+<script src="{% static 'js/common/password-toggle.js' %}"></script>
+
+
+<!-- Toast Message -->
+{% include 'ecommerce/common/_toast_message.html' %}

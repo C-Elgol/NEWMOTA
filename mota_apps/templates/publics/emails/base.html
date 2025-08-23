@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ site_name }}{% endblock %}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9fafb;
+        }
+        
+        .email-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .logo {
+            max-height: 50px;
+            margin-bottom: 15px;
+        }
+        
+        h1, h2, h3 {
+            color: #1e40af;
+            margin-top: 0;
+        }
+        
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .button {
+            background-color: #1e40af;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background-color: #1e3a8a;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+        }
+        
+        .content-block {
+            margin-bottom: 25px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loader {
+            display: none;
+            animation: spin 1s linear infinite;
+            height: 20px;
+            width: 20px;
+            border: 2px solid white;
+            border-top-color: #ccc;
+            border-radius: 50%;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .email-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <img src="{% static 'images/Logo.bmp' %}" alt="{{ site_name }} Logo" class="logo">
+        </div>
+        
+        {% block content %}
+        <!-- Content will be inserted here by child templates -->
+        {% endblock %}
+        
+        <div class="footer">
+            &copy; {{ site_name }}. All rights reserved.
+            {% if unsubscribe_url %}
+            <div style="margin-top: 8px;">
+                <a href="{{ unsubscribe_url }}" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% block scripts %}
+    <script>
+        // Add any default scripts here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle button loading states
+            const actionButtons = document.querySelectorAll('.action-button');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const text = this.querySelector('.button-text');
+                    const loader = this.querySelector('.loader');
+                    
+                    if (text && loader) {
+                        text.style.display = 'none';
+                        loader.style.display = 'inline-block';
+                    }
+                });
+            });
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>

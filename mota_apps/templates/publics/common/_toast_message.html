@@ -1,0 +1,28 @@
+{% load i18n %}
+{% if messages and not do_not_use_messages %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const messages = [
+        {% for message in messages %}
+          {
+            text: `{{ message|safe }}`,
+            level: `{{ message.level_tag|default:'info' }}`
+          },
+        {% endfor %}
+      ];
+
+      messages.forEach((message, index) => {
+        // Map Django's 'error' level to ToastManager's 'danger'
+        const toastType = message.level === 'error' ? 'danger' : message.level;
+        setTimeout(() => {
+          window.toastManager.buildToast()
+            .setMessage(message.text)
+            .setType(toastType)
+            .setPosition('top-right')
+            .setDuration(5000)
+            .show();
+        }, index * 400);
+      });
+    });
+  </script>
+{% endif %}

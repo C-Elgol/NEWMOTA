@@ -1,0 +1,246 @@
+{% load custom_filters %}
+{% load i18n %}
+{% load sav_tags %}
+{% load leasing_tags %}
+{% load stats_custom_filters %}
+
+<div id="sidebar" class="hidden admin-nav-bar:flex admin-nav-bar:flex-shrink-0 admin-sidebar">
+  <div class="flex flex-col w-64 bg-tertiary text-white">
+    <!-- Logo -->
+    <div class="flex items-center justify-center h-16 p-4 border-b border-gray-700">
+      <h1 class="text-2xl font-semibold mr-2">SOPresCom</h1>
+      <span class="text-xl font-semibold">Admin</span>
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto sidebar-scroll">
+      {% with current_url=request.resolver_match.url_name %}
+        <!-- Dashboard -->
+        <div class="mb-6">
+          <a href="{% url 'admin_dashboard' %}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request|is_stat_dashboard_active %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-life-ring mr-3 text-lg"></i>
+                <span>{% trans "Dashboard" %}</span>
+              </a>
+        </div>
+
+        <!-- Sections -->
+        <div class="space-y-8">
+          <!-- Admin DB Section -->
+          <div>
+            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "ADMIN DB" %}</h3>
+            <div class="space-y-2">
+             <a href="{% url 'admin:index' %}"
+                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'admin' %}active{% else %}inactive{% endif %}">
+                  <i class="fas fa-user-shield mr-2"></i>
+                  <span>{% trans "SOPRESCOM ADMIN" %}</span>
+              </a>
+
+            </div>
+          </div>
+
+          <!-- Products Section -->
+          <div>
+          <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'E-commerce' %}</h3>
+          <div class="space-y-2">
+                  {% url 'products:product_list' as product_list_url %}
+                  <a href="{{ product_list_url }}"
+                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == product_list_url %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-boxes mr-3 text-lg"></i>
+                      <span>{% trans "All Products" %}</span>
+                  </a>
+                  {% url 'products:new_product' as new_product_url %}
+                  <a href="{{ new_product_url }}"
+                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_product_url %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-plus-circle mr-3 text-lg"></i>
+                      <span>{% trans "Add New" %}</span>
+                  </a>
+                  {% url 'products:discount_list' as discount_list_url %}
+                  <a href="{{ discount_list_url }}"
+                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == discount_list_url %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-percent mr-3 text-lg"></i>
+                      <span>{% trans "Discounts" %}</span>
+                  </a>
+
+                  {% url 'products:stock_management' as stock_management_url %}
+                  <a href="{{ stock_management_url }}"
+                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == stock_management_url %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-boxes mr-2"></i>
+                      <span>{% trans "Stock" %}</span>
+                  </a>
+
+                  {% url 'products:daily_output' as daily_output_url %}
+                  <a href="{{ daily_output_url }}"
+                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == daily_output_url %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-chart-line mr-2"></i>
+                      <span>{% trans "Daily Output" %}</span>
+                  </a>
+
+                  {% url 'products:category_management' as category_management_url %}
+                  <a href="{{ category_management_url }}"
+                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == category_management_url %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-tags mr-3 text-lg"></i>
+                      <span>{% trans "Categories" %}</span>
+                  </a>
+                  {% url 'users:admin_payment_list' as admin_payment_list_url %}
+                    <a href="{{ admin_payment_list_url }}"
+                      class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_payment_list_url %}active{% else %}inactive{% endif %}">
+                        <i class="fas fa-credit-card mr-3 text-lg"></i>
+                        <span>{% trans "Payments" %}</span>
+                    </a>
+
+                    {% url 'users:admin_order_list' as admin_order_list_url %}
+                    <a href="{{ admin_order_list_url }}"
+                      class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_order_list_url %}active{% else %}inactive{% endif %}">
+                        <i class="fas fa-shopping-cart mr-3 text-lg"></i>
+                        <span>{% trans "Orders" %}</span>
+                    </a>
+
+
+
+                  {% comment %} <a href="#"
+                    class="flex items-center px-4 py-2.5 inactive rounded-lg nav-item">
+                      <i class="fas fa-archive mr-3 text-lg"></i>
+                      <span>{% trans "Inventory" %}</span>
+                  </a> {% endcomment %}
+              </div>
+          </div>
+
+          <!-- SAV Section -->
+          <div>
+            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'SAV' %}</h3>
+            <div class="space-y-2">
+              <a href="{% url 'sav:sav_list' %}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request|is_sav_active %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-life-ring mr-3 text-lg"></i>
+                <span>{% trans "SAV" %}</span>
+              </a>
+              <a href="{% url 'sav:new_sav' %}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'new_sav' %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-plus-circle mr-3 text-lg"></i>
+                <span>{% trans 'Add New' %}</span>
+              </a>
+              {% url 'sav:personnel_management' as personnel_management_url %}
+              <a href="{{ personnel_management_url }}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == personnel_management_url %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-id-badge mr-3 text-lg"></i>
+                <span>{% trans "Personel" %}</span>
+              </a>
+              {% url 'sav:partenaires_management' as partenaires_management_url %}
+              <a href="{{ partenaires_management_url }}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == partenaires_management_url %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-briefcase mr-3 text-lg"></i>
+                <span>{% trans "SAV Partners" %}</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Instance Section -->
+          <div>
+            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "Instances" %}</h3>
+            <div class="space-y-2">
+              <a href="{% url 'instance:list_instance' %}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'list_instance' %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-headset mr-3 text-lg"></i>
+                <span>{% trans "Instances/Jobs" %}</span>
+              </a>
+              <a href="{% url 'instance:list_recovery' %}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'list_recovery' %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-hand-holding-usd mr-3 text-lg"></i>
+                <span>{% trans "Recovery" %}</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Leasing Section -->
+          <div>
+            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'Leasing' %}</h3>
+            <div class="space-y-2">
+              {% url 'leasing:client_list' as leasing_client_list_url %}
+              <a href="{{ leasing_client_list_url }}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request|is_leasing_active %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-handshake mr-3 text-lg"></i>
+                <span>{% trans 'Leasing Management' %}</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Users Section -->
+          <div>
+            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">USERS</h3>
+            <div class="space-y-2">
+
+              <a href="{% url 'users:user_list' 'user' %}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item
+                          {% if request.resolver_match.url_name == 'user_list' and request.resolver_match.kwargs.role_slug == 'user' %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-percent mr-3 text-lg"></i>
+                <span>{% trans "Users" %}</span>
+              </a>
+              {% comment %} <a href="#"
+                 class="flex items-center px-4 py-2.5 inactive rounded-lg nav-item">
+                <i class="fas fa-user-shield mr-3 text-lg"></i>
+                <span>Administrators</span>
+              </a>
+              <a href="#"
+                 class="flex items-center px-4 py-2.5 inactive rounded-lg nav-item">
+                <i class="fas fa-comments mr-3 text-lg"></i>
+                <span>Reviews</span>
+              </a> {% endcomment %}
+            </div>
+          </div>
+
+
+          <!-- Contact Us Section -->
+          <div>
+            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "Contact Us" %}</h3>
+            <div class="space-y-2">
+              <a href="{% url 'users:contact_list' %}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'contact_list' %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-envelope mr-3 text-lg"></i>
+                <span>{% trans "Contact Messages" %}</span>
+                <span id="unread-contact-count" class="ml-2 bg-red-600 text-white text-xs font-semibold rounded-full px-2 py-1 hidden">0</span>
+              </a>
+            </div>
+          </div>
+
+        <div>
+            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'Partner Management' %}</h3>
+            <div class="space-y-2">
+                 <a href="{% url 'products:manage-partner-customers' %}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'manage-partner-customers' %}active{% else %}inactive{% endif %}">
+                    <i class="fas fa-users mr-3 text-lg"></i>
+                    <span>{% trans 'SOPresCom Partners' %}</span>
+              </a>
+            </div>
+        </div>
+
+          <!-- Settings Section -->
+          <div>
+            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "SETTINGS" %}</h3>
+            <div class="space-y-2">
+                  <a href="{% url 'users:company_settings' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'company_settings' %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-cog mr-3 text-lg"></i>
+                      <span>{% trans "General" %}</span>
+                  </a>
+              
+            </div>
+          </div>
+        </div>
+      {% endwith %}
+    </div>
+
+    <!-- User Profile -->
+    <div class="p-4 border-t border-gray-700">
+      <div class="flex items-center">
+        <img class="w-10 h-10 rounded-full"
+             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+             alt="Admin profile">
+        <div class="ml-3">
+          <p class="text-sm font-medium text-white">Admin User</p>
+          <p class="text-xs font-medium text-gray-400">Super Admin</p>
+        </div>
+      </div>
+    </div>
+
+  </div> 
+</div>

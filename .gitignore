@@ -1,0 +1,52 @@
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+*.db
+*.sqlite3
+*.log
+*.pot
+# *.mo
+# *.po
+# locale/
+build/
+dist/
+*.egg-info/
+eggs/
+develop-eggs/
+bin/
+include/
+lib/
+tmp/
+env/
+venv/
+
+# Django specific
+/media/
+/staticfiles/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.sass-cache/
+*.sass-cache
+.cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# OS generated
+.DS_Store
+Thumbs.db
+desktop.ini

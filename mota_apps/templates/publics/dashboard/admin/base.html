@@ -1,0 +1,121 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mota - Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/output.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  {% block css %}{% endblock %}
+  <style>
+    /* Custom scrollbar for sidebar */
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Smooth transitions */
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+<body class="font-poppins bg-gray-100">
+<div class="flex h-screen overflow-hidden">
+  <!-- Sidebar -->
+  {% include 'ecommerce/dashboard/admin/includes/_sidebar.html' %}
+
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <!-- Header -->
+    {% include 'ecommerce/dashboard/admin/includes/_navbar.html' %}
+
+    <!-- Central content -->
+    <div class="flex flex-col flex-1 overflow-y-auto bg-gray-50">
+      <!-- Main Content Area -->
+      <main class="flex-1">
+        {% block content %}{% endblock %}
+      </main>
+
+      <!-- Footer -->
+      {% include 'ecommerce/dashboard/admin/includes/_footer.html' %}
+    </div>
+  </div>
+</div>
+<!-- Global JS -->
+{% include 'ecommerce/dashboard/admin/includes/_js.html' %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const sidebar = document.getElementById('sidebar');
+
+    if (mobileMenuButton && sidebar) {
+      mobileMenuButton.addEventListener('click', function () {
+        sidebar.classList.toggle('hidden');
+        // Change icon
+        const icon = mobileMenuButton.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+      });
+    }
+
+    // User dropdown toggle
+    const userDropdownButton = document.getElementById('user-dropdown-button');
+    const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+    if (userDropdownButton && userDropdownMenu) {
+      userDropdownButton.addEventListener('click', function (e) {
+        e.stopPropagation();
+        userDropdownMenu.classList.toggle('hidden');
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', function () {
+        userDropdownMenu.classList.add('hidden');
+      });
+    }
+
+    // Close mobile menu when clicking on a nav item (for mobile)
+    document.querySelectorAll('#sidebar a').forEach(link => {
+      link.addEventListener('click', function () {
+        if (window.innerWidth < 768) {
+          sidebar.classList.add('hidden');
+          const icon = mobileMenuButton.querySelector('i');
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+    });
+
+    const activeNavLink = document.querySelector(".nav-item.active");
+
+    if (activeNavLink) {
+      activeNavLink.scrollIntoView({behavior: "smooth", block: "center"});
+    }
+  });
+</script>
+
+<!-- Remove or ensure this is not present in base.html -->
+{% block js %}{% endblock %}
+</body>
+</html>

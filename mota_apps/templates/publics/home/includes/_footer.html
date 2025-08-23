@@ -1,0 +1,140 @@
+{% load static i18n %}
+
+<footer class="bg-tertiary text-white pt-12 pb-8">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+      <!-- Company Info -->
+      <div class="space-y-4">
+        <div class="flex items-center mb-4">
+          {% if company_settings.company_logo %}
+            <img src="{{ company_settings.company_logo.url }}" 
+                 alt="{% blocktrans %}Logo of {{ company_name }}{% endblocktrans %}" 
+                 class="h-10 mr-3 object-cover">
+          {% else %}
+            <img src="{% static 'images/Logo.bmp' %}" 
+                 alt="{% trans 'SOPresCom Logo' %}" 
+                 class="h-10 mr-3 object-cover">
+          {% endif %}
+        </div>
+        <p class="text-gray-300 mb-4">
+          {% if company_settings.meta_description %}
+            {% trans company_settings.meta_description %}
+          {% else %}
+            {% trans "Providing professional IT solutions since 2010. Quality products for business and personal use." %}
+          {% endif %}
+        </p>
+
+        <div class="flex space-x-4">
+          <a href="#" class="text-white hover:text-secondary transition duration-300 text-lg" title="{% trans 'Facebook' %}">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="text-white hover:text-secondary transition duration-300 text-lg" title="{% trans 'Twitter' %}">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="text-white hover:text-secondary transition duration-300 text-lg" title="{% trans 'Instagram' %}">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="text-white hover:text-secondary transition duration-300 text-lg" title="{% trans 'LinkedIn' %}">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-lg font-bold mb-4">{% trans 'Quick Links' %}</h4>
+        <ul class="space-y-2">
+          <li>
+            <a href="{% url 'products:home' %}" class="text-gray-300 hover:text-white transition duration-300 flex items-center">
+              <i class="fas fa-chevron-right text-xs text-secondary mr-2"></i> {% trans 'Home' %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'products:about_us' %}" class="text-gray-300 hover:text-white transition duration-300 flex items-center">
+              <i class="fas fa-chevron-right text-xs text-secondary mr-2"></i> {% trans 'About Us' %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'products:about_us' %}#services" class="text-gray-300 hover:text-white transition duration-300 flex items-center">
+              <i class="fas fa-chevron-right text-xs text-secondary mr-2"></i> {% trans 'Services' %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'products:about_us' %}#contact" class="text-gray-300 hover:text-white transition duration-300 flex items-center">
+              <i class="fas fa-chevron-right text-xs text-secondary mr-2"></i> {% trans 'Contact' %}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Customer Service -->
+      <div>
+        <h4 class="text-lg font-bold mb-4">{% trans 'Customer Service' %}</h4>
+        <ul class="space-y-2">
+          <li>
+            <a href="{% url 'users:user_dashboard' %}" class="text-gray-300 hover:text-white transition duration-300 flex items-center">
+              <i class="fas fa-chevron-right text-xs text-secondary mr-2"></i> {% trans 'My Account' %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'orders:orders' %}" class="text-gray-300 hover:text-white transition duration-300 flex items-center">
+              <i class="fas fa-chevron-right text-xs text-secondary mr-2"></i> {% trans 'Order Tracking' %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'users:saved_items' %}" class="text-gray-300 hover:text-white transition duration-300 flex items-center">
+              <i class="fas fa-chevron-right text-xs text-secondary mr-2"></i> {% trans 'Wishlist' %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'products:shipping_policy' %}" class="text-gray-300 hover:text-white transition duration-300 flex items-center">
+              <i class="fas fa-chevron-right text-xs text-secondary mr-2"></i> {% trans 'Shipping Policy' %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'products:return_refunds' %}" class="text-gray-300 hover:text-white transition duration-300 flex items-center">
+              <i class="fas fa-chevron-right text-xs text-secondary mr-2"></i> {% trans 'Returns & Refunds' %}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h4 class="text-lg font-bold mb-4">{% trans 'Newsletter' %}</h4>
+        <p class="text-gray-300 mb-4">
+          {% trans 'Subscribe to our newsletter for the latest updates and offers.' %}
+        </p>
+        <form class="flex mb-2">
+          <input type="email" placeholder="{% trans 'Your email' %}" 
+                 class="py-2 px-4 rounded-l text-gray-800 w-full focus:outline-none focus:ring-2 focus:ring-secondary">
+          <button class="bg-secondary hover:bg-yellow-600 text-white py-2 px-4 rounded-r transition" title="{% trans 'Subscribe' %}">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+        <div class="flex items-center">
+          <input type="checkbox" id="newsletter-consent" 
+                 class="form-checkbox h-4 w-4 text-secondary rounded focus:ring-secondary border-gray-300">
+          <label for="newsletter-consent" class="ml-2 text-sm text-gray-300">
+            {% trans 'I agree to receive emails' %}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-300 text-sm mb-4 md:mb-0">
+        {% blocktrans with year=2023 %}© {{ year }} SOPresCom. All rights reserved.{% endblocktrans %}
+      </p>
+      <div class="flex items-center space-x-4">
+        <span class="text-gray-300 text-sm hidden sm:inline">{% trans 'Payment Methods:' %}</span>
+        <div class="flex space-x-2">
+          <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="{% trans 'Visa' %}" class="h-6 w-auto">
+          <img src="https://cdn-icons-png.flaticon.com/512/196/196561.png" alt="{% trans 'Mastercard' %}" class="h-6 w-auto">
+          <img src="https://cdn-icons-png.flaticon.com/512/196/196566.png" alt="{% trans 'PayPal' %}" class="h-6 w-auto">
+          <img src="https://cdn-icons-png.flaticon.com/512/196/196550.png" alt="{% trans 'Amex' %}" class="h-6 w-auto">
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
