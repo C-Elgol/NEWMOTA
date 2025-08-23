@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run dev",
     "build": "npm run build:clean && npm run build:tailwind",
-    "build:clean": "rimraf -i ./mota_apps/static/css/output.css",
+    "build:clean": "rimraf ./mota_apps/static/css/output.css",
     "build:tailwind": "tailwindcss -i ./mota_apps/static/css/input.css -o ./mota_apps/static/css/output.css --minify",
     "dev": "tailwindcss -i ./mota_apps/static/css/input.css -o ./mota_apps/static/css/output.css --watch --minify",
     "tailwindcss": "node ./node_modules/tailwindcss/lib/cli.js"
