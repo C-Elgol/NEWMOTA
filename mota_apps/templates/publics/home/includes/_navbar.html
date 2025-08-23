@@ -37,19 +37,19 @@
       <!-- Navigation Links with Dropdowns -->
       <div class="flex items-center space-x-1">
         <div class="relative group">
-          <a href="{% url 'product:home' %}" class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
             {% trans 'Home' %}
           </a>
         </div>
 
         <div class="relative group">
-          <a href="{% url 'products:about_us'%}" class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
             {% trans 'About Us' %}
           </a>
         </div>
 
         <div class="relative group">
-          <a href="{% url 'product:shop' %}" >
+          <a href="#" >
             <button class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
               {% trans 'Shop Grid' %}
             </button>
@@ -57,14 +57,14 @@
         </div>
 
         <div class="relative group">
-          <a href="{% url 'products:about_us' %}#contact" class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
             {% trans 'Contact Us' %}
           </a>
         </div>
 
         {% if request.user.is_authenticated and request.user.is_admin %}
         <div class="relative group">
-          <a href="{% url 'admin_dashboard' %}" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">
             {% trans 'Admin Dashboard' %}
           </a>
         </div>
@@ -73,7 +73,7 @@
 
       <!-- Icons -->
       <div class="flex items-center space-x-6">
-        <a href="{% url 'users:saved_items' %}" class="text-gray-700 hover:text-secondary transition relative">
+        <a href="#" class="text-gray-700 hover:text-secondary transition relative">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
@@ -81,7 +81,7 @@
           <span class="absolute -top-2 -right-2 bg-secondary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center wishlist-count">0</span>
         </a>
         
-        <a href="{% url 'orders:cart' %}" id="navbar-cart-dropdown" class="text-gray-700 hover:text-secondary transition relative">
+        <a href="#" id="navbar-cart-dropdown" class="text-gray-700 hover:text-secondary transition relative">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
           </svg>
@@ -99,21 +99,21 @@
           <!-- Dropdown Menu -->
           <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
               {% if user.is_authenticated %}
-                <a href="{% url 'users:user_dashboard' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                   {% trans "Dashboard" %}
                 </a>
                 
                 {% if request.user.is_superuser %}
-                  <a href="{% url 'admin_dashboard' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                   {% trans "Admin Dashboard" %}
                 </a>
                 {% endif %}
                   
                 
-                <a href="{% url 'users:account_details' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                   {% trans "My Profile" %}
                 </a>
-                <a href="{% url 'users:addresses' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                   {% trans "My Addresses" %}
                 </a>
                 <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -127,10 +127,10 @@
                   </button>
                 </form>
               {% else %}
-                <a href="{% url 'users:login' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                   {% trans "Login" %}
                 </a>
-                <a href="{% url 'users:register' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                   {% trans "Register" %}
                 </a>
               {% endif %}

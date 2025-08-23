@@ -32,7 +32,7 @@ READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 SECRET_KEY = 'django-insecure-16&jor-_kl!ed4tw&6l_dfw+ii2)f=wc$59medqjh#^1&ogf7n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DJANGO_DEBUG", False)
+DEBUG = config("DJANGO_DEBUG", True)
 
 ALLOWED_HOSTS = ['*']
 
@@ -67,7 +67,7 @@ ROOT_URLCONF = 'MOTA.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [str(APPS_DIR / "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

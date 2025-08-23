@@ -28,11 +28,11 @@
       {% if user.is_authenticated %}
         <a href="{% url 'users:logout' %}" class="hover:text-secondary transition" title="{% trans 'Logout' %}">{% trans "Logout" %}</a>
       {% else %}
-        <a href="{% url 'users:login' %}" class="hover:text-secondary transition" title="{% trans 'Login' %}">{% trans "Login" %}</a>
-        <a href="{% url 'users:register' %}" class="hover:text-secondary transition" title="{% trans 'Register' %}">{% trans "Register" %}</a>
+        <a href="#" class="hover:text-secondary transition" title="{% trans 'Login' %}">{% trans "Login" %}</a>
+        <a href="#" class="hover:text-secondary transition" title="{% trans 'Register' %}">{% trans "Register" %}</a>
       {% endif %}
 
-      <form method="post" action="{% url 'set_language' %}" class="inline" id="language-form">
+      <form method="post" action="#" class="inline" id="language-form">
         {% csrf_token %}
         <select name="language" class="bg-primary border-none text-white focus:ring-0 pl-1 pr-6 py-0.5 " title="{% trans 'Select Language' %}" id="language-select">
           <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧</option>

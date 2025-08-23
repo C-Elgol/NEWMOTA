@@ -1,0 +1,14 @@
+{% extends 'publics/home/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+        <h1>{% trans "Welcome to Mota" %}</h1>
+        <p>{% trans "Your authentication-powered application." %}</p>
+        <p>
+            <a href="#">{% trans "Login" %}</a>  
+            <a href="#">{% trans "Register" %}</a>
+        </p>
+    </div>
+{% endblock %}
