@@ -59,7 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'mota_apps.users.middleware.AutoLogoutMiddleware',
+    # 'mota_apps.users.middleware.AutoLogoutMiddleware',
 ]
 
 ROOT_URLCONF = 'MOTA.urls'
