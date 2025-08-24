@@ -2,13 +2,50 @@
 {% load static %}
 {% load i18n %}
 
-{% block content %}
-    <div class="container">
-        <h1>{% trans "Welcome to Mota" %}</h1>
-        <p>{% trans "Your authentication-powered application." %}</p>
-        <p>
-            <a href="{% url 'users:login' %}">{% trans "Login" %}</a>  
-            <a href="{% url 'users:register' %}">{% trans "Register" %}</a>
-        </p>
-    </div>
-{% endblock %}
+    {% block content %}
+    <!-- Services Section -->
+    <section class="py-16 md:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 animate-fadeInUp">Our Services</h2>
+                <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto animate-fadeInUp" style="animation-delay: 0.1s;">
+                    From daily banking to life-changing purchases, we're your partner in financial success.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 text-center shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="bg-blue-600 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-piggy-bank text-white text-xl sm:text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-900">Savings Accounts</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-6">Grow your savings with competitive rates and no hidden fees.</p>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base">Learn More →</a>
+                </div>
+                <div class="bg-white rounded-2xl p-6 sm:p-8 text-center shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="bg-green-600 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-credit-card text-white text-xl sm:text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-900">Credit Cards</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-6">Enjoy low-rate credit cards with rewards and no annual fees.</p>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base">Learn More →</a>
+                </div>
+                <div class="bg-white rounded-2xl p-6 sm:p-8 text-center shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="bg-purple-600 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-home text-white text-xl sm:text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-900">Home Loans</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-6">Affordable homeownership with competitive mortgage rates.</p>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base">Learn More →</a>
+                </div>
+                <div class="bg-white rounded-2xl p-6 sm:p-8 text-center shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="bg-orange-600 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-car text-white text-xl sm:text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-900">Auto Loans</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-6">Drive away with our low-rate auto financing options.</p>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold text-sm sm:text-base">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
