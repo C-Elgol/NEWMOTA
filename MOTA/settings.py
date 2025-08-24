@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mota_apps.users',
+    'mota_apps.finance',
 ]
 
 MIDDLEWARE = [

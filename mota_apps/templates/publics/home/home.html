@@ -7,8 +7,8 @@
         <h1>{% trans "Welcome to Mota" %}</h1>
         <p>{% trans "Your authentication-powered application." %}</p>
         <p>
-            <a href="#">{% trans "Login" %}</a>  
-            <a href="#">{% trans "Register" %}</a>
+            <a href="{% url 'users:login' %}">{% trans "Login" %}</a>  
+            <a href="{% url 'users:register' %}">{% trans "Register" %}</a>
         </p>
     </div>
 {% endblock %}

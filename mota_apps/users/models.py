@@ -10,11 +10,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 from .managers import UserManager
 
 
-class SoprescomBaseModel(TimeStampedModel, ActivatorModel):
+class MotaBaseModel(TimeStampedModel, ActivatorModel):
     """
-    Name: SoprescomBaseModel
+    Name: MotaBaseModel
     Description: Abstract base model providing a UUID primary key, soft deletion, and metadata for all models.
-    Author: fotsingtchoupe1@gmail.com
+    Author: ayemeleelgol@gmail.com
     """
     id = models.UUIDField(
         default=uuid.uuid4,
@@ -40,11 +40,11 @@ class SoprescomBaseModel(TimeStampedModel, ActivatorModel):
         abstract = True
 
 
-class User(SoprescomBaseModel, PermissionsMixin, AbstractBaseUser):
+class User(MotaBaseModel, PermissionsMixin, AbstractBaseUser):
     """
     Name: User
     Description: Custom user model with email as the unique identifier and role-based flags.
-    Author: fotsingtchoupe1@gmail.com
+    Author: ayemeleelgol@gmail.com
     """
     email = models.EmailField(
         _("email address"),
@@ -154,11 +154,11 @@ class User(SoprescomBaseModel, PermissionsMixin, AbstractBaseUser):
         return None
 
 
-class Profile(SoprescomBaseModel):
+class Profile(MotaBaseModel):
     """
     Name: Profile
     Description: Stores user profile information for physical product delivery.
-    Author: fotsingtchoupe1@gmail.com
+    Author: ayemeleelgol@gmail.com
     """
     user = models.OneToOneField(
         'User',
@@ -188,11 +188,11 @@ def partner_logo_path(instance, filename):
     return f'partners/logos/{filename}'
 
 
-class Partners(SoprescomBaseModel):
+class Partners(MotaBaseModel):
     """
     class: Partners
     Description: Stores information about business partners or collaborators.
-    Author: fotsingtchoupe1@gmail.com
+    Author: ayemeleelgol@gmail.com
     """
     name = models.CharField(
         _("Name"),
@@ -251,10 +251,10 @@ class Partners(SoprescomBaseModel):
 
 # ... [autres imports et classes inchangées] ...
 
-class ContactUs(SoprescomBaseModel):
+class ContactUs(MotaBaseModel):
     """
     Stocke les soumissions de formulaires de contact ou les demandes.
-    Auteur : fotsingtchoupe1@gmail.com
+    Auteur : ayemeleelgol@gmail.com
     """
     user = models.ForeignKey(
         User,
@@ -307,7 +307,7 @@ class ContactUs(SoprescomBaseModel):
         return f"{self.subject} - {self.email}"
 
 
-class CompanySettings(SoprescomBaseModel):
+class CompanySettings(MotaBaseModel):
     """
     Company-wide configuration settings
     """
