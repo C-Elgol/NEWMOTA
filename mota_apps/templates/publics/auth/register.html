@@ -10,7 +10,7 @@
             <div class="hidden lg:block lg:w-1/2 relative">
                 <div class="absolute inset-0 bg-gradient-to-b from-blue-500/80 to-blue-500/60"></div>
                 <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                     alt="SOPresCom IT Solutions" 
+                     alt="Mota IT Solutions" 
                      class="w-full h-full object-cover">
                 <div class="absolute inset-0 flex flex-col justify-center p-12 text-white">
                     <h3 class="text-2xl font-bold mb-4">{% trans "Join Mota" %}</h3>
@@ -25,15 +25,11 @@
             <div class="w-full lg:w-1/2">
                 <div class="p-8 md:p-12">
                     <div class="text-center mb-8">
-                        <img src="{% static 'images/Logo.bmp' %}" alt="SOPresCom Logo" class="h-12 mx-auto mb-4">
+                        <img src="{% static 'images/Logo.bmp' %}" alt="Mota Logo" class="h-12 mx-auto mb-4">
                         <h2 class="text-2xl font-bold text-gray-800">{% trans "Create an Account" %}</h2>
                         <p class="text-gray-600">{% trans "Register to get started" %}</p>
                     </div>
-                    {% if error %}
-                        <div id="error-message" class="text-red-500 mb-4 text-center">{{ error }}</div>
-                    {% else %}
-                        <div id="error-message" class="text-red-500 mb-4 hidden text-center"></div>
-                    {% endif %}
+                    {% include 'publics/common/_toast_message.html' %}
                     <form id="register-form" action="{% url 'users:register' %}" method="POST">
                         {% csrf_token %}
                         <div class="mb-6">
@@ -77,6 +73,12 @@
                                 </div>
                                 <input class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                                        id="password" name="password" type="password" placeholder="••••••••" required>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <svg class="h-5 w-5 text-gray-400 cursor-pointer toggle-password" data-target="password" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                        <path fill-rule="evenodd" d="M10 5a7 7 0 00-7 7c0 1.97.82 3.74 2.14 5h9.72A7 7 0 0017 12a7 7 0 00-7-7zm0 12a5 5 0 01-5-5c0-2.76 2.24-5 5-5s5 2.24 5 5a5 5 0 01-5 5z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                         <div class="mb-6">
@@ -91,6 +93,12 @@
                                 </div>
                                 <input class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                                        id="password2" name="password2" type="password" placeholder="••••••••" required>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <svg class="h-5 w-5 text-gray-400 cursor-pointer toggle-password" data-target="password2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                        <path fill-rule="evenodd" d="M10 5a7 7 0 00-7 7c0 1.97.82 3.74 2.14 5h9.72A7 7 0 0017 12a7 7 0 00-7-7zm0 12a5 5 0 01-5-5c0-2.76 2.24-5 5-5s5 2.24 5 5a5 5 0 01-5 5z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                         <div class="mb-8">
@@ -129,4 +137,21 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+            togglePasswordIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const isPassword = input.type === 'password';
+                    input.type = isPassword ? 'text' : 'password';
+                    this.innerHTML = isPassword
+                        ? `<path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M2 12a10 10 0 0120 0 10 10 0 01-20 0zm15.536 0a8 8 0 00-15.072 0 8 8 0 0015.072 0z" clip-rule="evenodd"/>`
+                        : `<path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M10 5a7 7 0 00-7 7c0 1.97.82 3.74 2.14 5h9.72A7 7 0 0017 12a7 7 0 00-7-7zm0 12a5 5 0 01-5-5c0-2.76 2.24-5 5-5s5 2.24 5 5a5 5 0 01-5 5z" clip-rule="evenodd"/>`;
+                });
+            });
+        });
+    </script>
 {% endblock content %}

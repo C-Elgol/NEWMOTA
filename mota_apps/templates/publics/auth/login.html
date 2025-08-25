@@ -13,7 +13,7 @@
                      alt="Mota IT Solutions" 
                      class="w-full h-full object-cover">
                 <div class="absolute inset-0 flex flex-col justify-center p-12 text-white">
-                    <h3 class="text-2xl font-bold mb-4">trans</h3>
+                    <h3 class="text-2xl font-bold mb-4">{% trans "Welcome to Mota" %}</h3>
                     <p class="mb-6">{% trans "Your account gives you full control—monitor orders, track deliveries, and enjoy exclusive tech deals. Sign in to unlock a smarter shopping experience." %}</p>
                     <div class="flex items-center">
                         <div class="w-10 h-1 bg-yellow-500 mr-3"></div>
@@ -29,16 +29,12 @@
                         <h2 class="text-2xl font-bold text-gray-800">{% trans "Welcome Back" %}</h2>
                         <p class="text-gray-600">{% trans "Sign in to your account" %}</p>
                     </div>
-                    {% if error %}
-                        <div id="error-message" class="text-red-500 mb-4 text-center">{{ error }}</div>
-                    {% else %}
-                        <div id="error-message" class="text-red-500 mb-4 hidden text-center"></div>
-                    {% endif %}
+                    {% include 'publics/common/_toast_message.html' %}
                     <form id="login-form" action="{% url 'users:login' %}" method="POST">
                         {% csrf_token %}
                         <div class="mb-6">
                             <label class="block text-gray-700 text-sm font-medium mb-2" for="email">
-                               {% trans " Email Address" %}
+                               {% trans "Email Address" %}
                             </label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -63,6 +59,12 @@
                                 </div>
                                 <input class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                                        id="password" name="password" type="password" placeholder="••••••••" required>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <svg class="h-5 w-5 text-gray-400 cursor-pointer toggle-password" data-target="password" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                        <path fill-rule="evenodd" d="M10 5a7 7 0 00-7 7c0 1.97.82 3.74 2.14 5h9.72A7 7 0 0017 12a7 7 0 00-7-7zm0 12a5 5 0 01-5-5c0-2.76 2.24-5 5-5s5 2.24 5 5a5 5 0 01-5 5z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                         <div class="flex justify-between items-center mb-8">
@@ -81,9 +83,6 @@
                                 {% trans "Don't have an account?" %} <a href="{% url 'users:register' %}" class="text-blue-500 hover:underline font-medium">{% trans "Register now" %}</a>
                             </p>
                         </div>
-                       
-                      
-                        </div>
                     </form>
                 </div>
             </div>
@@ -100,5 +99,21 @@
             </div>
         </div>
     </div>
-{% endblock content %}
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+            togglePasswordIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const isPassword = input.type === 'password';
+                    input.type = isPassword ? 'text' : 'password';
+                    this.innerHTML = isPassword
+                        ? `<path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M2 12a10 10 0 0120 0 10 10 0 01-20 0zm15.536 0a8 8 0 00-15.072 0 8 8 0 0015.072 0z" clip-rule="evenodd"/>`
+                        : `<path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M10 5a7 7 0 00-7 7c0 1.97.82 3.74 2.14 5h9.72A7 7 0 0017 12a7 7 0 00-7-7zm0 12a5 5 0 01-5-5c0-2.76 2.24-5 5-5s5 2.24 5 5a5 5 0 01-5 5z" clip-rule="evenodd"/>`;
+                });
+            });
+        });
+    </script>
+{% endblock content %}
