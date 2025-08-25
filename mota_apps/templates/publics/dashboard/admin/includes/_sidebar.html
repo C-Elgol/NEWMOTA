@@ -1,8 +1,4 @@
-{% load custom_filters %}
 {% load i18n %}
-{% load sav_tags %}
-{% load leasing_tags %}
-{% load stats_custom_filters %}
 
 <div id="sidebar" class="hidden admin-nav-bar:flex admin-nav-bar:flex-shrink-0 admin-sidebar">
   <div class="flex flex-col w-64 bg-tertiary text-white">
@@ -17,8 +13,8 @@
       {% with current_url=request.resolver_match.url_name %}
         <!-- Dashboard -->
         <div class="mb-6">
-          <a href="{% url 'admin_dashboard' %}"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request|is_stat_dashboard_active %}active{% else %}inactive{% endif %}">
+          <a href="#"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item">
                 <i class="fas fa-life-ring mr-3 text-lg"></i>
                 <span>{% trans "Dashboard" %}</span>
               </a>
@@ -110,12 +106,12 @@
           <div>
             <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'SAV' %}</h3>
             <div class="space-y-2">
-              <a href="{% url 'sav:sav_list' %}"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request|is_sav_active %}active{% else %}inactive{% endif %}">
+              <a href="#"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item">
                 <i class="fas fa-life-ring mr-3 text-lg"></i>
                 <span>{% trans "SAV" %}</span>
               </a>
-              <a href="{% url 'sav:new_sav' %}"
+              <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'new_sav' %}active{% else %}inactive{% endif %}">
                 <i class="fas fa-plus-circle mr-3 text-lg"></i>
                 <span>{% trans 'Add New' %}</span>
@@ -139,12 +135,12 @@
           <div>
             <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "Instances" %}</h3>
             <div class="space-y-2">
-              <a href="{% url 'instance:list_instance' %}"
+              <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'list_instance' %}active{% else %}inactive{% endif %}">
                 <i class="fas fa-headset mr-3 text-lg"></i>
                 <span>{% trans "Instances/Jobs" %}</span>
               </a>
-              <a href="{% url 'instance:list_recovery' %}"
+              <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'list_recovery' %}active{% else %}inactive{% endif %}">
                 <i class="fas fa-hand-holding-usd mr-3 text-lg"></i>
                 <span>{% trans "Recovery" %}</span>
@@ -157,8 +153,8 @@
             <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'Leasing' %}</h3>
             <div class="space-y-2">
               {% url 'leasing:client_list' as leasing_client_list_url %}
-              <a href="{{ leasing_client_list_url }}"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request|is_leasing_active %}active{% else %}inactive{% endif %}">
+              <a href="#"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item">
                 <i class="fas fa-handshake mr-3 text-lg"></i>
                 <span>{% trans 'Leasing Management' %}</span>
               </a>
@@ -170,7 +166,7 @@
             <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">USERS</h3>
             <div class="space-y-2">
 
-              <a href="{% url 'users:user_list' 'user' %}"
+              <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item
                           {% if request.resolver_match.url_name == 'user_list' and request.resolver_match.kwargs.role_slug == 'user' %}active{% else %}inactive{% endif %}">
                 <i class="fas fa-percent mr-3 text-lg"></i>
@@ -194,7 +190,7 @@
           <div>
             <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "Contact Us" %}</h3>
             <div class="space-y-2">
-              <a href="{% url 'users:contact_list' %}"
+              <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'contact_list' %}active{% else %}inactive{% endif %}">
                 <i class="fas fa-envelope mr-3 text-lg"></i>
                 <span>{% trans "Contact Messages" %}</span>
@@ -206,7 +202,7 @@
         <div>
             <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'Partner Management' %}</h3>
             <div class="space-y-2">
-                 <a href="{% url 'products:manage-partner-customers' %}"
+                 <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'manage-partner-customers' %}active{% else %}inactive{% endif %}">
                     <i class="fas fa-users mr-3 text-lg"></i>
                     <span>{% trans 'Mota Partners' %}</span>
@@ -218,7 +214,7 @@
           <div>
             <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "SETTINGS" %}</h3>
             <div class="space-y-2">
-                  <a href="{% url 'users:company_settings' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'company_settings' %}active{% else %}inactive{% endif %}">
+                  <a href="#" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'company_settings' %}active{% else %}inactive{% endif %}">
                       <i class="fas fa-cog mr-3 text-lg"></i>
                       <span>{% trans "General" %}</span>
                   </a>
