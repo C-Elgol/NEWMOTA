@@ -4,7 +4,7 @@
   <div class="flex flex-col w-64 bg-tertiary text-white">
     <!-- Logo -->
     <div class="flex items-center justify-center h-16 p-4 border-b border-gray-700">
-      <h1 class="text-2xl font-semibold mr-2">SOPresCom</h1>
+      <h1 class="text-2xl font-semibold mr-2">Mota</h1>
       <span class="text-xl font-semibold">Admin</span>
     </div>
 
@@ -43,53 +43,53 @@
                   <a href="{{ product_list_url }}"
                     class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == product_list_url %}active{% else %}inactive{% endif %}">
                       <i class="fas fa-boxes mr-3 text-lg"></i>
-                      <span>{% trans "All Products" %}</span>
+                      <span>{% trans "All Finance" %}</span>
                   </a>
                   {% url 'products:new_product' as new_product_url %}
                   <a href="{{ new_product_url }}"
                     class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_product_url %}active{% else %}inactive{% endif %}">
                       <i class="fas fa-plus-circle mr-3 text-lg"></i>
-                      <span>{% trans "Add New" %}</span>
+                      <span>{% trans "Add New Finance" %}</span>
                   </a>
                   {% url 'products:discount_list' as discount_list_url %}
                   <a href="{{ discount_list_url }}"
                     class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == discount_list_url %}active{% else %}inactive{% endif %}">
                       <i class="fas fa-percent mr-3 text-lg"></i>
-                      <span>{% trans "Discounts" %}</span>
+                      <span>{% trans "Loans" %}</span>
                   </a>
 
                   {% url 'products:stock_management' as stock_management_url %}
                   <a href="{{ stock_management_url }}"
                     class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == stock_management_url %}active{% else %}inactive{% endif %}">
                       <i class="fas fa-boxes mr-2"></i>
-                      <span>{% trans "Stock" %}</span>
+                      <span>{% trans "Njangi" %}</span>
                   </a>
 
                   {% url 'products:daily_output' as daily_output_url %}
                   <a href="{{ daily_output_url }}"
                     class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == daily_output_url %}active{% else %}inactive{% endif %}">
                       <i class="fas fa-chart-line mr-2"></i>
-                      <span>{% trans "Daily Output" %}</span>
+                      <span>{% trans "Interest" %}</span>
                   </a>
 
                   {% url 'products:category_management' as category_management_url %}
                   <a href="{{ category_management_url }}"
                     class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == category_management_url %}active{% else %}inactive{% endif %}">
                       <i class="fas fa-tags mr-3 text-lg"></i>
-                      <span>{% trans "Categories" %}</span>
+                      <span>{% trans "Projects" %}</span>
                   </a>
                   {% url 'users:admin_payment_list' as admin_payment_list_url %}
                     <a href="{{ admin_payment_list_url }}"
                       class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_payment_list_url %}active{% else %}inactive{% endif %}">
                         <i class="fas fa-credit-card mr-3 text-lg"></i>
-                        <span>{% trans "Payments" %}</span>
+                        <span>{% trans "Summary" %}</span>
                     </a>
 
                     {% url 'users:admin_order_list' as admin_order_list_url %}
                     <a href="{{ admin_order_list_url }}"
                       class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_order_list_url %}active{% else %}inactive{% endif %}">
                         <i class="fas fa-shopping-cart mr-3 text-lg"></i>
-                        <span>{% trans "Orders" %}</span>
+                        <span>{% trans "Add New member" %}</span>
                     </a>
 
 
@@ -109,24 +109,24 @@
               <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item">
                 <i class="fas fa-life-ring mr-3 text-lg"></i>
-                <span>{% trans "SAV" %}</span>
+                <span>{% trans "activate user" %}</span>
               </a>
               <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'new_sav' %}active{% else %}inactive{% endif %}">
                 <i class="fas fa-plus-circle mr-3 text-lg"></i>
-                <span>{% trans 'Add New' %}</span>
+                <span>{% trans 'Add New user' %}</span>
               </a>
               {% url 'sav:personnel_management' as personnel_management_url %}
               <a href="{{ personnel_management_url }}"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == personnel_management_url %}active{% else %}inactive{% endif %}">
                 <i class="fas fa-id-badge mr-3 text-lg"></i>
-                <span>{% trans "Personel" %}</span>
+                <span>{% trans "Expenditures" %}</span>
               </a>
               {% url 'sav:partenaires_management' as partenaires_management_url %}
               <a href="{{ partenaires_management_url }}"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == partenaires_management_url %}active{% else %}inactive{% endif %}">
                 <i class="fas fa-briefcase mr-3 text-lg"></i>
-                <span>{% trans "SAV Partners" %}</span>
+                <span>{% trans "Agents" %}</span>
               </a>
             </div>
           </div>
@@ -138,7 +138,7 @@
               <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'list_instance' %}active{% else %}inactive{% endif %}">
                 <i class="fas fa-headset mr-3 text-lg"></i>
-                <span>{% trans "Instances/Jobs" %}</span>
+                <span>{% trans "Downloads PDF" %}</span>
               </a>
               <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'list_recovery' %}active{% else %}inactive{% endif %}">
