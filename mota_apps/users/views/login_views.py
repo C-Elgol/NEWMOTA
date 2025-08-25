@@ -1,22 +1,21 @@
 import logging
-import traceback
 from typing import Any
 from django.views.generic import TemplateView
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
+from django.urls import reverse
 
 logger = logging.getLogger(__name__)
 
 class LoginView(TemplateView):
     """
     Name: LoginView
-    Description: Handles user login via standard form submission.
+    Description: Handles user login via AJAX form submission.
                  Authenticates users and ensures they are active.
-                 Uses ToastManager for error/success messages.
-                 Logs errors using try-except.
+                 Returns JSON responses for AJAX requests.
     Author: @ayemele
     """
     template_name = 'publics/auth/login.html'
@@ -29,31 +28,54 @@ class LoginView(TemplateView):
         password = request.POST.get("password", "").strip()
         remember_me = request.POST.get("remember_me", "")
 
-        context = {'error': None, 'email': email}
+        # Fields to return in case of error
+        fields = {'email': email}
+
+        # Check if request is AJAX
+        is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
         try:
-            if not email or not password:
-                messages.error(request, _("Email and password are required."))
-                return render(request, self.template_name, context)
+            if not all([email, password]):
+                error_message = _("Email and password are required.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message, 'fields': fields})
+                messages.error(request, error_message)
+                return render(request, self.template_name, fields)
 
             user = authenticate(request, email=email, password=password)
             if user is None:
-                messages.error(request, _("Invalid email or password."))
-                return render(request, self.template_name, context)
+                error_message = _("Invalid email or password.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message, 'fields': fields})
+                messages.error(request, error_message)
+                return render(request, self.template_name, fields)
 
             if not user.is_active:
-                messages.error(request, _("Please verify your account with the 2FA code sent to your email."))
-                return render(request, self.template_name, context)
+                error_message = _("Your account is not activated. Please verify your email.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message, 'fields': fields})
+                messages.error(request, error_message)
+                return render(request, self.template_name, fields)
 
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             if remember_me != "on":
-                request.session.set_expiry(0)  # Session expires on browser close
+                request.session.set_expiry(0)  # Session expires when browser closes
+
             logger.info(f"✅ User {email} logged in successfully (ID: {user.id})")
-            messages.success(request, _("Login successful! Welcome back."))
+            success_message = _("Login successful! Welcome back.")
+            if is_ajax:
+                return JsonResponse({
+                    'success': True,
+                    'message': success_message,
+                    'redirect_url': reverse('users:home')
+                })
+            messages.success(request, success_message)
             return redirect('users:home')
 
         except Exception as e:
-            trace = traceback.format_exc()
-            logger.error(f"Unexpected error during login for email {email}: {e}\n{trace}")
-            messages.error(request, _("An unexpected error occurred. Please try again later."))
-            return render(request, self.template_name, context)
+            logger.error(f"Unexpected error during login for email {email}: {e}")
+            error_message = _("An unexpected error occurred. Please try again later.")
+            if is_ajax:
+                return JsonResponse({'success': False, 'message': error_message, 'fields': fields})
+            messages.error(request, error_message)
+            return render(request, self.template_name, fields)

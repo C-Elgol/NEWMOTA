@@ -29,7 +29,6 @@
                         <h2 class="text-2xl font-bold text-gray-800">{% trans "2-Factor Authentication" %}</h2>
                         <p class="text-gray-600">{% trans "Enter the 6-digit code sent to" %} {{ email }}</p>
                     </div>
-                    {% include 'publics/common/_toast_message.html' %}
                     <form id="verify-2fa-form" action="{% url 'users:verify_2fa' email=email %}" method="POST">
                         {% csrf_token %}
                         <div class="mb-6">
@@ -54,14 +53,73 @@
         </div>
     </section>
 
-    <div id="global-loader"
-         class="fixed left-0 top-0 backdrop-brightness-65 z-99999 flex items-center justify-center w-full h-full hidden">
-        <div class="flex justify-center items-center h-auto">
-            <div class="flex space-x-12">
-                <div class="w-10 h-10 bg-gray-300 rounded-full animate-scaleDot animation-delay-0"></div>
-                <div class="w-10 h-10 bg-gray-300 rounded-full animate-scaleDot animation-delay-500"></div>
-                <div class="w-10 h-10 bg-gray-300 rounded-full animate-scaleDot animation-delay-1000"></div>
-            </div>
-        </div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize loader for the form section
+            const loader = new SectionLoaderManager('verify-2fa-form', 'fill-blue-500', 0.5);
+
+            // AJAX form submission
+            const form = document.getElementById('verify-2fa-form');
+            const button = document.getElementById('verify-button');
+            const buttonText = document.getElementById('verify-text');
+            const buttonLoader = document.getElementById('verify-loader');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                loader.showLoader();
+                button.disabled = true;
+                buttonText.classList.add('hidden');
+                buttonLoader.classList.remove('hidden');
+
+                const formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    loader.hideLoader();
+                    button.disabled = false;
+                    buttonText.classList.remove('hidden');
+                    buttonLoader.classList.add('hidden');
+
+                    if (data.success) {
+                        window.toastManager.buildToast()
+                            .setMessage(data.message)
+                            .setType('success')
+                            .setPosition('top-right')
+                            .setDuration(5000)
+                            .show();
+                        setTimeout(() => {
+                            window.location.href = data.redirect_url;
+                        }, 1500);
+                    } else {
+                        window.toastManager.buildToast()
+                            .setMessage(data.message)
+                            .setType('danger')
+                            .setPosition('top-right')
+                            .setDuration(5000)
+                            .show();
+                        document.getElementById('code').value = '';
+                    }
+                })
+                .catch(error => {
+                    loader.hideLoader();
+                    button.disabled = false;
+                    buttonText.classList.remove('hidden');
+                    buttonLoader.classList.add('hidden');
+                    window.toastManager.buildToast()
+                        .setMessage('An unexpected error occurred. Please try again.')
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(5000)
+                        .show();
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
 {% endblock content %}

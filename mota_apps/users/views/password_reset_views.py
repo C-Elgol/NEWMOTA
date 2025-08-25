@@ -2,9 +2,9 @@ import re
 import logging
 import traceback
 from typing import Any
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.generic import TemplateView
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
@@ -22,9 +22,9 @@ logger = logging.getLogger(__name__)
 class PasswordResetRequestView(TemplateView):
     """
     Name: PasswordResetRequestView
-    Description: Handles password reset requests by sending a reset code via email.
-                 Uses transaction.atomic() to ensure atomic operations.
-                 Uses ToastManager for error/success messages.
+    Description: Handles password reset requests via AJAX.
+                 Sends a reset code to the user's email.
+                 Returns JSON responses for AJAX requests.
     Author: @ayemele
     """
     template_name = 'publics/auth/password_reset_request.html'
@@ -34,30 +34,41 @@ class PasswordResetRequestView(TemplateView):
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         email = request.POST.get("email", "").strip()
-        context = {'error': None, 'email': email}
+        is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+        fields = {'email': email}
 
         try:
-            # Validate email
+            if not email:
+                error_message = _("Email is required.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message, 'fields': fields})
+                messages.error(request, error_message)
+                return render(request, self.template_name, fields)
+
             email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
             if not re.match(email_regex, email):
-                messages.error(request, _("Invalid email format."))
-                return render(request, self.template_name, context)
+                error_message = _("Invalid email format.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message, 'fields': fields})
+                messages.error(request, error_message)
+                return render(request, self.template_name, fields)
 
             user = User.objects.filter(email=email).first()
             if not user:
-                messages.error(request, _("No user found with this email."))
-                return render(request, self.template_name, context)
+                error_message = _("No user found with this email.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message, 'fields': fields})
+                messages.error(request, error_message)
+                return render(request, self.template_name, fields)
 
-            # Generate and store reset code
             with transaction.atomic():
                 if not isinstance(user.metadata, dict):
                     user.metadata = {}
                 reset_code = get_random_string(6, allowed_chars='0123456789')
-                user.metadata["password_reset_code"] = reset_code
-                user.metadata["password_reset_code_created_at"] = timezone.now().isoformat()
+                user.metadata["reset_code"] = reset_code
+                user.metadata["reset_code_created_at"] = timezone.now().isoformat()
                 user.save()
 
-                # Build reset email
                 html_content = render_to_string(
                     template_name="publics/emails/password_reset_email.html",
                     context={
@@ -75,7 +86,6 @@ class PasswordResetRequestView(TemplateView):
                 )
                 email_message.content_subtype = "html"
 
-                # Gmail SMTP settings from .env
                 connection = get_connection(
                     backend="django.core.mail.backends.smtp.EmailBackend",
                     host="smtp.gmail.com",
@@ -85,26 +95,34 @@ class PasswordResetRequestView(TemplateView):
                     use_tls=True
                 )
                 email_message.connection = connection
-
-                # Send email
                 email_message.send()
 
             logger.info(f"✅ Password reset code sent to {email} (ID: {user.id})")
-            messages.success(request, _("A password reset code has been sent to your email."))
+            success_message = _("Password reset code sent! Please check your email.")
+            if is_ajax:
+                return JsonResponse({
+                    'success': True,
+                    'message': success_message,
+                    'redirect_url': reverse('users:password_reset_verify', kwargs={'email': email})
+                })
+            messages.success(request, success_message)
             return redirect('users:password_reset_verify', email=email)
 
         except Exception as e:
             trace = traceback.format_exc()
             logger.error(f"Unexpected error during password reset request for email {email}: {e}\n{trace}")
-            messages.error(request, _("An unexpected error occurred. Please try again later."))
-            return render(request, self.template_name, context)
+            error_message = _("An unexpected error occurred. Please try again later.")
+            if is_ajax:
+                return JsonResponse({'success': False, 'message': error_message, 'fields': fields})
+            messages.error(request, error_message)
+            return render(request, self.template_name, fields)
 
 
 class PasswordResetVerifyView(TemplateView):
     """
     Name: PasswordResetVerifyView
-    Description: Verifies the password reset code and redirects to password reset form.
-                 Uses ToastManager for error/success messages.
+    Description: Handles verification of password reset code via AJAX.
+                 Returns JSON responses for AJAX requests.
     Author: @ayemele
     """
     template_name = 'publics/auth/password_reset_verify.html'
@@ -114,52 +132,76 @@ class PasswordResetVerifyView(TemplateView):
 
     def post(self, request: HttpRequest, email: str, *args: Any, **kwargs: Any) -> HttpResponse:
         code = request.POST.get("code", "").strip()
-        context = {'email': email, 'error': None}
+        is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
         try:
             user = User.objects.filter(email=email).first()
             if not user:
-                messages.error(request, _("No user found with this email."))
-                return render(request, self.template_name, context)
+                error_message = _("No user found with this email.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message})
+                messages.error(request, error_message)
+                return render(request, self.template_name, {'email': email})
 
-            if not isinstance(user.metadata, dict) or "password_reset_code" not in user.metadata:
-                messages.error(request, _("Invalid or expired reset code. Please request a new one."))
-                return render(request, self.template_name, context)
+            if not isinstance(user.metadata, dict) or "reset_code" not in user.metadata:
+                error_message = _("Invalid or expired reset code. Please request a new one.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message})
+                messages.error(request, error_message)
+                return render(request, self.template_name, {'email': email})
 
-            stored_code = user.metadata.get("password_reset_code")
-            code_created_at = user.metadata.get("password_reset_code_created_at")
+            stored_code = user.metadata.get("reset_code")
+            code_created_at = user.metadata.get("reset_code_created_at")
             if not stored_code or not code_created_at:
-                messages.error(request, _("Invalid or expired reset code. Please request a new one."))
-                return render(request, self.template_name, context)
+                error_message = _("Invalid or expired reset code. Please request a new one.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message})
+                messages.error(request, error_message)
+                return render(request, self.template_name, {'email': email})
 
-            # Check if code is expired (10 minutes)
             from datetime import datetime
             created_at = datetime.fromisoformat(code_created_at)
             if (timezone.now() - created_at).total_seconds() > 600:
-                messages.error(request, _("Reset code has expired. Please request a new one."))
-                return render(request, self.template_name, context)
+                error_message = _("Reset code has expired. Please request a new one.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message})
+                messages.error(request, error_message)
+                return render(request, self.template_name, {'email': email})
 
             if code != stored_code:
-                messages.error(request, _("Invalid reset code."))
-                return render(request, self.template_name, context)
+                error_message = _("Invalid reset code.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message})
+                messages.error(request, error_message)
+                return render(request, self.template_name, {'email': email})
 
             logger.info(f"✅ Password reset code verified for {email} (ID: {user.id})")
-            messages.success(request, _("Code verified! Please set your new password."))
+            success_message = _("Code verified! Please set your new password.")
+            if is_ajax:
+                return JsonResponse({
+                    'success': True,
+                    'message': success_message,
+                    'redirect_url': reverse('users:password_reset', kwargs={'email': email})
+                })
+            messages.success(request, success_message)
             return redirect('users:password_reset', email=email)
 
         except Exception as e:
             trace = traceback.format_exc()
             logger.error(f"Unexpected error during password reset verification for email {email}: {e}\n{trace}")
-            messages.error(request, _("An unexpected error occurred. Please try again later."))
-            return render(request, self.template_name, context)
+            error_message = _("An unexpected error occurred. Please try again later.")
+            if is_ajax:
+                return JsonResponse({'success': False, 'message': error_message})
+            messages.error(request, error_message)
+            return render(request, self.template_name, {'email': email})
 
 
 class PasswordResetView(TemplateView):
     """
     Name: PasswordResetView
-    Description: Handles the new password submission after code verification.
+    Description: Handles setting a new password after verification via AJAX.
                  Updates the user's password and logs them in.
-                 Uses ToastManager for error/success messages.
+                 Returns JSON responses for AJAX requests.
     Author: @ayemele
     """
     template_name = 'publics/auth/password_reset.html'
@@ -170,40 +212,62 @@ class PasswordResetView(TemplateView):
     def post(self, request: HttpRequest, email: str, *args: Any, **kwargs: Any) -> HttpResponse:
         password = request.POST.get("password", "").strip()
         password2 = request.POST.get("password2", "").strip()
-        context = {'email': email, 'error': None}
+        is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
         try:
-            user = User.objects.filter(email=email).first()
-            if not user:
-                messages.error(request, _("No user found with this email."))
-                return render(request, self.template_name, context)
-
-            # Validate password
-            if len(password) < 8 or not re.search(r'\d', password) or not re.search(r'[A-Za-z]', password):
-                messages.error(request, _("Password must be at least 8 characters and contain at least one letter and one number."))
-                return render(request, self.template_name, context)
+            if not all([password, password2]):
+                error_message = _("Both password fields are required.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message})
+                messages.error(request, error_message)
+                return render(request, self.template_name, {'email': email})
 
             if password != password2:
-                messages.error(request, _("Passwords do not match."))
-                return render(request, self.template_name, context)
+                error_message = _("Passwords do not match.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message})
+                messages.error(request, error_message)
+                return render(request, self.template_name, {'email': email})
 
-            # Update password and clear reset code
+            if len(password) < 8 or not re.search(r'\d', password) or not re.search(r'[A-Za-z]', password):
+                error_message = _("Password must be at least 8 characters and contain at least one letter and one number.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message})
+                messages.error(request, error_message)
+                return render(request, self.template_name, {'email': email})
+
+            user = User.objects.filter(email=email).first()
+            if not user:
+                error_message = _("No user found with this email.")
+                if is_ajax:
+                    return JsonResponse({'success': False, 'message': error_message})
+                messages.error(request, error_message)
+                return render(request, self.template_name, {'email': email})
+
             with transaction.atomic():
                 user.set_password(password)
-                user.metadata.pop("password_reset_code", None)
-                user.metadata.pop("password_reset_code_created_at", None)
+                user.metadata.pop("reset_code", None)
+                user.metadata.pop("reset_code_created_at", None)
                 user.save()
-
-                # Log the user in
                 from django.contrib.auth import login
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
-            logger.info(f"✅ Password reset successful for {email} (ID: {user.id})")
-            messages.success(request, _("Password reset successful! You are now logged in."))
+            logger.info(f"✅ Password reset successfully for {email} (ID: {user.id})")
+            success_message = _("Password reset successful! You are now logged in.")
+            if is_ajax:
+                return JsonResponse({
+                    'success': True,
+                    'message': success_message,
+                    'redirect_url': reverse('users:home')
+                })
+            messages.success(request, success_message)
             return redirect('users:home')
 
         except Exception as e:
             trace = traceback.format_exc()
             logger.error(f"Unexpected error during password reset for email {email}: {e}\n{trace}")
-            messages.error(request, _("An unexpected error occurred. Please try again later."))
-            return render(request, self.template_name, context)
+            error_message = _("An unexpected error occurred. Please try again later.")
+            if is_ajax:
+                return JsonResponse({'success': False, 'message': error_message})
+            messages.error(request, error_message)
+            return render(request, self.template_name, {'email': email})
