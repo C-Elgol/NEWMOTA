@@ -204,7 +204,7 @@
                     buttonText.classList.remove('hidden');
                     buttonLoader.classList.add('hidden');
                     window.toastManager.buildToast()
-                        .setMessage('An unexpected error occurred. Please try again.')
+                        {% comment %} .setMessage('An unexpected error occurred. Please try again.') {% endcomment %}
                         .setType('danger')
                         .setPosition('top-right')
                         .setDuration(5000)
