@@ -1,0 +1,165 @@
+{% extends 'publics/dashboard/admin/base.html' %}
+{% load static i18n %}
+
+{% block content %}
+<div class="fixed inset-0 bg-gray-900/50 flex items-center justify-center z-[1000] hidden" id="season-selection-modal">
+    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">{% trans "Select or Create Season" %}</h2>
+        <div class="flex border-b border-gray-200 mb-4">
+            <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-tl-md focus:outline-none focus:ring-2 focus:ring-blue-500 active bg-blue-500 text-white" id="select-season-tab" onclick="openTab('select-season')">{% trans "Select Season" %}</button>
+            <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-tr-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="create-season-tab" onclick="openTab('create-season')">{% trans "Create New Season" %}</button>
+        </div>
+        <div id="select-season" class="tab-content">
+            <div class="mb-4">
+                <label for="season" class="block text-sm font-medium text-gray-700 mb-2">{% trans "Select Season" %}</label>
+                <select id="season" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    {% for season in seasons %}
+                        <option value="{{ season.year }}-{{ season.month }}">{{ season.display }}</option>
+                    {% empty %}
+                        <option value="">{% trans "No seasons available" %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="w-full bg-blue-500 text-white font-medium py-2 rounded-md hover:bg-blue-600 transition duration-200" onclick="selectSeason()">{% trans "Select Season" %}</button>
+        </div>
+        <div id="create-season" class="tab-content hidden">
+            <div class="mb-4">
+                <label for="new-year" class="block text-sm font-medium text-gray-700 mb-2">{% trans "Year" %}</label>
+                <input type="number" id="new-year" min="2000" value="{{ 'now'|date:'Y' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="new-month" class="block text-sm font-medium text-gray-700 mb-2">{% trans "Month" %}</label>
+                <select id="new-month" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="1">{% trans "January" %}</option>
+                    <option value="2">{% trans "February" %}</option>
+                    <option value="3">{% trans "March" %}</option>
+                    <option value="4">{% trans "April" %}</option>
+                    <option value="5">{% trans "May" %}</option>
+                    <option value="6">{% trans "June" %}</option>
+                    <option value="7">{% trans "July" %}</option>
+                    <option value="8">{% trans "August" %}</option>
+                    <option value="9">{% trans "September" %}</option>
+                    <option value="10">{% trans "October" %}</option>
+                    <option value="11">{% trans "November" %}</option>
+                    <option value="12">{% trans "December" %}</option>
+                </select>
+            </div>
+            <button class="w-full bg-blue-500 text-white font-medium py-2 rounded-md hover:bg-blue-600 transition duration-200" onclick="createSeason()">{% trans "Create Season" %}</button>
+        </div>
+        <div id="error" class="text-red-600 text-sm mt-4 hidden"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loader = new SectionLoaderManager('season-selection-modal', 'fill-blue-500', 0.5);
+
+    function openTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+        document.querySelectorAll('.flex button').forEach(btn => {
+            btn.classList.remove('active', 'bg-blue-500', 'text-white');
+            btn.classList.add('text-gray-700', 'bg-gray-100');
+        });
+        document.getElementById(tabId).classList.remove('hidden');
+        document.getElementById(`${tabId}-tab`).classList.add('active', 'bg-blue-500', 'text-white');
+    }
+
+    function selectSeason() {
+        const seasonSelect = document.getElementById('season');
+        if (!seasonSelect.value) {
+            showError('{% trans "Please select a season" %}');
+            return;
+        }
+        const [year, month] = seasonSelect.value.split('-');
+        submitSeason('select', year, month);
+    }
+
+    function createSeason() {
+        const year = document.getElementById('new-year').value;
+        const month = document.getElementById('new-month').value;
+        if (!year || !month) {
+            showError('{% trans "Please provide year and month" %}');
+            return;
+        }
+        submitSeason('create', year, month);
+    }
+
+    function submitSeason(action, year, month) {
+        const errorDiv = document.getElementById('error');
+        loader.showLoader();
+        errorDiv.classList.add('hidden');
+
+        fetch('{% url 'finance:season_selection' %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken(),
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ action, year, month })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            loader.hideLoader();
+            if (data.success) {
+                window.toastManager.buildToast()
+                    .setMessage(data.message)
+                    .setType('success')
+                    .setPosition('top-right')
+                    .setDuration(3000)
+                    .show();
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 1500);
+            } else {
+                showError(data.message);
+            }
+        })
+        .catch(error => {
+            loader.hideLoader();
+            showError('{% trans "An unexpected error occurred. Please try again." %}');
+            console.error('Error:', error);
+        });
+    }
+
+    function showError(message) {
+        const errorDiv = document.getElementById('error');
+        errorDiv.innerText = message;
+        errorDiv.classList.remove('hidden', 'text-green-600');
+        errorDiv.classList.add('text-red-600');
+    }
+
+    function getCsrfToken() {
+        const name = 'csrftoken';
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Expose functions to global scope for button onclick
+    window.openTab = openTab;
+    window.selectSeason = selectSeason;
+    window.createSeason = createSeason;
+
+    // Ensure modal is shown when directly accessing season-selection URL
+    const seasonModal = document.getElementById('season-selection-modal');
+    if (window.location.pathname === '{% url 'finance:season_selection' %}') {
+        seasonModal.classList.remove('hidden');
+    }
+});
+</script>
+{% endblock %}

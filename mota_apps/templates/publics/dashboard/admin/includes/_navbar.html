@@ -7,32 +7,33 @@
       <i class="fas fa-bars text-xl"></i>
     </button>
 
-    <!-- Search -->
-    <div class="relative mx-4 flex-1 max-w-md">
-      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <i class="fas fa-search text-gray-400"></i>
-      </div>
-      <input
-        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary sm:text-sm"
-        placeholder="{% trans 'Search...' %}" type="search">
+    <!-- Season display -->
+    <div class="flex-1 text-sm font-medium text-gray-700">
+      {% if season %}
+        {% trans "Meeting Season" %}: {{ season }}
+      {% else %}
+        {% trans "No Season Selected" %}
+      {% endif %}
     </div>
 
     <!-- Right side -->
     <div class="flex items-center space-x-4">
-        <button
-          class="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-          <i class="fas fa-plus mr-2"></i> Seasons
-        </button>
+      <button
+        id="season-selection-btn"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        onclick="showSeasonModal()">
+        <i class="fas fa-plus mr-2"></i> {% trans "Seasons" %}
+      </button>
       <!-- Notifications -->
       <button type="button"
-              class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary relative">
+              class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 relative">
         <i class="fas fa-bell text-xl"></i>
         <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
       </button>
 
       <!-- Messages -->
       <button type="button"
-              class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary relative">
+              class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 relative">
         <i class="fas fa-envelope text-xl"></i>
         <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
       </button>
@@ -61,32 +62,27 @@
 
         <!-- Dropdown menu -->
         <div class="js-dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
-           <div class="px-4 py-2 text-sm text-gray-700">
+          <div class="px-4 py-2 text-sm text-gray-700">
             <span class="font-medium"></span>
           </div>
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             <i class="fas fa-user mr-2"></i> {% trans 'Profile' %}
           </a>
-
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             <i class="fas fa-home mr-2"></i> {% trans 'Home' %}
           </a>
-
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             <i class="fas fa-envelope mr-2"></i> {% trans 'Messages' %}
           </a>
-
-
           <a href="{% url 'users:logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             <i class="fas fa-sign-out-alt mr-2"></i> {% trans 'Sign out' %}
           </a>
         </div>
-        
       </div>
 
       <form method="post" action="" class="inline" id="language-form">
         {% csrf_token %}
-        <select name="language" class="bg-while border-none text-white focus:ring-0 pl-1 pr-6 py-0.5 " title="{% trans 'Select Language' %}" id="language-select">
+        <select name="language" class="bg-white border-none text-gray-700 focus:ring-0 pl-1 pr-6 py-0.5" title="{% trans 'Select Language' %}" id="language-select">
           <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧</option>
           <option value="fr" {% if LANGUAGE_CODE == 'fr' %}selected{% endif %}>🇫🇷</option>
         </select>
@@ -95,9 +91,8 @@
   </div>
 </header>
 
-
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const languageSelect = document.getElementById('language-select');
     const languageForm = document.getElementById('language-form');
     
@@ -106,15 +101,10 @@
         languageForm.submit();
       });
     }
-  });
-</script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Gestion dropdown(s) de façon robuste (supporte plusieurs .js-dropdown si le header est inclus plusieurs fois)
+    // Dropdown handling
     const dropdowns = document.querySelectorAll('.js-dropdown');
-
-    dropdowns.forEach(function (dd) {
+    dropdowns.forEach(function(dd) {
       const btn = dd.querySelector('.js-dropdown-btn');
       const menu = dd.querySelector('.js-dropdown-menu');
       if (!btn || !menu) return;
@@ -133,30 +123,54 @@
         if (menu.classList.contains('hidden')) open(); else close();
       };
 
-      // Ouvrir / fermer au clic sur le bouton
-      btn.addEventListener('click', function (e) {
+      btn.addEventListener('click', function(e) {
         e.preventDefault();
         toggle();
       });
 
-      // Fermer si clic à l'extérieur
-      document.addEventListener('click', function (e) {
+      document.addEventListener('click', function(e) {
         if (!dd.contains(e.target)) close();
       });
 
-      // Fermer avec Echap
-      dd.addEventListener('keydown', function (e) {
+      dd.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') close();
       });
     });
 
-    // Menu mobile (affiche/masque la sidebar)
+    // Mobile menu
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const sidebar = document.querySelector('.admin-nav-bar');
     if (mobileMenuButton && sidebar) {
-      mobileMenuButton.addEventListener('click', function () {
+      mobileMenuButton.addEventListener('click', function() {
         sidebar.classList.toggle('hidden');
       });
     }
-  });
+
+    // Season selection modal toggle
+    window.showSeasonModal = function() {
+        const seasonModal = document.getElementById('season-selection-modal');
+        if (seasonModal) {
+            seasonModal.classList.remove('hidden');
+        } else {
+            // Fallback: Navigate to season selection page
+            window.location.href = '{% url 'finance:season_selection' %}';
+        }
+    };
+
+    // Close modal on click outside or Escape key
+    const seasonModal = document.getElementById('season-selection-modal');
+    if (seasonModal) {
+        seasonModal.addEventListener('click', function(e) {
+            if (e.target === seasonModal) {
+                seasonModal.classList.add('hidden');
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !seasonModal.classList.contains('hidden')) {
+                seasonModal.classList.add('hidden');
+            }
+        });
+    }
+});
 </script>
