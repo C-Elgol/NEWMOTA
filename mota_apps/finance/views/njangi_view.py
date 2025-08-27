@@ -87,11 +87,15 @@ class NewNjangiView(FinanceBaseView, CreateView):
         else:
             season_date = datetime(selected_season['year'], selected_season['month'], 1)
             context['season'] = season_date.strftime('%B %Y')
+            # add is_current_season
+            latest_season = Njangi.objects.aggregate(latest_date=Max('season_date'))['latest_date']
+            context['is_current_season'] = (season_date.date() == latest_season) if latest_season else True
         context['is_admin'] = self.request.user.is_admin
         context['is_staff'] = self.request.user.is_staff
         context['is_visitor'] = self.request.user.is_visitor
         logger.debug(f"Rendering create njangi form for user {self.request.user.id}")
         return context
+
 
     def post(self, request, *args, **kwargs):
         logger.info(f"POST request received for new njangi by user {request.user.id}")
@@ -386,7 +390,7 @@ class GetNjangiDetailsView(FinanceBaseView, View):
             njangi = Njangi.objects.get(pk=pk)
             data = {
                 'position': njangi.position,
-                'name': njangi.user.get_full_name(),
+                # 'name': njangi.user.get_full_name() if njangi.user else 'Unknown User',
                 'member_id_number': njangi.member_id_number,
                 'transaction_id': njangi.transaction_id,
                 'amount': str(njangi.amount),
