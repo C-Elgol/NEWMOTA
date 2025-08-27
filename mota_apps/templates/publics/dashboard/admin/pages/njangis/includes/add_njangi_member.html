@@ -46,7 +46,7 @@
             <a href="{% url 'finance:njangi_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
                 {% trans "Cancel" %}
             </a>
-            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
                 {% trans "Add Njangi Member" %}
             </button>
         </div>

@@ -5,22 +5,22 @@
 <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Njangi Beneficiaries for {{ season }}{% endblocktrans %}</h2>
     <div class="space-x-3">
-        <a href="{% url 'finance:add_njangi_member' %}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+        <a href="{% url 'finance:add_njangi_member' %}" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
             {% trans "Add New Njangi Member" %}
         </a>
-        <a href="{% url 'finance:new_njangi' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+        <a href="{% url 'finance:new_njangi' %}" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
             {% trans "Add New Njangi Beneficiary" %}
         </a>
     </div>
 </div>
 
-<div class="bg-white shadow-lg rounded-lg p-6">
+<div class="bg-white shadow-lg rounded-lg p-6 w-full overflow-x-auto">
     <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
         <i class="fas fa-hand-holding-usd mr-2 text-green-600"></i>
         {% trans "Njangi Beneficiaries" %}
     </h3>
     <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 table-fixed">
+        <table class="min-w-full w-full divide-y divide-gray-200 table-auto">
             <thead class="bg-gray-50">
                 <tr>
                     <th class="w-1/12 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Position" %}</th>
