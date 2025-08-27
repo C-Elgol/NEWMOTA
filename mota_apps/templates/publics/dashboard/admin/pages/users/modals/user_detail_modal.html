@@ -1,0 +1,28 @@
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div id="user-detail-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden transition-opacity duration-300">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md transform scale-95 transition-transform duration-300">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-user mr-2 text-indigo-500"></i>
+            {% trans "User Details" %}
+        </h3>
+        <div class="space-y-4">
+            <img id="user-profile-picture" class="h-24 w-24 rounded-full object-cover mb-4 hidden" alt="{% trans 'Profile Picture' %}">
+            <p><strong>{% trans "Full Name:" %}</strong> <span id="user-full-name"></span></p>
+            <p><strong>{% trans "Email:" %}</strong> <span id="user-email"></span></p>
+            <p><strong>{% trans "Phone Number:" %}</strong> <span id="user-phone-number"></span></p>
+            <p><strong>{% trans "Role:" %}</strong> <span id="user-role"></span></p>
+            <p><strong>{% trans "Date Joined:" %}</strong> <span id="user-date-joined"></span></p>
+        </div>
+        <div class="mt-6 flex justify-end space-x-3">
+            <button id="close-detail-btn" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
+                {% trans "Close" %}
+            </button>
+            <button id="close-detail-btn-bottom" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors hidden">
+                {% trans "Close" %}
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

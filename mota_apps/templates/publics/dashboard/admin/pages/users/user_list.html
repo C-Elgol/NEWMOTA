@@ -1,0 +1,303 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<form id="csrf-form" style="display: none;">
+    {% csrf_token %}
+</form>
+<div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+    <h2 class="text-2xl font-bold text-gray-800">{% trans "Users" %}</h2>
+    <a href="{% url 'users:new_user' %}" class="bg-primary text-white px-4 py-2 rounded-md whitespace-nowrap inline-flex items-center justify-center hover:bg-primary-dark transition-colors" {% if is_visitor %}disabled{% endif %}>
+        <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        {% trans "New User" %}
+    </a>
+</div>
+
+<div class="overflow-x-auto bg-white shadow rounded-lg">
+    <table id="user_list" class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Full Name" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Email" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Phone Number" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Role" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Joined Date" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            {% for user in users %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ user.get_full_name|default:"N/A" }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ user.email }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ user.profile.phone_number|default:"N/A" }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {% if user.is_superuser %}
+                        {% trans "Superuser" %}
+                    {% elif user.is_admin %}
+                        {% trans "Admin" %}
+                    {% elif user.is_staff %}
+                        {% trans "Staff" %}
+                    {% elif user.is_client %}
+                        {% trans "Client" %}
+                    {% elif user.is_visitor %}
+                        {% trans "Visitor" %}
+                    {% else %}
+                        {% trans "User" %}
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ user.date_joined|date:"Y-m-d H:i:s" }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button class="detail-btn text-indigo-600 hover:text-indigo-800 mr-3"
+                            data-id="{{ user.id }}"
+                            data-full-name="{{ user.get_full_name|default:'N/A'|escapejs }}"
+                            data-email="{{ user.email }}"
+                            data-phone-number="{{ user.profile.phone_number|default:'N/A'|escapejs }}"
+                            data-role="{% if user.is_superuser %}Superuser{% elif user.is_admin %}Admin{% elif user.is_staff %}Staff{% elif user.is_client %}Client{% elif user.is_visitor %}Visitor{% else %}User{% endif %}"
+                            data-date-joined="{{ user.date_joined|date:'Y-m-d H:i:s' }}"
+                            data-profile-picture="{{ user.get_profile_picture_url|default:'N/A'|escapejs }}">
+                        <i class="fas fa-eye mr-2"></i>{% trans "View" %}
+                    </button>
+                    {% if is_admin or is_staff %}
+                    <a href="{% url 'users:update_user' pk=user.id %}" class="text-yellow-600 hover:text-yellow-800 mr-3">
+                        <i class="fas fa-edit mr-2"></i>{% trans "Edit" %}
+                    </a>
+                    <button onclick="confirmDelete('{{ user.id }}', '{{ user.get_full_name|default:user.email|escapejs }}', '{% url 'users:delete_user' pk=user.id %}')" class="text-red-600 hover:text-red-800">
+                        <i class="fas fa-trash-alt mr-2"></i>{% trans "Delete" %}
+                    </button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="px-6 py-4 text-sm text-gray-500 text-center">{% trans "No users found." %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Detail Modal -->
+{% include 'publics/dashboard/admin/pages/users/modals/user_detail_modal.html' %}
+
+<!-- Delete Confirmation Modal -->
+{% include 'publics/dashboard/admin/pages/users/modals/delete_user_modal.html' %}
+
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+<style>
+    .pagination-button.active {
+        @apply bg-primary text-white;
+    }
+    .pagination-button {
+        @apply bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors mx-1;
+    }
+    .pagination-button.disabled {
+        @apply bg-gray-200 text-gray-500 cursor-not-allowed;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let table = null;
+
+    if (document.getElementById("user_list") && typeof simpleDatatables.DataTable !== 'undefined') {
+        const resetTable = function () {
+            if (table) {
+                table.destroy();
+            }
+
+            const options = {
+                selectable: false,
+                rowNavigation: false,
+                tabIndex: false,
+                labels: {
+                    placeholder: `{% trans 'Search...' %}`,
+                    searchTitle: `{% trans 'Search within table' %}`,
+                    pageTitle: `{% trans 'Page {page}' %}`,
+                    perPage: `{% trans 'entries per page' %}`,
+                    noRows: `{% trans 'No users found.' %}`,
+                    info: `{% trans 'Showing {start} to {end} of {rows} entries' %}`,
+                    noResults: `{% trans 'No results match your search query' %}`,
+                },
+            };
+
+            table = new simpleDatatables.DataTable("#user_list", options);
+        };
+
+        const isMobile = window.matchMedia("(any-pointer:coarse)").matches;
+        if (isMobile) {
+            rowNavigation = false;
+        }
+
+        resetTable();
+    }
+
+    const loaderManager = new SectionLoaderManager();
+
+    document.querySelectorAll('.detail-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            document.getElementById('user-full-name').textContent = this.getAttribute('data-full-name') || 'N/A';
+            document.getElementById('user-email').textContent = this.getAttribute('data-email') || 'N/A';
+            document.getElementById('user-phone-number').textContent = this.getAttribute('data-phone-number') || 'N/A';
+            document.getElementById('user-role').textContent = this.getAttribute('data-role') || 'N/A';
+            document.getElementById('user-date-joined').textContent = this.getAttribute('data-date-joined') || 'N/A';
+            const profilePicture = this.getAttribute('data-profile-picture');
+            const profilePictureElement = document.getElementById('user-profile-picture');
+            if (profilePicture && profilePicture !== 'N/A') {
+                profilePictureElement.src = profilePicture;
+                profilePictureElement.classList.remove('hidden');
+            } else {
+                profilePictureElement.classList.add('hidden');
+            }
+
+            showDetailModal();
+        });
+    });
+
+    document.getElementById('close-detail-btn').addEventListener('click', hideDetailModal);
+    document.getElementById('close-detail-btn-bottom').addEventListener('click', hideDetailModal);
+
+    document.getElementById('user-detail-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            hideDetailModal();
+        }
+    });
+
+    let currentDeleteId = null;
+
+    window.confirmDelete = function(id, name, deleteUrl) {
+        currentDeleteId = id;
+        document.getElementById('delete-name').textContent = name;
+        document.getElementById('delete-modal').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        document.getElementById('confirm-delete-btn').dataset.deleteUrl = deleteUrl;
+    };
+
+    document.getElementById('cancel-delete-btn').addEventListener('click', function() {
+        document.getElementById('delete-modal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        currentDeleteId = null;
+    });
+
+    document.getElementById('confirm-delete-btn').addEventListener('click', function() {
+        if (!currentDeleteId) return;
+
+        const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (!csrfTokenElement) {
+            window.toastManager.buildToast()
+                .setMessage(gettext('CSRF token is missing. Please refresh the page and try again.'))
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+            return;
+        }
+
+        const deleteUrl = this.dataset.deleteUrl;
+        loaderManager.showLoader();
+        fetch(deleteUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfTokenElement.value,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: currentDeleteId })
+        })
+        .then(response => {
+            loaderManager.hideLoader();
+            if (!response.ok) {
+                throw new Error(gettext('An error occurred while deleting the user.'));
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                window.toastManager.buildToast()
+                    .setMessage(data.message || gettext('User deleted successfully.'))
+                    .setType('success')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+
+                document.getElementById('delete-modal').classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                currentDeleteId = null;
+
+                const row = document.querySelector(`tr td button[data-id="${data.id}"]`)?.closest('tr');
+                if (row) {
+                    row.remove();
+                }
+                if (typeof resetTable === 'function') {
+                    resetTable();
+                }
+            } else {
+                window.toastManager.buildToast()
+                    .setMessage(data.message || gettext('Failed to delete user. Please try again.'))
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        })
+        .catch(error => {
+            loaderManager.hideLoader();
+            window.toastManager.buildToast()
+                .setMessage(gettext('An unexpected error occurred: ') + error.message)
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+        });
+    });
+
+    document.getElementById('delete-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            document.getElementById('delete-modal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            currentDeleteId = null;
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (!document.getElementById('user-detail-modal').classList.contains('hidden')) {
+                hideDetailModal();
+            }
+            if (!document.getElementById('delete-modal').classList.contains('hidden')) {
+                document.getElementById('delete-modal').classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                currentDeleteId = null;
+            }
+        }
+    });
+
+    function showDetailModal() {
+        const modal = document.getElementById('user-detail-modal');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.add('opacity-100');
+            modal.querySelector('div').classList.remove('scale-95');
+        }, 10);
+    }
+
+    function hideDetailModal() {
+        const modal = document.getElementById('user-detail-modal');
+        modal.classList.remove('opacity-100');
+        modal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+});
+</script>
+{% endblock %}
