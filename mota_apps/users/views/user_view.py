@@ -6,6 +6,8 @@ from mota_apps.users.models import User, Profile
 from mota_apps.users.forms.user_form import UserForm
 from django.contrib.auth.hashers import make_password
 import logging
+import secrets
+import string
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +17,11 @@ def serialize_form_errors(errors):
     for field, error_list in errors.items():
         serialized_errors[field] = [str(error) for error in error_list]
     return serialized_errors
+
+def generate_random_password(length=12):
+    """Generate a secure random password."""
+    characters = string.ascii_letters + string.digits + string.punctuation
+    return ''.join(secrets.choice(characters) for _ in range(length))
 
 class UserListView(ListView):
     template_name = "publics/dashboard/admin/pages/users/user_list.html"
@@ -64,7 +71,7 @@ class NewUserView(CreateView):
 
         try:
             user = form.save(commit=False)
-            user.password = make_password(User.objects.make_random_password())
+            user.password = make_password(generate_random_password())
             user.is_active = True
             user.is_deleted = False
             user.save()
