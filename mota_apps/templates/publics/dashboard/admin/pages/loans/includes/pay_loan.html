@@ -1,0 +1,176 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Pay Loan for {{ season }}{% endblocktrans %}</h2>
+    <a href="{% url 'finance:loan_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+        {% trans "Back to Loans" %}
+    </a>
+</div>
+
+<form id="pay-loan-form" class="space-y-6">
+    {% csrf_token %}
+    <div class="bg-white shadow rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{% trans "Loan Payment Details" %}</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="member-select" class="block text-sm font-medium text-gray-700">{% trans "Select Member" %}</label>
+                <div class="mt-1">
+                    <select id="member-select" class="select2 w-full" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+                        <option value="">{% trans "Select a member" %}</option>
+                        {% for member in members %}
+                            <option value="{{ member.id }}">{{ member.get_full_name }} ({{ member.email }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label for="{{ form.loan.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Select Loan" %}</label>
+                <div class="mt-1">
+                    {{ form.loan }}
+                </div>
+                {% if form.loan.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.loan.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.amount.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Amount Repaid" %}</label>
+                <div class="mt-1">
+                    {{ form.amount }}
+                </div>
+                {% if form.amount.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.amount.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.payment_date.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Payment Date" %}</label>
+                <div class="mt-1">
+                    {{ form.payment_date }}
+                </div>
+                {% if form.payment_date.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.payment_date.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="md:col-span-2">
+                <label for="{{ form.comment.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Comment" %}</label>
+                <div class="mt-1">
+                    {{ form.comment }}
+                </div>
+                {% if form.comment.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.comment.errors.as_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="mt-6 flex justify-end space-x-2">
+            <a href="{% url 'finance:loan_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">
+                {% trans "Cancel" %}
+            </a>
+            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-green-700" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+                {% trans "Record Payment" %}
+            </button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+    $('.select2').select2({
+        placeholder: "{% trans 'Select an option' %}",
+        allowClear: true,
+        width: '100%'
+    });
+
+    const loaderManager = new SectionLoaderManager();
+
+    $('#member-select').on('change', function() {
+        const memberId = $(this).val();
+        if (!memberId) {
+            $('#{{ form.loan.id_for_label }}').empty().append('<option value="">{% trans "Select a loan" %}</option>');
+            return;
+        }
+
+        $.ajax({
+            url: '{% url "finance:get_loans" member_id=0 %}'.replace('0', memberId),
+            method: 'GET',
+            success: function(data) {
+                const loanSelect = $('#{{ form.loan.id_for_label }}');
+                loanSelect.empty().append('<option value="">{% trans "Select a loan" %}</option>');
+                data.loans.forEach(loan => {
+                    loanSelect.append(
+                        `<option value="${loan.id}">
+                            ${loan.amount_borrowed} (Borrowed: ${loan.borrow_date}, Left: ${loan.amount_left_to_pay})
+                        </option>`
+                    );
+                });
+                loanSelect.trigger('change');
+            },
+            error: function(xhr) {
+                window.toastManager.buildToast()
+                    .setMessage(xhr.responseJSON?.error || '{% trans "Failed to fetch loans." %}')
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        });
+    });
+
+    $('#pay-loan-form').on('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const csrfToken = $('[name=csrfmiddlewaretoken]').val();
+
+        loaderManager.showLoader();
+        $.ajax({
+            url: '{% url "finance:pay_loan" %}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            success: function(response) {
+                loaderManager.hideLoader();
+                if (response.success) {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('success')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                    setTimeout(() => {
+                        window.location.href = response.redirect;
+                    }, 4000);
+                } else {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                }
+            },
+            error: function(xhr) {
+                loaderManager.hideLoader();
+                const errorMessage = xhr.responseJSON?.message || '{% trans "An error occurred while recording the loan payment." %}';
+                window.toastManager.buildToast()
+                    .setMessage(errorMessage)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

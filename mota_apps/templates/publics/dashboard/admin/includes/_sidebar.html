@@ -51,11 +51,17 @@
                       <i class="fas fa-plus-circle mr-3 text-lg"></i>
                       <span>{% trans "Add New Finance" %}</span>
                   </a>
-                  {% url 'products:discount_list' as discount_list_url %}
-                  <a href="{{ discount_list_url }}"
-                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == discount_list_url %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-percent mr-3 text-lg"></i>
-                      <span>{% trans "Loans" %}</span>
+                  <a href="{% url 'finance:loan_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/loan-list/' %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-hand-holding-usd mr-3 text-lg"></i>
+                      <span>{% trans "All Loans" %}</span>
+                  </a>
+                  <a href="{% url 'finance:new_loan' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/new-loan/' %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-plus-circle mr-3 text-lg"></i>
+                      <span>{% trans "Add New Loan" %}</span>
+                  </a>
+                  <a href="{% url 'finance:pay_loan' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/pay-loan/' %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-money-check-alt mr-3 text-lg"></i>
+                      <span>{% trans "Pay Loan" %}</span>
                   </a>
 
                   {% url 'products:stock_management' as stock_management_url %}

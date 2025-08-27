@@ -2,6 +2,7 @@ from django.db import router
 from django.urls import path
 
 from mota_apps.finance.views.admin_dashboard_view import AdminDashboardView
+from mota_apps.finance.views.loan_view import DeleteLoanView, GetLoansView, LoanListView, NewLoanView, PayLoanView, UpdateLoanView
 from mota_apps.finance.views.record_finance_view import DeleteFinanceView, FinanceListView, NewFinanceView, UpdateFinanceView
 from mota_apps.finance.views.season_selection_view import SeasonSelectionView
 
@@ -14,4 +15,10 @@ urlpatterns = [
     path('new-finance/', NewFinanceView.as_view(), name='new_finance'),
     path('finance-update/<str:pk>/', UpdateFinanceView.as_view(), name='finance_update'),
     path('finance-delete/<str:pk>/', DeleteFinanceView.as_view(), name='finance_delete'),
+    path('loan-list/', LoanListView.as_view(), name='loan_list'),
+    path('new-loan/', NewLoanView.as_view(), name='new_loan'),
+    path('loan-update/<str:pk>/', UpdateLoanView.as_view(), name='loan_update'),
+    path('loan-delete/<str:pk>/', DeleteLoanView.as_view(), name='loan_delete'),
+    path('pay-loan/', PayLoanView.as_view(), name='pay_loan'),
+    path('get-loans/<str:member_id>/', GetLoansView.as_view(), name='get_loans'),
 ]

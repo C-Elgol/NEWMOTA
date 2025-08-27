@@ -1,0 +1,164 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Update Loan for {{ season }}{% endblocktrans %}</h2>
+    <a href="{% url 'finance:loan_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+        {% trans "Back to Loans" %}
+    </a>
+</div>
+
+<form id="update-loan-form" class="space-y-6">
+    {% csrf_token %}
+    <div class="bg-white shadow rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{% trans "Loan Details" %}</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="{{ form.member.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Member" %}</label>
+                <div class="mt-1">
+                    {{ form.member }}
+                </div>
+                {% if form.member.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.member.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.amount_borrowed.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Amount Borrowed" %}</label>
+                <div class="mt-1">
+                    {{ form.amount_borrowed }}
+                </div>
+                {% if form.amount_borrowed.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.amount_borrowed.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.borrow_date.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Borrow Date" %}</label>
+                <div class="mt-1">
+                    {{ form.borrow_date }}
+                </div>
+                {% if form.borrow_date.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.borrow_date.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.id_card_number.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "ID Card Number" %}</label>
+                <div class="mt-1">
+                    {{ form.id_card_number }}
+                </div>
+                {% if form.id_card_number.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.id_card_number.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="md:col-span-2">
+                <label for="{{ form.signature.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Signature" %}</label>
+                <div class="mt-1">
+                    {{ form.signature }}
+                </div>
+                {% if form.signature.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.signature.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="md:col-span-2">
+                <label for="{{ form.comment.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Comment" %}</label>
+                <div class="mt-1">
+                    {{ form.comment }}
+                </div>
+                {% if form.comment.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.comment.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{% trans "Interest to Be Paid (1.5%)" %}</label>
+                <p id="interest-preview" class="mt-1 text-sm text-gray-900">0.00</p>
+            </div>
+        </div>
+        <div class="mt-6 flex justify-end space-x-2">
+            <a href="{% url 'finance:loan_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">
+                {% trans "Cancel" %}
+            </a>
+            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+                {% trans "Update Loan" %}
+            </button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+    $('.select2').select2({
+        placeholder: "{% trans 'Select a member' %}",
+        allowClear: true,
+        width: '100%'
+    });
+
+    const loaderManager = new SectionLoaderManager();
+
+    $('#update-loan-form').on('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const csrfToken = $('[name=csrfmiddlewaretoken]').val();
+
+        loaderManager.showLoader();
+        $.ajax({
+            url: '{% url "finance:loan_update" pk=object.id %}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            success: function(response) {
+                loaderManager.hideLoader();
+                if (response.success) {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('success')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                    setTimeout(() => {
+                        window.location.href = response.redirect;
+                    }, 4000);
+                } else {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                }
+            },
+            error: function(xhr) {
+                loaderManager.hideLoader();
+                const errorMessage = xhr.responseJSON?.message || '{% trans "An error occurred while updating the loan." %}';
+                window.toastManager.buildToast()
+                    .setMessage(errorMessage)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        });
+    });
+
+    $('#{{ form.amount_borrowed.id_for_label }}').on('input', function() {
+        const amount = parseFloat($(this).val()) || 0;
+        const interest = (amount * 0.015).toFixed(2);
+        $('#interest-preview').text(interest);
+    });
+
+    // Initialize interest preview
+    const initialAmount = parseFloat($('#{{ form.amount_borrowed.id_for_label }}').val()) || 0;
+    $('#interest-preview').text((initialAmount * 0.015).toFixed(2));
+});
+</script>
+{% endblock %}

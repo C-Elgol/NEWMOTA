@@ -1,0 +1,110 @@
+{% load i18n %}
+
+<div id="detail-modal" class="fixed inset-0 bg-gray-900/50 flex items-center justify-center z-[10000002] hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-auto border border-gray-200 max-h-[95vh] overflow-y-auto">
+        <div class="sticky top-0 bg-white z-10 border-b border-gray-200 px-4 py-3 flex justify-between items-center">
+            <h3 class="text-lg font-semibold text-gray-800">{% trans "Loan Details" %}</h3>
+            <button id="close-detail-btn" class="text-gray-400 hover:text-gray-500 focus:outline-none p-1">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        
+        <div class="px-4 py-4">
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <h4 class="text-sm font-medium text-gray-700 mb-3 flex items-center">
+                    <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    {% trans "Loan Information" %}
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-user mr-1 text-indigo-500"></i>
+                            {% trans "Member" %}
+                        </p>
+                        <p id="detail-member" class="text-sm font-medium text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-money-bill-wave mr-1 text-indigo-500"></i>
+                            {% trans "Amount Borrowed" %}
+                        </p>
+                        <p id="detail-amount-borrowed" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-calculator mr-1 text-indigo-500"></i>
+                            {% trans "Total (with Interest)" %}
+                        </p>
+                        <p id="detail-total-amount" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-hand-holding-usd mr-1 text-indigo-500"></i>
+                            {% trans "Amount Paid" %}
+                        </p>
+                        <p id="detail-amount-paid" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-money-check-alt mr-1 text-indigo-500"></i>
+                            {% trans "Amount Left" %}
+                        </p>
+                        <p id="detail-amount-left" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-percent mr-1 text-indigo-500"></i>
+                            {% trans "Interest" %}
+                        </p>
+                        <p id="detail-interest" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-calendar-alt mr-1 text-indigo-500"></i>
+                            {% trans "Borrow Date" %}
+                        </p>
+                        <p id="detail-borrow-date" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-info-circle mr-1 text-indigo-500"></i>
+                            {% trans "Status" %}
+                        </p>
+                        <p id="detail-status" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-id-card mr-1 text-indigo-500"></i>
+                            {% trans "ID Card Number" %}
+                        </p>
+                        <p id="detail-id-card-number" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-signature mr-1 text-indigo-500"></i>
+                            {% trans "Signature" %}
+                        </p>
+                        <p id="detail-signature" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-comment mr-1 text-indigo-500"></i>
+                            {% trans "Comment" %}
+                        </p>
+                        <p id="detail-comment" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="px-4 py-3 border-t border-gray-200 flex justify-end">
+            <button id="close-detail-btn-bottom" class="bg-gray-500 text-white px-3 py-1.5 rounded-md hover:bg-gray-600 transition-colors">
+                {% trans "Close" %}
+            </button>
+        </div>
+    </div>
+</div>
