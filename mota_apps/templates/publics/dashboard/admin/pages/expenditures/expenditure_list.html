@@ -1,0 +1,282 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<form id="csrf-form" style="display: none;">
+    {% csrf_token %}
+</form>
+<div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+    <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Expenditures for {{ season }}{% endblocktrans %}</h2>
+    <a href="{% url 'finance:new_expenditure' %}" class="bg-primary text-white px-4 py-2 rounded-md whitespace-nowrap inline-flex items-center justify-center hover:bg-primary-dark transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+        <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        {% trans "New Expenditure" %}
+    </a>
+</div>
+
+<div class="overflow-x-auto bg-white shadow rounded-lg">
+    <table id="expenditure_list" class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Entertainment Spent" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Other Expenditures" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Comment" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Recorded By" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Recorded At" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            {% for expenditure in expenditures %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ expenditure.entertainment_spent }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ expenditure.other_expenditures }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">{{ expenditure.comment|truncatewords:10 }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ expenditure.recorded_by.get_full_name|default:"N/A" }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ expenditure.created_at|date:"Y-m-d H:i:s" }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button class="detail-btn text-indigo-600 hover:text-indigo-800 mr-3"
+                            data-id="{{ expenditure.id }}"
+                            data-entertainment-spent="{{ expenditure.entertainment_spent }}"
+                            data-other-expenditures="{{ expenditure.other_expenditures }}"
+                            data-comment="{{ expenditure.comment|escapejs }}"
+                            data-recorded-by="{{ expenditure.recorded_by.get_full_name|default:'N/A'|escapejs }}"
+                            data-recorded-at="{{ expenditure.created_at|date:'Y-m-d H:i:s' }}"
+                            data-season="{{ expenditure.season_date|date:'F Y' }}">
+                        <i class="fas fa-eye mr-2"></i>{% trans "View" %}
+                    </button>
+                    {% if is_admin or is_staff and is_current_season %}
+                    <a href="{% url 'finance:update_expenditure' pk=expenditure.id %}" class="text-yellow-600 hover:text-yellow-800 mr-3">
+                        <i class="fas fa-edit mr-2"></i>{% trans "Edit" %}
+                    </a>
+                    <button onclick="confirmDelete('{{ expenditure.id }}', 'Expenditure on {{ expenditure.season_date|date:'F Y' }}', '{% url 'finance:delete_expenditure' pk=expenditure.id %}')" class="text-red-600 hover:text-red-800">
+                        <i class="fas fa-trash-alt mr-2"></i>{% trans "Delete" %}
+                    </button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="px-6 py-4 text-sm text-gray-500 text-center">{% trans "No expenditures recorded for this season." %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Detail Modal -->
+{% include 'publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html' %}
+
+<!-- Delete Confirmation Modal -->
+{% include 'publics/dashboard/admin/pages/expenditures/modals/delete_expenditure_modal.html' %}
+
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+<style>
+    .pagination-button.active {
+        @apply bg-primary text-white;
+    }
+    .pagination-button {
+        @apply bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors mx-1;
+    }
+    .pagination-button.disabled {
+        @apply bg-gray-200 text-gray-500 cursor-not-allowed;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let table = null;
+
+    if (document.getElementById("expenditure_list") && typeof simpleDatatables.DataTable !== 'undefined') {
+        const resetTable = function () {
+            if (table) {
+                table.destroy();
+            }
+
+            const options = {
+                selectable: false,
+                rowNavigation: false,
+                tabIndex: false,
+                labels: {
+                    placeholder: `{% trans 'Search...' %}`,
+                    searchTitle: `{% trans 'Search within table' %}`,
+                    pageTitle: `{% trans 'Page {page}' %}`,
+                    perPage: `{% trans 'entries per page' %}`,
+                    noRows: `{% trans 'No expenditures found.' %}`,
+                    info: `{% trans 'Showing {start} to {end} of {rows} entries' %}`,
+                    noResults: `{% trans 'No results match your search query' %}`,
+                },
+            };
+
+            table = new simpleDatatables.DataTable("#expenditure_list", options);
+        };
+
+        const isMobile = window.matchMedia("(any-pointer:coarse)").matches;
+        if (isMobile) {
+            rowNavigation = false;
+        }
+
+        resetTable();
+    }
+
+    const loaderManager = new SectionLoaderManager();
+
+    document.querySelectorAll('.detail-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            document.getElementById('expenditure-entertainment-spent').textContent = this.getAttribute('data-entertainment-spent') || '0.00';
+            document.getElementById('expenditure-other-expenditures').textContent = this.getAttribute('data-other-expenditures') || '0.00';
+            document.getElementById('expenditure-comment').textContent = this.getAttribute('data-comment') || 'N/A';
+            document.getElementById('expenditure-recorded-by').textContent = this.getAttribute('data-recorded-by') || 'N/A';
+            document.getElementById('expenditure-recorded-at').textContent = this.getAttribute('data-recorded-at') || 'N/A';
+            document.getElementById('expenditure-season').textContent = this.getAttribute('data-season') || 'N/A';
+
+            showDetailModal();
+        });
+    });
+
+    document.getElementById('close-detail-btn').addEventListener('click', hideDetailModal);
+    document.getElementById('close-detail-btn-bottom').addEventListener('click', hideDetailModal);
+
+    document.getElementById('expenditure-detail-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            hideDetailModal();
+        }
+    });
+
+    let currentDeleteId = null;
+
+    window.confirmDelete = function(id, name, deleteUrl) {
+        currentDeleteId = id;
+        document.getElementById('delete-name').textContent = name;
+        document.getElementById('delete-modal').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        document.getElementById('confirm-delete-btn').dataset.deleteUrl = deleteUrl;
+    };
+
+    document.getElementById('cancel-delete-btn').addEventListener('click', function() {
+        document.getElementById('delete-modal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        currentDeleteId = null;
+    });
+
+    document.getElementById('confirm-delete-btn').addEventListener('click', function() {
+        if (!currentDeleteId) return;
+
+        const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (!csrfTokenElement) {
+            window.toastManager.buildToast()
+                .setMessage(gettext('CSRF token is missing. Please refresh the page and try again.'))
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+            return;
+        }
+
+        const deleteUrl = this.dataset.deleteUrl;
+        loaderManager.showLoader();
+        fetch(deleteUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfTokenElement.value,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: currentDeleteId })
+        })
+        .then(response => {
+            loaderManager.hideLoader();
+            if (!response.ok) {
+                throw new Error(gettext('An error occurred while deleting the expenditure.'));
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                window.toastManager.buildToast()
+                    .setMessage(data.message || gettext('Expenditure deleted successfully.'))
+                    .setType('success')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+
+                document.getElementById('delete-modal').classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                currentDeleteId = null;
+
+                const row = document.querySelector(`tr td button[data-id="${data.id}"]`)?.closest('tr');
+                if (row) {
+                    row.remove();
+                }
+                if (typeof resetTable === 'function') {
+                    resetTable();
+                }
+            } else {
+                window.toastManager.buildToast()
+                    .setMessage(data.message || gettext('Failed to delete expenditure. Please try again.'))
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        })
+        .catch(error => {
+            loaderManager.hideLoader();
+            window.toastManager.buildToast()
+                .setMessage(gettext('An unexpected error occurred: ') + error.message)
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+        });
+    });
+
+    document.getElementById('delete-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            document.getElementById('delete-modal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            currentDeleteId = null;
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (!document.getElementById('expenditure-detail-modal').classList.contains('hidden')) {
+                hideDetailModal();
+            }
+            if (!document.getElementById('delete-modal').classList.contains('hidden')) {
+                document.getElementById('delete-modal').classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                currentDeleteId = null;
+            }
+        }
+    });
+
+    function showDetailModal() {
+        const modal = document.getElementById('expenditure-detail-modal');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.add('opacity-100');
+            modal.querySelector('div').classList.remove('scale-95');
+        }, 10);
+    }
+
+    function hideDetailModal() {
+        const modal = document.getElementById('expenditure-detail-modal');
+        modal.classList.remove('opacity-100');
+        modal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+});
+</script>
+{% endblock %}

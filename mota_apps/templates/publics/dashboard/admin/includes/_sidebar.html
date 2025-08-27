@@ -132,12 +132,16 @@
                 <i class="fas fa-plus-circle mr-3 text-lg"></i>
                 <span>{% trans 'Add New user' %}</span>
               </a>
-              {% url 'sav:personnel_management' as personnel_management_url %}
-              <a href="{{ personnel_management_url }}"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == personnel_management_url %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-id-badge mr-3 text-lg"></i>
-                <span>{% trans "Expenditures" %}</span>
+              <a href="{% url 'finance:expenditure_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == expenditure_list_url %}active{% else %}inactive{% endif %}">
+                  <i class="fas fa-money-bill-wave mr-3 text-lg"></i>
+                  <span>{% trans "Expenditures" %}</span>
               </a>
+              <a href="{% url 'finance:new_expenditure' %}"
+                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'new_sav' %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-plus-circle mr-3 text-lg"></i>
+                <span>{% trans 'Add Expenditures' %}</span>
+              </a>
+              
               {% url 'sav:partenaires_management' as partenaires_management_url %}
               <a href="{{ partenaires_management_url }}"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == partenaires_management_url %}active{% else %}inactive{% endif %}">

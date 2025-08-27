@@ -1,0 +1,19 @@
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div id="delete-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{% trans "Confirm Deletion" %}</h3>
+        <p class="text-sm text-gray-600 mb-6">{% trans "Are you sure you want to delete" %} <span id="delete-name"></span>? {% trans "This action cannot be undone." %}</p>
+        <div class="flex justify-end space-x-3">
+            <button id="cancel-delete-btn" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
+                {% trans "Cancel" %}
+            </button>
+            <button id="confirm-delete-btn" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors">
+                {% trans "Delete" %}
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

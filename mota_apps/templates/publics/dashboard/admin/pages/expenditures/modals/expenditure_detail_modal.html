@@ -1,0 +1,29 @@
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div id="expenditure-detail-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden transition-opacity duration-300">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md transform scale-95 transition-transform duration-300">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-money-bill-wave mr-2 text-indigo-500"></i>
+            {% trans "Expenditure Details" %}
+        </h3>
+        <div class="space-y-4">
+            <p><strong>{% trans "Entertainment Spent:" %}</strong> <span id="expenditure-entertainment-spent"></span></p>
+            <p><strong>{% trans "Other Expenditures:" %}</strong> <span id="expenditure-other-expenditures"></span></p>
+            <p><strong>{% trans "Comment:" %}</strong> <span id="expenditure-comment"></span></p>
+            <p><strong>{% trans "Recorded By:" %}</strong> <span id="expenditure-recorded-by"></span></p>
+            <p><strong>{% trans "Recorded At:" %}</strong> <span id="expenditure-recorded-at"></span></p>
+            <p><strong>{% trans "Season:" %}</strong> <span id="expenditure-season"></span></p>
+        </div>
+        <div class="mt-6 flex justify-end space-x-3">
+            <button id="close-detail-btn" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
+                {% trans "Close" %}
+            </button>
+            <button id="close-detail-btn-bottom" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors hidden">
+                {% trans "Close" %}
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

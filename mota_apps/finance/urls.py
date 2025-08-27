@@ -2,6 +2,7 @@ from django.db import router
 from django.urls import path
 
 from mota_apps.finance.views.admin_dashboard_view import AdminDashboardView
+from mota_apps.finance.views.expenditure_view import DeleteExpenditureView, ExpenditureDetailView, ExpenditureListView, NewExpenditureView, UpdateExpenditureView
 from mota_apps.finance.views.loan_view import DeleteLoanView, GetLoansView, LoanListView, NewLoanView, PayLoanView, UpdateLoanView
 from mota_apps.finance.views.njangi_view import AddNjangiMemberView, DeleteNjangiView, GetNjangiDetailsView, GetNjangiView, NewNjangiView, NjangiListView, UpdateNjangiView
 from mota_apps.finance.views.record_finance_view import DeleteFinanceView, FinanceListView, NewFinanceView, UpdateFinanceView
@@ -29,4 +30,9 @@ urlpatterns = [
     path('njangis/delete/<str:pk>/', DeleteNjangiView.as_view(), name='delete_njangi'),
     path('njangis/get/<str:user_id>/', GetNjangiView.as_view(), name='get_njangis'),
     path('njangis/details/<str:pk>/', GetNjangiDetailsView.as_view(), name='get_njangi_details'),
+    path('expenditures/', ExpenditureListView.as_view(), name='expenditure_list'),
+    path('expenditures/new/', NewExpenditureView.as_view(), name='new_expenditure'),
+    path('expenditures/update/<str:pk>/', UpdateExpenditureView.as_view(), name='update_expenditure'),
+    path('expenditures/delete/<str:pk>/', DeleteExpenditureView.as_view(), name='delete_expenditure'),
+    path('expenditures/detail/<str:pk>/', ExpenditureDetailView.as_view(), name='expenditure_detail'),
 ]

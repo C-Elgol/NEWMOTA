@@ -1,0 +1,132 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}New Expenditure for {{ season }}{% endblocktrans %}</h2>
+    <a href="{% url 'finance:expenditure_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
+        {% trans "Back to Expenditures" %}
+    </a>
+</div>
+
+<form id="create-expenditure-form" class="space-y-6">
+    {% csrf_token %}
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-money-bill-wave mr-2 text-indigo-500"></i>
+            {% trans "Expenditure Details" %}
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="{{ form.entertainment_spent.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-glass-cheers mr-2 text-indigo-500"></i>
+                    {% trans "Entertainment Spent" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.entertainment_spent }}
+                </div>
+                {% if form.entertainment_spent.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.entertainment_spent.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.other_expenditures.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-money-bill-wave mr-2 text-indigo-500"></i>
+                    {% trans "Other Expenditures" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.other_expenditures }}
+                </div>
+                {% if form.other_expenditures.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.other_expenditures.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="md:col-span-2">
+                <label for="{{ form.comment.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-comment mr-2 text-indigo-500"></i>
+                    {% trans "Comment" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.comment }}
+                </div>
+                {% if form.comment.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.comment.errors.as_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="mt-6 flex justify-end space-x-3">
+            <a href="{% url 'finance:expenditure_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
+                {% trans "Cancel" %}
+            </a>
+            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+                {% trans "Create Expenditure" %}
+            </button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+    const loaderManager = new SectionLoaderManager();
+
+    $('#create-expenditure-form').on('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const csrfToken = $('[name=csrfmiddlewaretoken]').val();
+
+        loaderManager.showLoader();
+        $.ajax({
+            url: '{% url "finance:new_expenditure" %}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            success: function(response) {
+                loaderManager.hideLoader();
+                if (response.success) {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('success')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                    setTimeout(() => {
+                        window.location.href = response.redirect;
+                    }, 4000);
+                } else {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                }
+            },
+            error: function(xhr) {
+                loaderManager.hideLoader();
+                const errorMessage = xhr.responseJSON?.message || '{% trans "An error occurred while creating the expenditure." %}';
+                window.toastManager.buildToast()
+                    .setMessage(errorMessage)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
