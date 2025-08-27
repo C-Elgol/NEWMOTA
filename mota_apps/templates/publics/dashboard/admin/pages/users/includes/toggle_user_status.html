@@ -1,0 +1,157 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">{% trans "Activate/Deactivate User" %}</h2>
+    <a href="{% url 'users:user_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
+        {% trans "Back to Users" %}
+    </a>
+</div>
+
+<div class="bg-white shadow-lg rounded-lg p-6">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-user-check mr-2 text-indigo-500"></i>
+        {% trans "Manage User Status" %}
+    </h3>
+    <div class="flex space-x-4 mb-6">
+        <button type="button" onclick="showInactiveUsers(this)" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors" {% if is_visitor %}disabled{% endif %}>{% trans "Activate User" %}</button>
+        <button type="button" onclick="showActiveUsers(this)" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors" {% if is_visitor %}disabled{% endif %}>{% trans "Deactivate User" %}</button>
+    </div>
+    <form id="toggle-user-form" class="space-y-6" onsubmit="event.preventDefault(); toggleUserStatus(this);">
+        {% csrf_token %}
+        <div class="form-group" id="user-selection" style="display: none;">
+            <label for="user-list" class="block text-sm font-medium text-gray-700 flex items-center">
+                <i class="fas fa-users mr-2 text-indigo-500"></i>
+                {% trans "Select User" %}
+            </label>
+            <select id="user-list" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required {% if is_visitor %}disabled{% endif %}>
+                <option value="">{% trans "Select User" %}</option>
+            </select>
+            <button type="submit" id="action-button" class="mt-4 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors" {% if is_visitor %}disabled{% endif %}>{% trans "Toggle Status" %}</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+    const loaderManager = new SectionLoaderManager();
+    let currentAction = '';
+
+    window.showInactiveUsers = function(button) {
+        currentAction = 'activate';
+        fetchUsers('inactive', button);
+        $('#user-selection').show();
+        $('#action-button').text('{% trans "Activate User" %}');
+    };
+
+    window.showActiveUsers = function(button) {
+        currentAction = 'deactivate';
+        fetchUsers('active', button);
+        $('#user-selection').show();
+        $('#action-button').text('{% trans "Deactivate User" %}');
+    };
+
+    function fetchUsers(status, button) {
+        loaderManager.showLoader();
+        $.ajax({
+            url: '{% url "users:toggle_user_status" %}',
+            type: 'GET',
+            data: { status: status },
+            success: function(response) {
+                loaderManager.hideLoader();
+                if (response.success) {
+                    const userList = $('#user-list');
+                    userList.empty();
+                    userList.append('<option value="">{% trans "Select User" %}</option>');
+                    response.users.forEach(user => {
+                        userList.append(`<option value="${user.id}">${user.full_name} (${user.email})</option>`);
+                    });
+                } else {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message || '{% trans "Failed to fetch users." %}')
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                }
+            },
+            error: function(xhr) {
+                loaderManager.hideLoader();
+                const errorMessage = xhr.responseJSON?.message || '{% trans "An error occurred while fetching users." %}';
+                window.toastManager.buildToast()
+                    .setMessage(errorMessage)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        });
+    }
+
+    window.toggleUserStatus = function(form) {
+        const userId = $('#user-list').val();
+        if (!userId) {
+            window.toastManager.buildToast()
+                .setMessage('{% trans "Please select a user." %}')
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+            return;
+        }
+
+        const csrfToken = $('[name=csrfmiddlewaretoken]').val();
+        loaderManager.showLoader();
+        $.ajax({
+            url: '{% url "users:toggle_user_status" %}',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ user_id: userId, action: currentAction }),
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            success: function(response) {
+                loaderManager.hideLoader();
+                if (response.success) {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('success')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                    $('#user-selection').hide();
+                    $('#user-list').empty().append('<option value="">{% trans "Select User" %}</option>');
+                } else {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message || '{% trans "Failed to toggle user status." %}')
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                }
+            },
+            error: function(xhr) {
+                loaderManager.hideLoader();
+                const errorMessage = xhr.responseJSON?.message || '{% trans "An error occurred while toggling user status." %}';
+                window.toastManager.buildToast()
+                    .setMessage(errorMessage)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        });
+    };
+});
+</script>
+{% endblock %}

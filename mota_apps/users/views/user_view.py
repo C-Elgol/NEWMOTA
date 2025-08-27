@@ -1,6 +1,8 @@
+import json
 from django.views.generic import ListView, CreateView, UpdateView, View
 from django.http import JsonResponse
 from django.urls import reverse_lazy
+from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from mota_apps.users.models import User, Profile
 from mota_apps.users.forms.user_form import UserForm
@@ -235,3 +237,84 @@ class UserDetailView(View):
         elif user.is_visitor:
             return 'Visitor'
         return 'User'
+
+class UserStatusView(View):
+    template_name = "publics/dashboard/admin/pages/users/includes/toggle_user_status.html"
+
+    def get_context_data(self, **kwargs):
+        context = {}
+        context['is_admin'] = self.request.user.is_admin
+        context['is_staff'] = self.request.user.is_staff
+        context['is_visitor'] = self.request.user.is_visitor
+        logger.debug(f"Rendering toggle user status page for user {self.request.user.id}")
+        return context
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated or not (request.user.is_staff or request.user.is_admin):
+            logger.warning(f"Unauthorized access attempt by user {request.user.id} to UserStatusView")
+            return JsonResponse({'success': False, 'message': _('Unauthorized')}, status=403)
+
+        if 'status' in request.GET:
+            status = request.GET.get('status')
+            try:
+                if status == 'active':
+                    users = User.objects.filter(is_active=True, is_deleted=False).exclude(id=request.user.id)
+                elif status == 'inactive':
+                    users = User.objects.filter(is_active=False, is_deleted=False).exclude(id=request.user.id)
+                else:
+                    return JsonResponse({'success': False, 'message': _('Invalid status parameter')}, status=400)
+
+                user_data = [
+                    {
+                        'id': str(user.id),
+                        'full_name': user.get_full_name or user.email,
+                        'email': user.email
+                    }
+                    for user in users
+                ]
+                return JsonResponse({'success': True, 'users': user_data}, status=200)
+            except Exception as e:
+                logger.error(f"Error fetching users for status {status}: {str(e)}", exc_info=True)
+                return JsonResponse({'success': False, 'message': _('Failed to fetch users')}, status=500)
+        else:
+            context = self.get_context_data(**kwargs)
+            return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated or not (request.user.is_staff or request.user.is_admin):
+            logger.warning(f"Unauthorized toggle attempt by user {request.user.id}")
+            return JsonResponse({'success': False, 'message': _('Unauthorized')}, status=403)
+
+        try:
+            data = json.loads(request.body)
+            user_id = data.get('user_id')
+            action = data.get('action')
+
+            if not user_id or not action:
+                return JsonResponse({'success': False, 'message': _('Missing user_id or action')}, status=400)
+
+            user = User.objects.filter(id=user_id, is_deleted=False).first()
+            if not user:
+                return JsonResponse({'success': False, 'message': _('User not found')}, status=404)
+
+            if user.id == request.user.id:
+                return JsonResponse({'success': False, 'message': _('Cannot toggle your own status')}, status=400)
+
+            if action == 'activate':
+                user.is_active = True
+                message = _('User {email} has been activated.').format(email=user.email)
+            elif action == 'deactivate':
+                user.is_active = False
+                message = _('User {email} has been deactivated.').format(email=user.email)
+            else:
+                return JsonResponse({'success': False, 'message': _('Invalid action')}, status=400)
+
+            user.save()
+            logger.info(f'User {user.id} {action}d by user {request.user.id}')
+            return JsonResponse({'success': True, 'message': message}, status=200)
+        except json.JSONDecodeError:
+            logger.warning(f"Invalid JSON in toggle user status request by user {request.user.id}")
+            return JsonResponse({'success': False, 'message': _('Invalid request data')}, status=400)
+        except Exception as e:
+            logger.error(f"Error toggling user status: {str(e)}", exc_info=True)
+            return JsonResponse({'success': False, 'message': _('Failed to toggle user status')}, status=500)

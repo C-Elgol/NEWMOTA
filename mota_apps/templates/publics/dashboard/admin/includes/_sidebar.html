@@ -35,7 +35,6 @@
             </div>
           </div>
 
-          <!-- Products Section -->
           <div>
           <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'E-commerce' %}</h3>
           <div class="space-y-2">
@@ -107,25 +106,15 @@
                         <i class="fas fa-shopping-cart mr-3 text-lg"></i>
                         <span>{% trans "Add New member" %}</span>
                     </a>
-
-
-
-                  {% comment %} <a href="#"
-                    class="flex items-center px-4 py-2.5 inactive rounded-lg nav-item">
-                      <i class="fas fa-archive mr-3 text-lg"></i>
-                      <span>{% trans "Inventory" %}</span>
-                  </a> {% endcomment %}
               </div>
           </div>
 
-          <!-- SAV Section -->
           <div>
             <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'SAV' %}</h3>
             <div class="space-y-2">
-              <a href="#"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item">
-                <i class="fas fa-life-ring mr-3 text-lg"></i>
-                <span>{% trans "activate user" %}</span>
+              <a href="{% url 'users:toggle_user_status' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item">
+                  <i class="fas fa-user-check mr-3 text-lg"></i>
+                  <span>{% trans "Activate/Deactivate User" %}</span>
               </a>
               <a href="#"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'new_sav' %}active{% else %}inactive{% endif %}">
@@ -160,24 +149,6 @@
                 <i class="fas fa-headset mr-3 text-lg"></i>
                 <span>{% trans "Downloads PDF" %}</span>
               </a>
-              <a href="#"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'list_recovery' %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-hand-holding-usd mr-3 text-lg"></i>
-                <span>{% trans "Recovery" %}</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Leasing Section -->
-          <div>
-            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'Leasing' %}</h3>
-            <div class="space-y-2">
-              {% url 'leasing:client_list' as leasing_client_list_url %}
-              <a href="#"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item">
-                <i class="fas fa-handshake mr-3 text-lg"></i>
-                <span>{% trans 'Leasing Management' %}</span>
-              </a>
             </div>
           </div>
 
@@ -197,16 +168,6 @@
                 <i class="fas fa-percent mr-3 text-lg"></i>
                 <span>{% trans "New Users" %}</span>
               </a>
-              {% comment %} <a href="#"
-                 class="flex items-center px-4 py-2.5 inactive rounded-lg nav-item">
-                <i class="fas fa-user-shield mr-3 text-lg"></i>
-                <span>Administrators</span>
-              </a>
-              <a href="#"
-                 class="flex items-center px-4 py-2.5 inactive rounded-lg nav-item">
-                <i class="fas fa-comments mr-3 text-lg"></i>
-                <span>Reviews</span>
-              </a> {% endcomment %}
             </div>
           </div>
 
