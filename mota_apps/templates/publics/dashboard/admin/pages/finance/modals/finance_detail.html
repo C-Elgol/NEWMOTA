@@ -1,45 +1,82 @@
 {% load i18n %}
 
-<div id="detail-modal" class="fixed inset-0 bg-gray-900/50 flex items-center justify-center z-[1000] hidden opacity-0 transition-opacity duration-300">
-    <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 transform scale-95 transition-transform duration-300">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold text-gray-800">{% trans "Finance Record Details" %}</h2>
-            <button id="close-detail-btn" class="text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times"></i>
+<div id="detail-modal" class="fixed inset-0 bg-gray-900/50 flex items-center justify-center z-[10000002] hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-auto border border-gray-200 max-h-[95vh] overflow-y-auto">
+        <div class="sticky top-0 bg-white z-10 border-b border-gray-200 px-4 py-3 flex justify-between items-center">
+            <h3 class="text-lg font-semibold text-gray-800">{% trans "Finance Record Details" %}</h3>
+            <button id="close-detail-btn" class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
             </button>
         </div>
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">{% trans "Member" %}</label>
-                <p id="detail-member" class="mt-1 text-sm text-gray-900"></p>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">{% trans "Entertainment Fees" %}</label>
-                <p id="detail-entertainment" class="mt-1 text-sm text-gray-900"></p>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">{% trans "Savings" %}</label>
-                <p id="detail-savings" class="mt-1 text-sm text-gray-900"></p>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">{% trans "Njangi" %}</label>
-                <p id="detail-njangi" class="mt-1 text-sm text-gray-900"></p>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">{% trans "Project" %}</label>
-                <p id="detail-project" class="mt-1 text-sm text-gray-900"></p>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">{% trans "Others" %}</label>
-                <p id="detail-others" class="mt-1 text-sm text-gray-900"></p>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">{% trans "Total" %}</label>
-                <p id="detail-total" class="mt-1 text-sm text-gray-900"></p>
+        
+        <div class="px-4 py-4">
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <h4 class="text-sm font-medium text-gray-700 mb-3 flex items-center">
+                    <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    {% trans "Finance Information" %}
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-user mr-1 text-indigo-500"></i>
+                            {% trans "Member" %}
+                        </p>
+                        <p id="detail-member" class="text-sm font-medium text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-glass-cheers mr-1 text-indigo-500"></i>
+                            {% trans "Entertainment Fees" %}
+                        </p>
+                        <p id="detail-entertainment" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-piggy-bank mr-1 text-indigo-500"></i>
+                            {% trans "Savings" %}
+                        </p>
+                        <p id="detail-savings" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-hand-holding-usd mr-1 text-indigo-500"></i>
+                            {% trans "Njangi" %}
+                        </p>
+                        <p id="detail-njangi" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-project-diagram mr-1 text-indigo-500"></i>
+                            {% trans "Project" %}
+                        </p>
+                        <p id="detail-project" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-ellipsis-h mr-1 text-indigo-500"></i>
+                            {% trans "Others" %}
+                        </p>
+                        <p id="detail-others" class="text-sm text-gray-900 mt-1"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-calculator mr-1 text-indigo-500"></i>
+                            {% trans "Total" %}
+                        </p>
+                        <p id="detail-total" class="text-sm font-medium text-gray-900 mt-1"></p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="mt-6 flex justify-end">
-            <button id="close-detail-btn-bottom" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">{% trans "Close" %}</button>
+        
+        <div class="px-4 py-3 border-t border-gray-200 flex justify-end">
+            <button id="close-detail-btn-bottom" class="bg-gray-500 text-white px-3 py-1.5 rounded-md hover:bg-gray-600 transition-colors">
+                {% trans "Close" %}
+            </button>
         </div>
     </div>
 </div>
