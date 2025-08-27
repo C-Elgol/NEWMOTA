@@ -9,6 +9,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+def serialize_form_errors(errors):
+    """Convert ValidationError objects to a JSON-serializable format."""
+    serialized_errors = {}
+    for field, error_list in errors.items():
+        serialized_errors[field] = [str(error) for error in error_list]
+    return serialized_errors
+
 class UserListView(ListView):
     template_name = "publics/dashboard/admin/pages/users/user_list.html"
     model = User
@@ -52,7 +59,7 @@ class NewUserView(CreateView):
             return JsonResponse({
                 'success': False,
                 'message': _('Please fill in all required fields correctly.'),
-                'errors': form.errors.as_json()
+                'errors': serialize_form_errors(form.errors.as_data())
             }, status=400)
 
         try:
@@ -64,6 +71,7 @@ class NewUserView(CreateView):
 
             Profile.objects.create(
                 user=user,
+                phone_number=form.cleaned_data['phone_number'],
                 country="Cameroon",
                 zip_code="00000"
             )
@@ -96,6 +104,15 @@ class UpdateUserView(UpdateView):
         logger.debug(f"Rendering update user form for user {self.request.user.id}, User ID {self.kwargs['pk']}")
         return context
 
+    def get_initial(self):
+        initial = super().get_initial()
+        user = self.get_object()
+        try:
+            initial['phone_number'] = user.profile.phone_number
+        except Profile.DoesNotExist:
+            initial['phone_number'] = ''
+        return initial
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated or not (request.user.is_staff or request.user.is_admin):
             logger.warning(f"Unauthorized access attempt by user {request.user.id} to UpdateUserView")
@@ -110,12 +127,19 @@ class UpdateUserView(UpdateView):
             return JsonResponse({
                 'success': False,
                 'message': _('Please fill in all required fields correctly.'),
-                'errors': form.errors.as_json()
+                'errors': serialize_form_errors(form.errors.as_data())
             }, status=400)
 
         try:
             user = form.save(commit=False)
             user.save()
+
+            try:
+                profile = user.profile
+            except Profile.DoesNotExist:
+                profile = Profile.objects.create(user=user, country="Cameroon", zip_code="00000")
+            profile.phone_number = form.cleaned_data['phone_number']
+            profile.save()
 
             logger.info(f'User updated by user {request.user.id}: {user.id}')
             return JsonResponse({
@@ -174,7 +198,7 @@ class UserDetailView(View):
                 'id': str(user.id),
                 'full_name': user.get_full_name,
                 'email': user.email,
-                'phone_number': user.profile.phone_number if user.profile.phone_number else 'N/A',
+                'phone_number': user.profile.phone_number if hasattr(user, 'profile') and user.profile.phone_number else 'N/A',
                 'role': self.get_user_role(user),
                 'date_joined': user.date_joined.strftime('%Y-%m-%d %H:%M:%S'),
                 'is_active': user.is_active,
