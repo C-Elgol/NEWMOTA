@@ -4,28 +4,40 @@
 {% block content %}
 <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}New Loan for {{ season }}{% endblocktrans %}</h2>
-    <a href="{% url 'finance:loan_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+    <a href="{% url 'finance:loan_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
         {% trans "Back to Loans" %}
     </a>
 </div>
 
 <form id="create-loan-form" class="space-y-6">
     {% csrf_token %}
-    <div class="bg-white shadow rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">{% trans "Loan Details" %}</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label for="{{ form.member.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Member" %}</label>
-                <div class="mt-1">
-                    {{ form.member }}
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-hand-holding-usd mr-2 text-indigo-500"></i>
+            {% trans "Loan Details" %}
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Prioritized Select Member Field -->
+            <div class="md:col-span-2">
+                <label for="{{ form.member.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-user mr-2 text-indigo-500"></i>
+                    {% trans "Select Member" %}
+                </label>
+                <div class="mt-2">
+                    <div class="relative">
+                        {{ form.member }}
+                    </div>
+                    {% if form.member.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.member.errors.as_text }}</p>
+                    {% endif %}
                 </div>
-                {% if form.member.errors %}
-                    <p class="mt-1 text-sm text-red-600">{{ form.member.errors.as_text }}</p>
-                {% endif %}
             </div>
             <div>
-                <label for="{{ form.amount_borrowed.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Amount Borrowed" %}</label>
-                <div class="mt-1">
+                <label for="{{ form.amount_borrowed.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-money-bill-wave mr-2 text-indigo-500"></i>
+                    {% trans "Amount Borrowed" %}
+                </label>
+                <div class="mt-2">
                     {{ form.amount_borrowed }}
                 </div>
                 {% if form.amount_borrowed.errors %}
@@ -33,8 +45,11 @@
                 {% endif %}
             </div>
             <div>
-                <label for="{{ form.borrow_date.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Borrow Date" %}</label>
-                <div class="mt-1">
+                <label for="{{ form.borrow_date.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-calendar-alt mr-2 text-indigo-500"></i>
+                    {% trans "Borrow Date" %}
+                </label>
+                <div class="mt-2">
                     {{ form.borrow_date }}
                 </div>
                 {% if form.borrow_date.errors %}
@@ -42,17 +57,30 @@
                 {% endif %}
             </div>
             <div>
-                <label for="{{ form.id_card_number.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "ID Card Number" %}</label>
-                <div class="mt-1">
+                <label for="{{ form.id_card_number.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-id-card mr-2 text-indigo-500"></i>
+                    {% trans "ID Card Number" %}
+                </label>
+                <div class="mt-2">
                     {{ form.id_card_number }}
                 </div>
                 {% if form.id_card_number.errors %}
                     <p class="mt-1 text-sm text-red-600">{{ form.id_card_number.errors.as_text }}</p>
                 {% endif %}
             </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-percent mr-2 text-indigo-500"></i>
+                    {% trans "Interest to Be Paid (1.5%)" %}
+                </label>
+                <p id="interest-preview" class="mt-2 text-sm text-gray-900 font-medium">0.00</p>
+            </div>
             <div class="md:col-span-2">
-                <label for="{{ form.signature.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Signature" %}</label>
-                <div class="mt-1">
+                <label for="{{ form.signature.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-signature mr-2 text-indigo-500"></i>
+                    {% trans "Signature" %}
+                </label>
+                <div class="mt-2">
                     {{ form.signature }}
                 </div>
                 {% if form.signature.errors %}
@@ -60,30 +88,59 @@
                 {% endif %}
             </div>
             <div class="md:col-span-2">
-                <label for="{{ form.comment.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Comment" %}</label>
-                <div class="mt-1">
+                <label for="{{ form.comment.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-comment mr-2 text-indigo-500"></i>
+                    {% trans "Comment" %}
+                </label>
+                <div class="mt-2">
                     {{ form.comment }}
                 </div>
                 {% if form.comment.errors %}
                     <p class="mt-1 text-sm text-red-600">{{ form.comment.errors.as_text }}</p>
                 {% endif %}
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">{% trans "Interest to Be Paid (1.5%)" %}</label>
-                <p id="interest-preview" class="mt-1 text-sm text-gray-900">0.00</p>
-            </div>
         </div>
-        <div class="mt-6 flex justify-end space-x-2">
-            <a href="{% url 'finance:loan_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">
+        <div class="mt-6 flex justify-end space-x-3">
+            <a href="{% url 'finance:loan_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
                 {% trans "Cancel" %}
             </a>
-            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
                 {% trans "Create Loan" %}
             </button>
         </div>
     </div>
 </form>
 
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+<style>
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.375rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 1.5rem;
+        color: #374151;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 2.5rem;
+    }
+    .select2-container--default .select2-selection--single:focus {
+        outline: none;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+        color: #9ca3af;
+    }
+</style>
 {% endblock %}
 
 {% block js %}
@@ -96,7 +153,9 @@ $(document).ready(function() {
     $('.select2').select2({
         placeholder: "{% trans 'Select a member' %}",
         allowClear: true,
-        width: '100%'
+        width: '100%',
+        dropdownCssClass: 'border border-gray-200 rounded-md shadow-sm',
+        selectionCssClass: 'text-gray-700'
     });
 
     const loaderManager = new SectionLoaderManager();

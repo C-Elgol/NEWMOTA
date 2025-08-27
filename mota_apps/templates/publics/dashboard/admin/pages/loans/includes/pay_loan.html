@@ -4,19 +4,26 @@
 {% block content %}
 <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Pay Loan for {{ season }}{% endblocktrans %}</h2>
-    <a href="{% url 'finance:loan_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+    <a href="{% url 'finance:loan_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
         {% trans "Back to Loans" %}
     </a>
 </div>
 
 <form id="pay-loan-form" class="space-y-6">
     {% csrf_token %}
-    <div class="bg-white shadow rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">{% trans "Loan Payment Details" %}</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label for="member-select" class="block text-sm font-medium text-gray-700">{% trans "Select Member" %}</label>
-                <div class="mt-1">
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-hand-holding-usd mr-2 text-green-600"></i>
+            {% trans "Loan Payment Details" %}
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Select Member -->
+            <div class="md:col-span-2">
+                <label for="member-select" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-user mr-2 text-indigo-500"></i>
+                    {% trans "Select Member" %}
+                </label>
+                <div class="mt-2">
                     <select id="member-select" class="select2 w-full" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
                         <option value="">{% trans "Select a member" %}</option>
                         {% for member in members %}
@@ -25,9 +32,13 @@
                     </select>
                 </div>
             </div>
-            <div>
-                <label for="{{ form.loan.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Select Loan" %}</label>
-                <div class="mt-1">
+            <!-- Prioritized Select Loan Field -->
+            <div class="md:col-span-2">
+                <label for="{{ form.loan.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-money-check-alt mr-2 text-green-600"></i>
+                    {% trans "Select Loan" %}
+                </label>
+                <div class="mt-2">
                     {{ form.loan }}
                 </div>
                 {% if form.loan.errors %}
@@ -35,8 +46,11 @@
                 {% endif %}
             </div>
             <div>
-                <label for="{{ form.amount.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Amount Repaid" %}</label>
-                <div class="mt-1">
+                <label for="{{ form.amount.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-money-bill-wave mr-2 text-green-600"></i>
+                    {% trans "Amount Repaid" %}
+                </label>
+                <div class="mt-2">
                     {{ form.amount }}
                 </div>
                 {% if form.amount.errors %}
@@ -44,8 +58,11 @@
                 {% endif %}
             </div>
             <div>
-                <label for="{{ form.payment_date.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Payment Date" %}</label>
-                <div class="mt-1">
+                <label for="{{ form.payment_date.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-calendar-alt mr-2 text-green-600"></i>
+                    {% trans "Payment Date" %}
+                </label>
+                <div class="mt-2">
                     {{ form.payment_date }}
                 </div>
                 {% if form.payment_date.errors %}
@@ -53,8 +70,11 @@
                 {% endif %}
             </div>
             <div class="md:col-span-2">
-                <label for="{{ form.comment.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Comment" %}</label>
-                <div class="mt-1">
+                <label for="{{ form.comment.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-comment mr-2 text-green-600"></i>
+                    {% trans "Comment" %}
+                </label>
+                <div class="mt-2">
                     {{ form.comment }}
                 </div>
                 {% if form.comment.errors %}
@@ -62,17 +82,47 @@
                 {% endif %}
             </div>
         </div>
-        <div class="mt-6 flex justify-end space-x-2">
-            <a href="{% url 'finance:loan_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">
+        <div class="mt-6 flex justify-end space-x-3">
+            <a href="{% url 'finance:loan_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
                 {% trans "Cancel" %}
             </a>
-            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-green-700" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
                 {% trans "Record Payment" %}
             </button>
         </div>
     </div>
 </form>
 
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+<style>
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.375rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 1.5rem;
+        color: #374151;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 2.5rem;
+    }
+    .select2-container--default .select2-selection--single:focus {
+        outline: none;
+        border-color: #16a34a;
+        box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+        color: #9ca3af;
+    }
+</style>
 {% endblock %}
 
 {% block js %}
@@ -83,9 +133,13 @@
 <script>
 $(document).ready(function() {
     $('.select2').select2({
-        placeholder: "{% trans 'Select an option' %}",
+        placeholder: function() {
+            return $(this).attr('id') === 'member-select' ? "{% trans 'Select a member' %}" : "{% trans 'Select a loan' %}";
+        },
         allowClear: true,
-        width: '100%'
+        width: '100%',
+        dropdownCssClass: 'border border-gray-200 rounded-md shadow-sm',
+        selectionCssClass: 'text-gray-700'
     });
 
     const loaderManager = new SectionLoaderManager();
@@ -93,7 +147,7 @@ $(document).ready(function() {
     $('#member-select').on('change', function() {
         const memberId = $(this).val();
         if (!memberId) {
-            $('#{{ form.loan.id_for_label }}').empty().append('<option value="">{% trans "Select a loan" %}</option>');
+            $('#{{ form.loan.id_for_label }}').empty().append('<option value="">{% trans "Select a loan" %}</option>').trigger('change');
             return;
         }
 
