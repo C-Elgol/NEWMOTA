@@ -1,0 +1,284 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<form id="csrf-form" style="display: none;">
+    {% csrf_token %}
+</form>
+<div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+    <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Finances for {{ season }}{% endblocktrans %}</h2>
+    <a href="{% url 'finance:new_finance' %}" class="bg-primary text-white px-4 py-2 rounded-md whitespace-nowrap w-full md:w-auto inline-flex items-center justify-center">
+        <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        {% trans "New Finance Record" %}
+    </a>
+</div>
+
+<div class="overflow-x-auto">
+    <table id="finance_list" class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Member" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Entertainment" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Savings" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Njangi" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Project" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Others" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Total" %}</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            {% for record in finance_records %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    {{ record.member.get_full_name }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record.entertainment_fees }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record.savings }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record.njangi }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record.project }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record.others }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record.entertainment_fees|add:record.savings|add:record.njangi|add:record.project|add:record.others }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button class="detail-btn text-primary hover:text-indigo-600 mr-3"
+                            data-id="{{ record.id }}"
+                            data-member="{{ record.member.get_full_name }}"
+                            data-entertainment="{{ record.entertainment_fees }}"
+                            data-savings="{{ record.savings }}"
+                            data-njangi="{{ record.njangi }}"
+                            data-project="{{ record.project }}"
+                            data-others="{{ record.others }}"
+                            data-total="{{ record.entertainment_fees|add:record.savings|add:record.njangi|add:record.project|add:record.others }}">
+                        <i class="fas fa-eye mr-2"></i>
+                    </button>
+                    <a href="{% url 'finance:finance_update' pk=record.id %}" class="text-yellow-600 hover:text-yellow-900 mr-3" {% if is_visitor or is_staff and not is_current_season %}style="display:none;"{% endif %}>
+                        <i class="fas fa-edit mr-2"></i>
+                    </a>
+                    <button onclick="confirmDelete('{{ record.id }}', '{{ record.member.get_full_name }}', '{% url 'finance:finance_delete' pk=record.id %}')" class="text-red-600 hover:text-red-900" {% if is_visitor or is_staff and not is_current_season %}style="display:none;"{% endif %}>
+                        <i class="fas fa-trash-alt mr-2"></i>
+                    </button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="px-6 py-4 text-sm text-gray-500 text-center">{% trans "No finance records for this season." %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Detail Modal -->
+{% include 'publics/dashboard/admin/pages/finance/modals/finance_detail.html' %}
+
+<!-- Delete Confirmation Modal -->
+{% include 'publics/dashboard/admin/pages/finance/modals/finance_delete.html' %}
+
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let table = null;
+
+    if (document.getElementById("finance_list") && typeof simpleDatatables.DataTable !== 'undefined') {
+        const resetTable = function () {
+            if (table) {
+                table.destroy();
+            }
+
+            const options = {
+                selectable: false,
+                rowNavigation: false,
+                tabIndex: false,
+                labels: {
+                    placeholder: `{% trans 'Search...' %}`,
+                    searchTitle: `{% trans 'Search within table' %}`,
+                    pageTitle: `{% trans 'Page {page}' %}`,
+                    perPage: `{% trans 'entries per page' %}`,
+                    noRows: `{% trans 'No finance records found.' %}`,
+                    info: `{% trans 'Showing {start} to {end} of {rows} entries' %}`,
+                    noResults: `{% trans 'No results match your search query' %}`,
+                },
+            };
+
+            table = new simpleDatatables.DataTable("#finance_list", options);
+        };
+
+        const isMobile = window.matchMedia("(any-pointer:coarse)").matches;
+        if (isMobile) {
+            rowNavigation = false;
+        }
+
+        resetTable();
+    }
+
+    const loaderManager = new SectionLoaderManager();
+
+    document.querySelectorAll('.detail-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            document.getElementById('detail-member').textContent = this.getAttribute('data-member') || 'N/A';
+            document.getElementById('detail-entertainment').textContent = this.getAttribute('data-entertainment') || '0.00';
+            document.getElementById('detail-savings').textContent = this.getAttribute('data-savings') || '0.00';
+            document.getElementById('detail-njangi').textContent = this.getAttribute('data-njangi') || '0.00';
+            document.getElementById('detail-project').textContent = this.getAttribute('data-project') || '0.00';
+            document.getElementById('detail-others').textContent = this.getAttribute('data-others') || '0.00';
+            document.getElementById('detail-total').textContent = this.getAttribute('data-total') || '0.00';
+
+            showDetailModal();
+        });
+    });
+
+    document.getElementById('close-detail-btn').addEventListener('click', hideDetailModal);
+    document.getElementById('close-detail-btn-bottom').addEventListener('click', hideDetailModal);
+
+    document.getElementById('detail-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            hideDetailModal();
+        }
+    });
+
+    let currentDeleteId = null;
+
+    window.confirmDelete = function(id, name, deleteUrl) {
+        currentDeleteId = id;
+        document.getElementById('delete-name').textContent = name;
+        document.getElementById('delete-modal').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        document.getElementById('confirm-delete-btn').dataset.deleteUrl = deleteUrl;
+    };
+
+    document.getElementById('cancel-delete-btn').addEventListener('click', function() {
+        document.getElementById('delete-modal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        currentDeleteId = null;
+    });
+
+    document.getElementById('confirm-delete-btn').addEventListener('click', function() {
+        if (!currentDeleteId) return;
+
+        const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (!csrfTokenElement) {
+            window.toastManager.buildToast()
+                .setMessage(gettext('CSRF token is missing. Please refresh the page and try again.'))
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+            return;
+        }
+
+        const deleteUrl = this.dataset.deleteUrl;
+        loaderManager.showLoader();
+        fetch(deleteUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfTokenElement.value,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: currentDeleteId })
+        })
+        .then(response => {
+            loaderManager.hideLoader();
+            if (!response.ok) {
+                throw new Error(gettext('An error occurred while deleting the finance record.'));
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                window.toastManager.buildToast()
+                    .setMessage(data.message || gettext('Finance record deleted successfully.'))
+                    .setType('success')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+
+                document.getElementById('delete-modal').classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                currentDeleteId = null;
+
+                const row = document.querySelector(`tr td button[data-id="${data.id}"]`)?.closest('tr');
+                if (row) {
+                    row.remove();
+                }
+                if (typeof resetTable === 'function') {
+                    resetTable();
+                }
+            } else {
+                window.toastManager.buildToast()
+                    .setMessage(data.message || gettext('Failed to delete finance record. Please try again.'))
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        })
+        .catch(error => {
+            loaderManager.hideLoader();
+            window.toastManager.buildToast()
+                .setMessage(gettext('An unexpected error occurred: ') + error.message)
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+        });
+    });
+
+    document.getElementById('delete-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            document.getElementById('delete-modal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            currentDeleteId = null;
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (!document.getElementById('detail-modal').classList.contains('hidden')) {
+                hideDetailModal();
+            }
+            if (!document.getElementById('delete-modal').classList.contains('hidden')) {
+                document.getElementById('delete-modal').classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                currentDeleteId = null;
+            }
+        }
+    });
+
+    function showDetailModal() {
+        const modal = document.getElementById('detail-modal');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.add('opacity-100');
+            modal.querySelector('div').classList.remove('scale-95');
+        }, 10);
+    }
+
+    function hideDetailModal() {
+        const modal = document.getElementById('detail-modal');
+        modal.classList.remove('opacity-100');
+        modal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+});
+</script>
+{% endblock %}

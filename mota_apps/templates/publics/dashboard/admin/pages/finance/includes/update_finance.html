@@ -1,0 +1,151 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<style>
+    .required-field::after {
+        content: "*";
+        color: red;
+        margin-left: 4px;
+    }
+    .opacity-50 {
+        opacity: 0.5;
+    }
+    .opacity-50 input, .opacity-50 select {
+        cursor: not-allowed;
+    }
+</style>
+
+<div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+    <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Update Finance Record for {{ season }}{% endblocktrans %}</h2>
+    <a href="{% url 'finance:finance_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
+        {% trans "Back to List" %}
+    </a>
+</div>
+
+<form method="post" id="finance-form" class="space-y-6">
+    {% csrf_token %}
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">{% trans "Finance Record" %}</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="{% if not is_admin and not is_current_season %}opacity-50{% endif %}">
+                <label for="{{ form.member.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1 required-field">{% trans "Member" %}</label>
+                {{ form.member }}
+                {% if form.member.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.member.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.entertainment_fees.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1 required-field">{% trans "Entertainment Fees" %}</label>
+                {{ form.entertainment_fees }}
+                {% if form.entertainment_fees.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.entertainment_fees.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.savings.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1 required-field">{% trans "Savings" %}</label>
+                {{ form.savings }}
+                {% if form.savings.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.savings.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.njangi.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1 required-field">{% trans "Njangi" %}</label>
+                {{ form.njangi }}
+                {% if form.njangi.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.njangi.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.project.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1 required-field">{% trans "Project" %}</label>
+                {{ form.project }}
+                {% if form.project.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.project.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.others.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1 required-field">{% trans "Others" %}</label>
+                {{ form.others }}
+                {% if form.others.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.others.errors.as_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="flex justify-end gap-4">
+            <a href="{% url 'finance:finance_list' %}" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600">{% trans "Cancel" %}</a>
+            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark">{% trans "Update Finance Record" %}</button>
+        </div>
+    </div>
+</form>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loaderManager = new SectionLoaderManager();
+
+    $('#{{ form.member.id_for_label }}').select2({
+        placeholder: "{% trans 'Select member' %}",
+        allowClear: true,
+        width: '100%'
+    });
+
+    const form = document.getElementById('finance-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            loaderManager.showLoader();
+            const formData = new FormData(form);
+            const url = window.location.href;
+
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            })
+            .then(response => {
+                loaderManager.hideLoader();
+                if (!response.ok) {
+                    throw new Error(gettext('An error occurred while submitting the form.'));
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    window.toastManager.buildToast()
+                        .setMessage(data.message || gettext('Finance record updated successfully.'))
+                        .setType('success')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 4000);
+                } else {
+                    window.toastManager.buildToast()
+                        .setMessage(data.message || gettext('Failed to update finance record. Please try again.'))
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                }
+            })
+            .catch(error => {
+                loaderManager.hideLoader();
+                window.toastManager.buildToast()
+                    .setMessage(gettext('An unexpected error occurred: ') + error.message)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

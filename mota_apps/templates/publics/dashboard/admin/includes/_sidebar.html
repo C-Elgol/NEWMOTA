@@ -13,7 +13,7 @@
       {% with current_url=request.resolver_match.url_name %}
         <!-- Dashboard -->
         <div class="mb-6">
-          <a href="#"
+          <a href="{% url 'finance:admin-dashboard' %}"
                  class="flex items-center px-4 py-2.5 rounded-lg nav-item">
                 <i class="fas fa-life-ring mr-3 text-lg"></i>
                 <span>{% trans "Dashboard" %}</span>
@@ -39,15 +39,15 @@
           <div>
           <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'E-commerce' %}</h3>
           <div class="space-y-2">
-                  {% url 'products:product_list' as product_list_url %}
-                  <a href="{{ product_list_url }}"
-                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == product_list_url %}active{% else %}inactive{% endif %}">
+                  {% url 'finance:finance_list' as finance_list_url %}
+                  <a href="{{ finance_list_url }}"
+                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == finance_list_url %}active{% else %}inactive{% endif %}">
                       <i class="fas fa-boxes mr-3 text-lg"></i>
                       <span>{% trans "All Finance" %}</span>
                   </a>
-                  {% url 'products:new_product' as new_product_url %}
-                  <a href="{{ new_product_url }}"
-                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_product_url %}active{% else %}inactive{% endif %}">
+                  {% url 'finance:new_finance' as new_finance_url %}
+                  <a href="{{ new_finance_url }}"
+                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_finance_url %}active{% else %}inactive{% endif %}">
                       <i class="fas fa-plus-circle mr-3 text-lg"></i>
                       <span>{% trans "Add New Finance" %}</span>
                   </a>
