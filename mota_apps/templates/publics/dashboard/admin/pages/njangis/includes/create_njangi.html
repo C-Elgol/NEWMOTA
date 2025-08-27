@@ -1,0 +1,247 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}New Njangi Beneficiary for {{ season }}{% endblocktrans %}</h2>
+    <a href="{% url 'finance:njangi_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
+        {% trans "Back to Njangis" %}
+    </a>
+</div>
+
+<form id="create-njangi-form" class="space-y-6">
+    {% csrf_token %}
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-hand-holding-usd mr-2 text-green-600"></i>
+            {% trans "Njangi Beneficiary Details" %}
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-2">
+                <label for="{{ form.user.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-user mr-2 text-green-600"></i>
+                    {% trans "Select Member" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.user }}
+                </div>
+                {% if form.user.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.user.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.member_id_number.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-id-card mr-2 text-green-600"></i>
+                    {% trans "Member ID" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.member_id_number }}
+                </div>
+                {% if form.member_id_number.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.member_id_number.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.transaction_id.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-receipt mr-2 text-green-600"></i>
+                    {% trans "Transaction ID" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.transaction_id }}
+                </div>
+                {% if form.transaction_id.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.transaction_id.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.amount.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-money-bill-wave mr-2 text-green-600"></i>
+                    {% trans "Amount" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.amount }}
+                </div>
+                {% if form.amount.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.amount.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.benefited_date.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-calendar-alt mr-2 text-green-600"></i>
+                    {% trans "Benefited Date" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.benefited_date }}
+                </div>
+                {% if form.benefited_date.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.benefited_date.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.id_card_number.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-id-card mr-2 text-green-600"></i>
+                    {% trans "ID Card Number" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.id_card_number }}
+                </div>
+                {% if form.id_card_number.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.id_card_number.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="md:col-span-2">
+                <label for="{{ form.comment.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-comment mr-2 text-green-600"></i>
+                    {% trans "Comment" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.comment }}
+                </div>
+                {% if form.comment.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.comment.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="md:col-span-2">
+                <label for="{{ form.signature.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-signature mr-2 text-green-600"></i>
+                    {% trans "Signature" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.signature }}
+                </div>
+                {% if form.signature.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.signature.errors.as_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="mt-6 flex justify-end space-x-3">
+            <a href="{% url 'finance:njangi_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
+                {% trans "Cancel" %}
+            </a>
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+                {% trans "Create Njangi Beneficiary" %}
+            </button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+<style>
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.375rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 1.5rem;
+        color: #374151;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 2.5rem;
+    }
+    .select2-container--default .select2-selection--single:focus {
+        outline: none;
+        border-color: #16a34a;
+        box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+        color: #9ca3af;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'js/common/toast_manager.js' %}" onerror="console.error('Failed to load toast_manager.js');"></script>
+<script src="{% static 'js/common/loader_manager.js' %}" onerror="console.error('Failed to load loader_manager.js');"></script>
+<script>
+$(document).ready(function() {
+    console.log('Document ready, initializing Select2 and form handlers');
+    $('.select2').select2({
+        placeholder: "{% trans 'Select a member' %}",
+        allowClear: true,
+        width: '100%',
+        dropdownCssClass: 'border border-gray-200 rounded-md shadow-sm',
+        selectionCssClass: 'text-gray-700'
+    });
+    console.log('Select2 initialized successfully');
+
+    // Fallback for missing dependencies
+    const loaderManager = window.SectionLoaderManager ? new window.SectionLoaderManager() : {
+        showLoader: () => console.log('Loader not available, skipping showLoader'),
+        hideLoader: () => console.log('Loader not available, skipping hideLoader')
+    };
+    const toastManager = window.toastManager ? window.toastManager : {
+        buildToast: () => ({
+            setMessage: (msg) => ({ message: msg, setType: (type) => ({ type, show: () => alert(msg) }) }),
+            setType: () => ({ show: () => alert('Toast not available') }),
+            setPosition: () => ({ show: () => alert('Toast not available') }),
+            setDuration: () => ({ show: () => alert('Toast not available') }),
+            show: () => alert('Toast not available')
+        })
+    };
+
+    $('#create-njangi-form').on('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const csrfToken = $('[name=csrfmiddlewaretoken]').val();
+
+        console.log('Form submitted:', Object.fromEntries(formData));
+
+        loaderManager.showLoader();
+        $.ajax({
+            url: '{% url "finance:new_njangi" %}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            success: function(response) {
+                loaderManager.hideLoader();
+                console.log('Success response:', response);
+                if (response.success) {
+                    toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('success')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                    setTimeout(() => {
+                        window.location.href = response.redirect;
+                    }, 4000);
+                } else {
+                    console.error('Form errors:', response.errors);
+                    toastManager.buildToast()
+                        .setMessage(response.message || '{% trans "Failed to create njangi beneficiary." %}')
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                }
+            },
+            error: function(xhr) {
+                loaderManager.hideLoader();
+                console.error('AJAX error:', xhr.responseText);
+                const errorMessage = xhr.responseJSON?.message || '{% trans "An error occurred while creating the njangi beneficiary." %}';
+                toastManager.buildToast()
+                    .setMessage(errorMessage)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

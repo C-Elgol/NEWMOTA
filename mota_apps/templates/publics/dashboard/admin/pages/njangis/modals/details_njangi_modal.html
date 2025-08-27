@@ -1,0 +1,24 @@
+{% load static %}
+{% load i18n %}
+<div id="detailsModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-hand-holding-usd mr-2 text-green-600"></i>
+            {% trans "Njangi Beneficiary Details" %}
+        </h3>
+        <div id="detailsContent" class="space-y-4">
+            <p><strong>{% trans "Position" %}:</strong> <span id="detail-position"></span></p>
+            <p><strong>{% trans "Name" %}:</strong> <span id="detail-name"></span></p>
+            <p><strong>{% trans "Member ID" %}:</strong> <span id="detail-member-id"></span></p>
+            <p><strong>{% trans "Transaction ID" %}:</strong> <span id="detail-transaction-id"></span></p>
+            <p><strong>{% trans "Amount" %}:</strong> <span id="detail-amount"></span></p>
+            <p><strong>{% trans "Benefited Date" %}:</strong> <span id="detail-benefited-date"></span></p>
+            <p><strong>{% trans "ID Card Number" %}:</strong> <span id="detail-id-card-number"></span></p>
+            <p><strong>{% trans "Comment" %}:</strong> <span id="detail-comment"></span></p>
+            <p><strong>{% trans "Signature" %}:</strong> <span id="detail-signature"></span></p>
+        </div>
+        <div class="mt-6 flex justify-end">
+            <button onclick="closeDetailsModal()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">{% trans "Close" %}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,155 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Add Njangi Member for {{ season }}{% endblocktrans %}</h2>
+    <a href="{% url 'finance:njangi_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
+        {% trans "Back to Njangis" %}
+    </a>
+</div>
+
+<form id="add-njangi-member-form" class="space-y-6">
+    {% csrf_token %}
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-user-plus mr-2 text-green-600"></i>
+            {% trans "Njangi Member Details" %}
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-2">
+                <label for="{{ form.user.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-user mr-2 text-green-600"></i>
+                    {% trans "Select User" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.user }}
+                </div>
+                {% if form.user.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.user.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.position.id_for_label }}" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-sort-numeric-up mr-2 text-green-600"></i>
+                    {% trans "Position" %}
+                </label>
+                <div class="mt-2">
+                    {{ form.position }}
+                </div>
+                {% if form.position.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.position.errors.as_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="mt-6 flex justify-end space-x-3">
+            <a href="{% url 'finance:njangi_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors">
+                {% trans "Cancel" %}
+            </a>
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+                {% trans "Add Njangi Member" %}
+            </button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+<style>
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.375rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 1.5rem;
+        color: #374151;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 2.5rem;
+    }
+    .select2-container--default .select2-selection--single:focus {
+        outline: none;
+        border-color: #16a34a;
+        box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+        color: #9ca3af;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+    $('.select2').select2({
+        placeholder: "{% trans 'Select a user' %}",
+        allowClear: true,
+        width: '100%',
+        dropdownCssClass: 'border border-gray-200 rounded-md shadow-sm',
+        selectionCssClass: 'text-gray-700'
+    });
+
+    const loaderManager = new SectionLoaderManager();
+
+    $('#add-njangi-member-form').on('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const csrfToken = $('[name=csrfmiddlewaretoken]').val();
+
+        loaderManager.showLoader();
+        $.ajax({
+            url: '{% url "finance:add_njangi_member" %}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            success: function(response) {
+                loaderManager.hideLoader();
+                if (response.success) {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('success')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                    setTimeout(() => {
+                        window.location.href = response.redirect;
+                    }, 4000);
+                } else {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                }
+            },
+            error: function(xhr) {
+                loaderManager.hideLoader();
+                const errorMessage = xhr.responseJSON?.message || '{% trans "An error occurred while adding the njangi member." %}';
+                window.toastManager.buildToast()
+                    .setMessage(errorMessage)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

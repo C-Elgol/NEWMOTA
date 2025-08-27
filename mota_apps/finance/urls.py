@@ -3,6 +3,7 @@ from django.urls import path
 
 from mota_apps.finance.views.admin_dashboard_view import AdminDashboardView
 from mota_apps.finance.views.loan_view import DeleteLoanView, GetLoansView, LoanListView, NewLoanView, PayLoanView, UpdateLoanView
+from mota_apps.finance.views.njangi_view import AddNjangiMemberView, DeleteNjangiView, GetNjangiDetailsView, GetNjangiView, NewNjangiView, NjangiListView, UpdateNjangiView
 from mota_apps.finance.views.record_finance_view import DeleteFinanceView, FinanceListView, NewFinanceView, UpdateFinanceView
 from mota_apps.finance.views.season_selection_view import SeasonSelectionView
 
@@ -21,4 +22,11 @@ urlpatterns = [
     path('loan-delete/<str:pk>/', DeleteLoanView.as_view(), name='loan_delete'),
     path('pay-loan/', PayLoanView.as_view(), name='pay_loan'),
     path('get-loans/<str:member_id>/', GetLoansView.as_view(), name='get_loans'),
+    path('njangis/', NjangiListView.as_view(), name='njangi_list'),
+    path('njangis/new/', NewNjangiView.as_view(), name='new_njangi'),
+    path('njangis/update/<str:pk>/', UpdateNjangiView.as_view(), name='update_njangi'),
+    path('njangis/add-member/', AddNjangiMemberView.as_view(), name='add_njangi_member'),
+    path('njangis/delete/<str:pk>/', DeleteNjangiView.as_view(), name='delete_njangi'),
+    path('njangis/get/<str:user_id>/', GetNjangiView.as_view(), name='get_njangis'),
+    path('njangis/details/<str:pk>/', GetNjangiDetailsView.as_view(), name='get_njangi_details'),
 ]

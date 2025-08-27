@@ -64,11 +64,21 @@
                       <span>{% trans "Pay Loan" %}</span>
                   </a>
 
-                  {% url 'products:stock_management' as stock_management_url %}
-                  <a href="{{ stock_management_url }}"
-                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == stock_management_url %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-boxes mr-2"></i>
-                      <span>{% trans "Njangi" %}</span>
+                  <a href="{% url 'finance:njangi_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'njangi_list' %}active{% else %}inactive{% endif %}">
+                    <i class="fas fa-boxes mr-2"></i>
+                    <span>{% trans "Njangi Beneficiaries" %}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'finance:new_njangi' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'new_njangi' %}active{% else %}inactive{% endif %}">
+                    <i class="fas fa-plus-circle mr-3 text-lg"></i>
+                    <span>{% trans "Add Njangi Beneficiary" %}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'finance:add_njangi_member' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'add_njangi_member' %}active{% else %}inactive{% endif %}">
+                    <i class="fas fa-user-plus mr-3 text-lg"></i>
+                    <span>{% trans "Add Njangi Member" %}</span>
                   </a>
 
                   {% url 'products:daily_output' as daily_output_url %}
