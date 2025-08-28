@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
     'mota_apps.users',
     'mota_apps.finance',
 ]
@@ -188,7 +189,7 @@ CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'  # Adjust to your timezone
+CELERY_TIMEZONE = 'Africa/Douala'  # Adjust to your timezone
 
 
 # Logging Configuration
