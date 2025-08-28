@@ -1,0 +1,3858 @@
+# French translations for MOTA project.
+# Copyright (C) 2025 AYEMELE ELGOL
+# This file is distributed under the same license as the MOTA package.
+# AYEMELE ELGOL <ayemeleelgol@gmail.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MOTA 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-28 05:29+0100\n"
+"PO-Revision-Date: 2025-08-28 11:49+0100\n"
+"Last-Translator: AYEMELE ELGOL <ayemeleelgol@gmail.com>\n"
+"Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: mota_apps/finance/forms/expenditure_form.py:28
+#: mota_apps/finance/views/admin_dashboard_view.py:141
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:22
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/create_expenditure.html:23
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/update_expenditure.html:23
+msgid "Entertainment Spent"
+msgstr "Dépenses de Loisirs"
+
+#: mota_apps/finance/forms/expenditure_form.py:29
+#: mota_apps/finance/views/admin_dashboard_view.py:142
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:23
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/create_expenditure.html:35
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/update_expenditure.html:35
+msgid "Other Expenditures"
+msgstr "Autres Dépenses"
+
+#: mota_apps/finance/forms/expenditure_form.py:30
+#: mota_apps/finance/forms/njangi_form.py:27
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:24
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/create_expenditure.html:47
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/update_expenditure.html:47
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:93
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:75
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:63
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:96
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:95
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:95
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:17
+msgid "Comment"
+msgstr "Commentaire"
+
+#: mota_apps/finance/forms/loan_form.py:23
+msgid "Selected member is not active."
+msgstr "Le membre sélectionné n'est pas actif."
+
+#: mota_apps/finance/forms/loan_form.py:26
+msgid "Loan amount must be greater than zero."
+msgstr "Le montant du prêt doit être supérieur à zéro."
+
+#: mota_apps/finance/forms/loan_form.py:46
+msgid "Payment amount must be greater than zero."
+msgstr "Le montant du paiement doit être supérieur à zéro."
+
+#: mota_apps/finance/forms/loan_form.py:48
+msgid "Payment amount exceeds the remaining loan balance."
+msgstr "Le montant du paiement dépasse le solde restant du prêt."
+
+#: mota_apps/finance/forms/njangi_form.py:21
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:24
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:24
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:23
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:23
+msgid "Select Member"
+msgstr "Sélectionner un Membre"
+
+#: mota_apps/finance/forms/njangi_form.py:22
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:35
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:35
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:12
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:28
+msgid "Member ID"
+msgstr "ID Membre"
+
+#: mota_apps/finance/forms/njangi_form.py:23
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:47
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:47
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:13
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:29
+msgid "Transaction ID"
+msgstr "ID Transaction"
+
+#: mota_apps/finance/forms/njangi_form.py:24
+msgid "Njangi Amount"
+msgstr "Montant Njangi"
+
+#: mota_apps/finance/forms/njangi_form.py:25
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:71
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:71
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:15
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:31
+msgid "Benefited Date"
+msgstr "Date de Bénéfice"
+
+#: mota_apps/finance/forms/njangi_form.py:26
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:62
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:45
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:82
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:83
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:83
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:16
+msgid "ID Card Number"
+msgstr "Numéro de Carte d'Identité"
+
+#: mota_apps/finance/forms/njangi_form.py:28
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:81
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:54
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:89
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:107
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:107
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:18
+msgid "Signature"
+msgstr "Signature"
+
+#: mota_apps/finance/forms/njangi_form.py:46
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/add_njangi_member.html:23
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:26
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:29
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:75
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:133
+msgid "Select User"
+msgstr "Sélectionner un Utilisateur"
+
+#: mota_apps/finance/forms/njangi_form.py:51
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/add_njangi_member.html:35
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:10
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:26
+msgid "Position"
+msgstr "Poste"
+
+#: mota_apps/finance/models.py:46
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:23
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:29
+msgid "Finance Record"
+msgstr "Enregistrement Financier"
+
+#: mota_apps/finance/models.py:47
+msgid "Finance Records"
+msgstr "Enregistrements Financiers"
+
+#: mota_apps/finance/models.py:73
+msgid "Loan"
+msgstr "Prêt"
+
+#: mota_apps/finance/models.py:74
+msgid "Loans"
+msgstr "Prêts"
+
+#: mota_apps/finance/models.py:107
+msgid "Loan Payment"
+msgstr "Paiement de Prêt"
+
+#: mota_apps/finance/models.py:108
+msgid "Loan Payments"
+msgstr "Paiements de Prêts"
+
+#: mota_apps/finance/models.py:127
+#: mota_apps/finance/views/admin_dashboard_view.py:123
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:28
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:47
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:53
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:47
+msgid "Njangi"
+msgstr "Njangi"
+
+#: mota_apps/finance/models.py:128
+msgid "Njangis"
+msgstr "Njangis"
+
+#: mota_apps/finance/models.py:143
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:87
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:33
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:61
+msgid "Interest"
+msgstr "Intérêt"
+
+#: mota_apps/finance/models.py:144
+msgid "Interests"
+msgstr "Intérêts"
+
+#: mota_apps/finance/models.py:161
+msgid "Project Record"
+msgstr "Enregistrement de Projet"
+
+#: mota_apps/finance/models.py:162
+msgid "Project Records"
+msgstr "Enregistrements de Projet"
+
+#: mota_apps/finance/models.py:176
+msgid "Expenditure"
+msgstr "Dépense"
+
+#: mota_apps/finance/models.py:177
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:126
+msgid "Expenditures"
+msgstr "Dépenses"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:22
+#: mota_apps/users/views/user_view.py:61 mota_apps/users/views/user_view.py:128
+#: mota_apps/users/views/user_view.py:255
+#: mota_apps/users/views/user_view.py:286
+msgid "Unauthorized"
+msgstr "Non Autorisé"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:120
+msgid "Amount from the previous season"
+msgstr "Montant de la saison précédente"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:121
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:27
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:40
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:46
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:40
+msgid "Savings"
+msgstr "Épargnes"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:122
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:26
+msgid "Entertainment"
+msgstr "Loisirs"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:124
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:29
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:54
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:60
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:54
+msgid "Project"
+msgstr "Projet"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:125
+msgid "Other"
+msgstr "Autre"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:127
+msgid "Total Income"
+msgstr "Revenu Total"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:143
+msgid "Njangi Benefited"
+msgstr "Njangi Bénéficié"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:144
+msgid "Loan Out"
+msgstr "Prêt Sorti"
+
+#: mota_apps/finance/views/admin_dashboard_view.py:146
+msgid "Total Outcome"
+msgstr "Dépense Totale"
+
+#: mota_apps/finance/views/expenditure_view.py:76
+#: mota_apps/finance/views/expenditure_view.py:139
+#: mota_apps/finance/views/loan_view.py:93
+#: mota_apps/finance/views/loan_view.py:143
+#: mota_apps/finance/views/loan_view.py:248
+#: mota_apps/finance/views/njangi_view.py:115
+#: mota_apps/finance/views/njangi_view.py:205
+#: mota_apps/finance/views/njangi_view.py:257
+#: mota_apps/finance/views/record_finance_view.py:125
+#: mota_apps/finance/views/record_finance_view.py:175
+#: mota_apps/users/views/user_view.py:70 mota_apps/users/views/user_view.py:138
+msgid "Please fill in all required fields correctly."
+msgstr "Veuillez remplir correctement tous les champs obligatoires."
+
+#: mota_apps/finance/views/expenditure_view.py:83
+#: mota_apps/finance/views/loan_view.py:257
+#: mota_apps/finance/views/njangi_view.py:105
+#: mota_apps/finance/views/njangi_view.py:197
+#: mota_apps/finance/views/njangi_view.py:264
+#: mota_apps/finance/views/record_finance_view.py:27
+msgid "No season selected."
+msgstr "Aucune saison sélectionnée."
+
+#: mota_apps/finance/views/expenditure_view.py:94
+msgid "You do not have permission to record expenditures."
+msgstr "Vous n'avez pas la permission d'enregistrer des dépenses."
+
+#: mota_apps/finance/views/expenditure_view.py:106
+msgid "Expenditure recorded successfully."
+msgstr "Dépense enregistrée avec succès."
+
+#: mota_apps/finance/views/expenditure_view.py:113
+msgid ""
+"An unexpected error occurred while creating the expenditure. Please try "
+"again."
+msgstr "Une erreur inattendue s'est produite lors de la création de la dépense. Veuillez réessayer."
+
+#: mota_apps/finance/views/expenditure_view.py:152
+#: mota_apps/finance/views/loan_view.py:156
+#: mota_apps/finance/views/njangi_view.py:128
+#: mota_apps/finance/views/njangi_view.py:216
+#: mota_apps/finance/views/njangi_view.py:273
+msgid "Only admins can modify previous season data."
+msgstr "Seuls les administrateurs peuvent modifier les données des saisons précédentes."
+
+#: mota_apps/finance/views/expenditure_view.py:163
+msgid "Expenditure updated successfully."
+msgstr "Dépense mise à jour avec succès."
+
+#: mota_apps/finance/views/expenditure_view.py:170
+msgid ""
+"An unexpected error occurred while updating the expenditure. Please try "
+"again."
+msgstr "Une erreur inattendue s'est produite lors de la mise à jour de la dépense. Veuillez réessayer."
+
+#: mota_apps/finance/views/expenditure_view.py:186
+msgid "You do not have permission to delete this expenditure."
+msgstr "Vous n'avez pas la permission de supprimer cette dépense."
+
+#: mota_apps/finance/views/expenditure_view.py:195
+msgid "Expenditure deleted successfully."
+msgstr "Dépense supprimée avec succès."
+
+#: mota_apps/finance/views/expenditure_view.py:201
+#: mota_apps/finance/views/expenditure_view.py:227
+msgid "Expenditure not found."
+msgstr "Dépense non trouvée."
+
+#: mota_apps/finance/views/expenditure_view.py:207
+msgid ""
+"An unexpected error occurred while deleting the expenditure. Please try "
+"again."
+msgstr "Une erreur inattendue s'est produite lors de la suppression de la dépense. Veuillez réessayer."
+
+#: mota_apps/finance/views/expenditure_view.py:232
+msgid "An unexpected error occurred while fetching expenditure details."
+msgstr "Une erreur inattendue s'est produite lors de la récupération des détails de la dépense."
+
+#: mota_apps/finance/views/loan_view.py:109
+msgid "Loan created successfully."
+msgstr "Prêt créé avec succès."
+
+#: mota_apps/finance/views/loan_view.py:116
+msgid "An unexpected error occurred while creating the loan. Please try again."
+msgstr "Une erreur inattendue s'est produite lors de la création du prêt. Veuillez réessayer."
+
+#: mota_apps/finance/views/loan_view.py:167
+msgid "Loan updated successfully."
+msgstr "Prêt mis à jour avec succès."
+
+#: mota_apps/finance/views/loan_view.py:174
+msgid "An unexpected error occurred while updating the loan. Please try again."
+msgstr "Une erreur inattendue s'est produite lors de la mise à jour du prêt. Veuillez réessayer."
+
+#: mota_apps/finance/views/loan_view.py:190
+msgid "You do not have permission to delete this loan."
+msgstr "Vous n'avez pas la permission de supprimer ce prêt."
+
+#: mota_apps/finance/views/loan_view.py:199
+msgid "Loan deleted successfully."
+msgstr "Prêt supprimé avec succès."
+
+#: mota_apps/finance/views/loan_view.py:205
+msgid "Loan not found."
+msgstr "Prêt non trouvé."
+
+#: mota_apps/finance/views/loan_view.py:211
+msgid "An unexpected error occurred while deleting the loan. Please try again."
+msgstr "Une erreur inattendue s'est produite lors de la suppression du prêt. Veuillez réessayer."
+
+#: mota_apps/finance/views/loan_view.py:267
+msgid "You do not have permission to record loan payments."
+msgstr "Vous n'avez pas la permission d'enregistrer des paiements de prêt."
+
+#: mota_apps/finance/views/loan_view.py:294
+msgid "Loan payment recorded successfully."
+msgstr "Paiement de prêt enregistré avec succès."
+
+#: mota_apps/finance/views/loan_view.py:301
+msgid "Failed to record loan payment."
+msgstr "Échec de l'enregistrement du paiement du prêt."
+
+#: mota_apps/finance/views/njangi_view.py:142
+msgid "Selected member is not a non-benefited Njangi member for this season."
+msgstr "Le membre sélectionné n'est pas un membre Njangi non bénéficiaire pour cette saison."
+
+#: mota_apps/finance/views/njangi_view.py:158
+msgid "Njangi beneficiary created successfully."
+msgstr "Bénéficiaire Njangi créé avec succès."
+
+#: mota_apps/finance/views/njangi_view.py:165
+msgid ""
+"An unexpected error occurred while creating the njangi beneficiary. Please "
+"try again."
+msgstr "Une erreur inattendue s'est produite lors de la création du bénéficiaire njangi. Veuillez réessayer."
+
+#: mota_apps/finance/views/njangi_view.py:224
+msgid "Njangi updated successfully."
+msgstr "Njangi mis à jour avec succès."
+
+#: mota_apps/finance/views/njangi_view.py:231
+msgid ""
+"An unexpected error occurred while updating the njangi. Please try again."
+msgstr "Une erreur inattendue s'est produite lors de la mise à jour du njangi. Veuillez réessayer."
+
+#: mota_apps/finance/views/njangi_view.py:282
+msgid "User is already a Njangi member for this season."
+msgstr "L'utilisateur est déjà membre Njangi pour cette saison."
+
+#: mota_apps/finance/views/njangi_view.py:288
+msgid "This position is already taken in the current season."
+msgstr "Ce poste est déjà occupé dans la saison actuelle."
+
+#: mota_apps/finance/views/njangi_view.py:309
+msgid "Njangi member added successfully."
+msgstr "Membre Njangi ajouté avec succès."
+
+#: mota_apps/finance/views/njangi_view.py:316
+msgid ""
+"An unexpected error occurred while adding the njangi member. Please try "
+"again."
+msgstr "Une erreur inattendue s'est produite lors de l'ajout du membre njangi. Veuillez réessayer."
+
+#: mota_apps/finance/views/njangi_view.py:332
+msgid "You do not have permission to delete this njangi."
+msgstr "Vous n'avez pas la permission de supprimer ce njangi."
+
+#: mota_apps/finance/views/njangi_view.py:341
+msgid "Njangi deleted successfully."
+msgstr "Njangi supprimé avec succès."
+
+#: mota_apps/finance/views/njangi_view.py:347
+#: mota_apps/finance/views/njangi_view.py:406
+msgid "Njangi not found."
+msgstr "Njangi non trouvé."
+
+#: mota_apps/finance/views/njangi_view.py:353
+msgid ""
+"An unexpected error occurred while deleting the njangi. Please try again."
+msgstr "Une erreur inattendue s'est produite lors de la suppression du njangi. Veuillez réessayer."
+
+#: mota_apps/finance/views/njangi_view.py:409
+msgid "Failed to fetch njangi details."
+msgstr "Échec de la récupération des détails du njangi."
+
+#: mota_apps/finance/views/record_finance_view.py:20
+msgid "You do not have permission to access this page."
+msgstr "Vous n'avez pas la permission d'accéder à cette page."
+
+#: mota_apps/finance/views/record_finance_view.py:141
+msgid "Finance record created successfully."
+msgstr "Enregistrement financier créé avec succès."
+
+#: mota_apps/finance/views/record_finance_view.py:148
+msgid ""
+"An unexpected error occurred while creating the finance record. Please try "
+"again."
+msgstr "Une erreur inattendue s'est produite lors de la création de l'enregistrement financier. Veuillez réessayer."
+
+#: mota_apps/finance/views/record_finance_view.py:188
+msgid "Finance record updated successfully."
+msgstr "Enregistrement financier mis à jour avec succès."
+
+#: mota_apps/finance/views/record_finance_view.py:195
+msgid ""
+"An unexpected error occurred while updating the finance record. Please try "
+"again."
+msgstr "Une erreur inattendue s'est produite lors de la mise à jour de l'enregistrement financier. Veuillez réessayer."
+
+#: mota_apps/finance/views/record_finance_view.py:206
+msgid "You do not have permission to delete this finance record."
+msgstr "Vous n'avez pas la permission de supprimer cet enregistrement financier."
+
+#: mota_apps/finance/views/record_finance_view.py:215
+msgid "Finance record deleted successfully."
+msgstr "Enregistrement financier supprimé avec succès."
+
+#: mota_apps/finance/views/record_finance_view.py:221
+msgid "Finance record not found."
+msgstr "Enregistrement financier non trouvé."
+
+#: mota_apps/finance/views/record_finance_view.py:227
+msgid ""
+"An unexpected error occurred while deleting the finance record. Please try "
+"again."
+msgstr "Une erreur inattendue s'est produite lors de la suppression de l'enregistrement financier. Veuillez réessayer."
+
+#: mota_apps/finance/views/season_selection_view.py:60
+msgid "Invalid season selected"
+msgstr "Saison sélectionnée invalide"
+
+#: mota_apps/finance/views/season_selection_view.py:65
+msgid "Season already exists"
+msgstr "La saison existe déjà"
+
+#: mota_apps/finance/views/season_selection_view.py:72
+msgid "Season selected successfully"
+msgstr "Saison sélectionnée avec succès"
+
+#: mota_apps/finance/views/season_selection_view.py:77
+msgid "Failed to select or create season"
+msgstr "Échec de la sélection ou de la création de la saison"
+
+#: mota_apps/global_data/enums.py:5
+msgid "Unpaid"
+msgstr "Impayé"
+
+#: mota_apps/global_data/enums.py:6
+msgid "Partially Paid"
+msgstr "Partiellement Payé"
+
+#: mota_apps/global_data/enums.py:7
+msgid "Fully Paid"
+msgstr "Entièrement Payé"
+
+#: mota_apps/templates/publics/auth/login.html:16
+msgid "Welcome to Mota"
+msgstr "Bienvenue sur Mota"
+
+#: mota_apps/templates/publics/auth/login.html:17
+msgid ""
+"Your account gives you full control—monitor orders, track deliveries, and "
+"enjoy exclusive tech deals. Sign in to unlock a smarter shopping experience."
+msgstr "Votre compte vous donne un contrôle total—surveillez les commandes, suivez les livraisons et profitez d'offres technologiques exclusives. Connectez-vous pour débloquer une expérience d'achat plus intelligente."
+
+#: mota_apps/templates/publics/auth/login.html:20
+#: mota_apps/templates/publics/auth/password_reset.html:20
+#: mota_apps/templates/publics/auth/password_reset_request.html:20
+#: mota_apps/templates/publics/auth/password_reset_verify.html:20
+#: mota_apps/templates/publics/auth/register.html:20
+#: mota_apps/templates/publics/auth/verify_2fa.html:20
+msgid "Mota Solutions"
+msgstr "Solutions Mota"
+
+#: mota_apps/templates/publics/auth/login.html:29
+msgid "Welcome Back"
+msgstr "Content de vous revoir"
+
+#: mota_apps/templates/publics/auth/login.html:30
+msgid "Sign in to your account"
+msgstr "Connectez-vous à votre compte"
+
+#: mota_apps/templates/publics/auth/login.html:36
+#: mota_apps/templates/publics/auth/password_reset_request.html:36
+#: mota_apps/templates/publics/auth/register.html:50
+msgid "Email Address"
+msgstr "Adresse E-mail"
+
+#: mota_apps/templates/publics/auth/login.html:51
+#: mota_apps/templates/publics/auth/register.html:65
+msgid "Password"
+msgstr "Mot de passe"
+
+#: mota_apps/templates/publics/auth/login.html:72
+msgid "Remember me"
+msgstr "Se souvenir de moi"
+
+#: mota_apps/templates/publics/auth/login.html:74
+msgid "Forgot password?"
+msgstr "Mot de passe oublié ?"
+
+#: mota_apps/templates/publics/auth/login.html:77
+msgid "Sign In"
+msgstr "Se Connecter"
+
+#: mota_apps/templates/publics/auth/login.html:82
+msgid "Don't have an account?"
+msgstr "Vous n'avez pas de compte ?"
+
+#: mota_apps/templates/publics/auth/login.html:82
+msgid "Register now"
+msgstr "Inscrivez-vous maintenant"
+
+#: mota_apps/templates/publics/auth/password_reset.html:16
+#: mota_apps/templates/publics/auth/password_reset.html:29
+msgid "Set New Password"
+msgstr "Définir un Nouveau Mot de Passe"
+
+#: mota_apps/templates/publics/auth/password_reset.html:17
+msgid "Enter your new password to complete the reset process."
+msgstr "Entrez votre nouveau mot de passe pour terminer le processus de réinitialisation."
+
+#: mota_apps/templates/publics/auth/password_reset.html:30
+msgid "Enter your new password for"
+msgstr "Entrez votre nouveau mot de passe pour"
+
+#: mota_apps/templates/publics/auth/password_reset.html:36
+msgid "New Password"
+msgstr "Nouveau Mot de Passe"
+
+#: mota_apps/templates/publics/auth/password_reset.html:56
+msgid "Confirm New Password"
+msgstr "Confirmer le Nouveau Mot de Passe"
+
+#: mota_apps/templates/publics/auth/password_reset.html:75
+msgid "Reset Password"
+msgstr "Réinitialiser le Mot de Passe"
+
+#: mota_apps/templates/publics/auth/password_reset.html:80
+#: mota_apps/templates/publics/auth/password_reset_request.html:55
+msgid "Remembered your password?"
+msgstr "Vous vous souvenez de votre mot de passe ?"
+
+#: mota_apps/templates/publics/auth/password_reset.html:80
+#: mota_apps/templates/publics/auth/password_reset_request.html:55
+#: mota_apps/templates/publics/auth/register.html:117
+msgid "Sign in"
+msgstr "Se connecter"
+
+#: mota_apps/templates/publics/auth/password_reset_request.html:16
+#: mota_apps/templates/publics/emails/password_reset_email.html:10
+msgid "Reset Your Password"
+msgstr "Réinitialisez Votre Mot de Passe"
+
+#: mota_apps/templates/publics/auth/password_reset_request.html:17
+msgid "Enter your email to receive a password reset code."
+msgstr "Entrez votre e-mail pour recevoir un code de réinitialisation de mot de passe."
+
+#: mota_apps/templates/publics/auth/password_reset_request.html:29
+msgid "Forgot Password"
+msgstr "Mot de Passe Oublié"
+
+#: mota_apps/templates/publics/auth/password_reset_request.html:30
+msgid "Enter your email to reset your password"
+msgstr "Entrez votre e-mail pour réinitialiser votre mot de passe"
+
+#: mota_apps/templates/publics/auth/password_reset_request.html:50
+msgid "Send Reset Code"
+msgstr "Envoyer le Code de Réinitialisation"
+
+#: mota_apps/templates/publics/auth/password_reset_verify.html:16
+#: mota_apps/templates/publics/auth/password_reset_verify.html:29
+msgid "Verify Reset Code"
+msgstr "Vérifier le Code de Réinitialisation"
+
+#: mota_apps/templates/publics/auth/password_reset_verify.html:17
+msgid ""
+"Enter the 6-digit code sent to your email to proceed with resetting your "
+"password."
+msgstr "Entrez le code à 6 chiffres envoyé à votre e-mail pour procéder à la réinitialisation de votre mot de passe."
+
+#: mota_apps/templates/publics/auth/password_reset_verify.html:30
+#: mota_apps/templates/publics/auth/verify_2fa.html:30
+msgid "Enter the 6-digit code sent to"
+msgstr "Entrez le code à 6 chiffres envoyé à"
+
+#: mota_apps/templates/publics/auth/password_reset_verify.html:36
+msgid "Reset Code"
+msgstr "Code de Réinitialisation"
+
+#: mota_apps/templates/publics/auth/password_reset_verify.html:42
+#: mota_apps/templates/publics/auth/verify_2fa.html:42
+msgid "Verify"
+msgstr "Vérifier"
+
+#: mota_apps/templates/publics/auth/password_reset_verify.html:47
+#: mota_apps/templates/publics/auth/verify_2fa.html:47
+msgid "Didn't receive a code?"
+msgstr "Vous n'avez pas reçu de code ?"
+
+#: mota_apps/templates/publics/auth/password_reset_verify.html:47
+msgid "Request another"
+msgstr "En demander un autre"
+
+#: mota_apps/templates/publics/auth/register.html:16
+msgid "Join Mota"
+msgstr "Rejoignez Mota"
+
+#: mota_apps/templates/publics/auth/register.html:17
+msgid ""
+"Create an account to access exclusive IT solutions, manage orders, and track "
+"shipments."
+msgstr "Créez un compte pour accéder à des solutions informatiques exclusives, gérer les commandes et suivre les expéditions."
+
+#: mota_apps/templates/publics/auth/register.html:29
+msgid "Create an Account"
+msgstr "Créer un Compte"
+
+#: mota_apps/templates/publics/auth/register.html:30
+msgid "Register to get started"
+msgstr "Inscrivez-vous pour commencer"
+
+#: mota_apps/templates/publics/auth/register.html:36
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:23
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:23
+#: mota_apps/users/forms/user_form.py:46
+msgid "First Name"
+msgstr "Prénom"
+
+#: mota_apps/templates/publics/auth/register.html:43
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:35
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:35
+#: mota_apps/users/forms/user_form.py:47
+msgid "Last Name"
+msgstr "Nom de Famille"
+
+#: mota_apps/templates/publics/auth/register.html:85
+msgid "Confirm Password"
+msgstr "Confirmer le Mot de Passe"
+
+#: mota_apps/templates/publics/auth/register.html:107
+msgid "I agree to the"
+msgstr "J'accepte les"
+
+#: mota_apps/templates/publics/auth/register.html:107
+msgid "Terms of Service"
+msgstr "Conditions d'Utilisation"
+
+#: mota_apps/templates/publics/auth/register.html:107
+#: venv/lib/python3.10/site-packages/django/db/models/base.py:1600
+#: venv/lib/python3.10/site-packages/django/forms/models.py:908
+msgid "and"
+msgstr "et"
+
+#: mota_apps/templates/publics/auth/register.html:107
+msgid "Privacy Policy"
+msgstr "Politique de Confidentialité"
+
+#: mota_apps/templates/publics/auth/register.html:112
+#: mota_apps/templates/publics/home/includes/_navbar.html:119
+#: mota_apps/templates/publics/home/includes/_topbar.html:34
+msgid "Register"
+msgstr "S'inscrire"
+
+#: mota_apps/templates/publics/auth/register.html:117
+msgid "Already have an account?"
+msgstr "Vous avez déjà un compte ?"
+
+#: mota_apps/templates/publics/auth/verify_2fa.html:16
+#: mota_apps/templates/publics/emails/two_factor_email.html:10
+msgid "Verify Your Account"
+msgstr "Vérifiez Votre Compte"
+
+#: mota_apps/templates/publics/auth/verify_2fa.html:17
+msgid "Enter the 2FA code sent to your email to activate your account."
+msgstr "Entrez le code 2FA envoyé à votre e-mail pour activer votre compte."
+
+#: mota_apps/templates/publics/auth/verify_2fa.html:29
+msgid "2-Factor Authentication"
+msgstr "Authentification à 2 Facteurs"
+
+#: mota_apps/templates/publics/auth/verify_2fa.html:36
+msgid "Verification Code"
+msgstr "Code de Vérification"
+
+#: mota_apps/templates/publics/auth/verify_2fa.html:47
+msgid "Register again"
+msgstr "S'inscrire à nouveau"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_navbar.html:13
+msgid "Meeting Season"
+msgstr "Saison de Réunion"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_navbar.html:15
+msgid "No Season Selected"
+msgstr "Aucune Saison Sélectionnée"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_navbar.html:25
+msgid "Seasons"
+msgstr "Saisons"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_navbar.html:48
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/user_detail_modal.html:11
+#: mota_apps/users/models.py:109
+msgid "Profile Picture"
+msgstr "Photo de Profil"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_navbar.html:69
+#: mota_apps/users/models.py:177
+msgid "Profile"
+msgstr "Profil"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_navbar.html:72
+#: mota_apps/templates/publics/home/includes/_footer.html:49
+#: mota_apps/templates/publics/home/includes/_navbar.html:41
+#: mota_apps/templates/publics/home/includes/_navbar.html:132
+msgid "Home"
+msgstr "Accueil"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_navbar.html:75
+#: venv/lib/python3.10/site-packages/django/contrib/messages/apps.py:16
+msgid "Messages"
+msgstr "Messages"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_navbar.html:78
+msgid "Sign out"
+msgstr "Se déconnecter"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_navbar.html:85
+#: mota_apps/templates/publics/home/includes/_topbar.html:39
+msgid "Select Language"
+msgstr "Sélectionner la Langue"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:19
+#: mota_apps/templates/publics/home/includes/_navbar.html:88
+msgid "Dashboard"
+msgstr "Tableau de Bord"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:27
+msgid "ADMIN DB"
+msgstr "BASE DE DONNÉES ADMIN"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:32
+msgid "Mota ADMIN"
+msgstr "ADMIN Mota"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:39
+msgid "E-commerce"
+msgstr "E-commerce"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:45
+msgid "All Finance"
+msgstr "Toutes les Finances"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:51
+msgid "Add New Finance"
+msgstr "Ajouter une Nouvelle Finance"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:55
+msgid "All Loans"
+msgstr "Tous les Prêts"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:59
+msgid "Add New Loan"
+msgstr "Ajouter un Nouveau Prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:63
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:19
+msgid "Pay Loan"
+msgstr "Payer un Prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:68
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:20
+msgid "Njangi Beneficiaries"
+msgstr "Bénéficiaires Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:74
+msgid "Add Njangi Beneficiary"
+msgstr "Ajouter un Bénéficiaire Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:80
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/add_njangi_member.html:50
+msgid "Add Njangi Member"
+msgstr "Ajouter un Membre Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:94
+msgid "Projects"
+msgstr "Projets"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:100
+msgid "Summary"
+msgstr "Résumé"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:107
+msgid "Add New member"
+msgstr "Ajouter un Nouveau Membre"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:113
+msgid "SAV"
+msgstr "SAV"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:117
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:6
+msgid "Activate/Deactivate User"
+msgstr "Activer/Désactiver l'Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:122
+msgid "Add New user"
+msgstr "Ajouter un Nouvel Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:131
+msgid "Add Expenditures"
+msgstr "Ajouter des Dépenses"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:138
+msgid "Agents"
+msgstr "Agents"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:145
+msgid "Instances"
+msgstr "Instances"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:150
+msgid "Downloads PDF"
+msgstr "Téléchargements PDF"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:162
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:9
+#: mota_apps/users/models.py:127
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:169
+msgid "New Users"
+msgstr "Nouveaux Utilisateurs"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:177
+#: mota_apps/templates/publics/home/includes/_navbar.html:61
+#: mota_apps/templates/publics/home/includes/_navbar.html:179
+msgid "Contact Us"
+msgstr "Contactez-Nous"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:182
+msgid "Contact Messages"
+msgstr "Messages de Contact"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:189
+msgid "Partner Management"
+msgstr "Gestion des Partenaires"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:194
+msgid "Mota Partners"
+msgstr "Partenaires Mota"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:201
+msgid "SETTINGS"
+msgstr "PARAMÈTRES"
+
+#: mota_apps/templates/publics/dashboard/admin/includes/_sidebar.html:205
+msgid "General"
+msgstr "Général"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:18
+msgid "Net Income"
+msgstr "Revenu Net"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:31
+msgid "Total Users"
+msgstr "Total Utilisateurs"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:44
+msgid "Total Savings"
+msgstr "Total Épargnes"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:57
+msgid "Total Entertainment"
+msgstr "Total Loisirs"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:70
+msgid "Total Njangi"
+msgstr "Total Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:83
+msgid "Total Projects"
+msgstr "Total Projets"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:96
+msgid "Total Others"
+msgstr "Total Autres"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:109
+msgid "Total Finance"
+msgstr "Total Finance"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:125
+msgid "Income Summary"
+msgstr "Résumé des Revenus"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:130
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:158
+msgid "Category"
+msgstr "Catégorie"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:131
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:159
+msgid "Total (FCFA)"
+msgstr "Total (FCFA)"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:142
+msgid "No income data available."
+msgstr "Aucune donnée de revenu disponible."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:153
+msgid "Outcome Summary"
+msgstr "Résumé des Dépenses"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:170
+msgid "No outcome data available."
+msgstr "Aucune donnée de dépense disponible."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/admin_dashboard.html:181
+#, python-format
+msgid ""
+"\n"
+"      Net Balance 💰: %(net_income)s FCFA\n"
+"    "
+msgstr ""
+"\n"
+"      Solde Net 💰: %(net_income)s FCFA\n"
+"    "
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:9
+#, python-format
+msgid "Expenditures for %(season)s"
+msgstr "Dépenses pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:14
+msgid "New Expenditure"
+msgstr "Nouvelle Dépense"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:25
+msgid "Recorded By"
+msgstr "Enregistré Par"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:26
+msgid "Recorded At"
+msgstr "Enregistré Le"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:27
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:32
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:36
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:32
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:27
+msgid "Actions"
+msgstr "Actions"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:47
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:82
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:61
+msgid "View"
+msgstr "Voir"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:51
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:86
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:49
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:65
+msgid "Edit"
+msgstr "Modifier"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:54
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/delete_expenditure_modal.html:14
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_delete.html:11
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:89
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_delete.html:22
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/delete_njangi_modal.html:10
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:52
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/delete_user_modal.html:13
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:68
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:499
+msgid "Delete"
+msgstr "Supprimer"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:61
+msgid "No expenditures recorded for this season."
+msgstr "Aucune dépense enregistrée pour cette saison."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:110
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:109
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:129
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:124
+msgid "Search..."
+msgstr "Rechercher..."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:111
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:110
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:130
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:125
+msgid "Search within table"
+msgstr "Rechercher dans le tableau"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:112
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:111
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:131
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:126
+#, python-brace-format
+msgid "Page {page}"
+msgstr "Page {page}"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:113
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:112
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:132
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:127
+msgid "entries per page"
+msgstr "entrées par page"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:114
+msgid "No expenditures found."
+msgstr "Aucune dépense trouvée."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:115
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:114
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:134
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:129
+#, python-brace-format
+msgid "Showing {start} to {end} of {rows} entries"
+msgstr "Affichage de {start} à {end} sur {rows} entrées"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/expenditure_list.html:116
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:115
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:135
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:130
+msgid "No results match your search query"
+msgstr "Aucun résultat ne correspond à votre recherche"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/create_expenditure.html:6
+#, python-format
+msgid "New Expenditure for %(season)s"
+msgstr "Nouvelle Dépense pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/create_expenditure.html:8
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/update_expenditure.html:8
+msgid "Back to Expenditures"
+msgstr "Retour aux Dépenses"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/create_expenditure.html:17
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/update_expenditure.html:17
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html:9
+msgid "Expenditure Details"
+msgstr "Détails de la Dépense"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/create_expenditure.html:59
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/update_expenditure.html:59
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/delete_expenditure_modal.html:11
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:69
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:75
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_delete.html:10
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:105
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:87
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:78
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_delete.html:19
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/add_njangi_member.html:47
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:119
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:119
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/delete_njangi_modal.html:9
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:108
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:108
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/delete_user_modal.html:10
+msgid "Cancel"
+msgstr "Annuler"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/create_expenditure.html:62
+msgid "Create Expenditure"
+msgstr "Créer la Dépense"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/create_expenditure.html:120
+msgid "An error occurred while creating the expenditure."
+msgstr "Une erreur s'est produite lors de la création de la dépense."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/update_expenditure.html:6
+#, python-format
+msgid "Update Expenditure for %(season)s"
+msgstr "Mettre à jour la Dépense pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/update_expenditure.html:62
+msgid "Update Expenditure"
+msgstr "Mettre à jour la Dépense"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/includes/update_expenditure.html:120
+msgid "An error occurred while updating the expenditure."
+msgstr "Une erreur s'est produite lors de la mise à jour de la dépense."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/delete_expenditure_modal.html:7
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_delete.html:5
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/delete_njangi_modal.html:6
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/delete_user_modal.html:6
+msgid "Confirm Deletion"
+msgstr "Confirmer la Suppression"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/delete_expenditure_modal.html:8
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/delete_user_modal.html:7
+msgid "Are you sure you want to delete"
+msgstr "Êtes-vous sûr de vouloir supprimer"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/delete_expenditure_modal.html:8
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/delete_user_modal.html:7
+msgid "This action cannot be undone."
+msgstr "Cette action est irréversible."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html:12
+msgid "Entertainment Spent:"
+msgstr "Dépenses de Loisirs :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html:13
+msgid "Other Expenditures:"
+msgstr "Autres Dépenses :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html:14
+msgid "Comment:"
+msgstr "Commentaire :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html:15
+msgid "Recorded By:"
+msgstr "Enregistré par :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html:16
+msgid "Recorded At:"
+msgstr "Enregistré le :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html:17
+msgid "Season:"
+msgstr "Saison :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html:21
+#: mota_apps/templates/publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html:24
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:78
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:106
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:21
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/user_detail_modal.html:20
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/user_detail_modal.html:23
+msgid "Close"
+msgstr "Fermer"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:10
+#, python-format
+msgid "Finances for %(season)s"
+msgstr "Finances pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:15
+msgid "New Finance Record"
+msgstr "Nouvel Enregistrement Financier"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:25
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:26
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:32
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:26
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:18
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:28
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:26
+msgid "Member"
+msgstr "Membre"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:30
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:61
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:67
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:61
+msgid "Others"
+msgstr "Autres"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:31
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:68
+msgid "Total"
+msgstr "Total"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:72
+msgid "No finance records for this season."
+msgstr "Aucun enregistrement financier pour cette saison."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/finance_list.html:113
+msgid "No finance records found."
+msgstr "Aucun enregistrement financier trouvé."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:14
+#, python-format
+msgid "New Finance Record for %(season)s"
+msgstr "Nouvel Enregistrement Financier pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:16
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:22
+msgid "Back to List"
+msgstr "Retour à la Liste"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:33
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:39
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:33
+msgid "Entertainment Fees"
+msgstr "Frais de Loisirs"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:70
+msgid "Create Finance Record"
+msgstr "Créer l'Enregistrement Financier"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/create_finance.html:85
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:91
+msgid "Select member"
+msgstr "Sélectionner un membre"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:20
+#, python-format
+msgid "Update Finance Record for %(season)s"
+msgstr "Mettre à jour l'Enregistrement Financier pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/includes/update_finance.html:76
+msgid "Update Finance Record"
+msgstr "Mettre à jour l'Enregistrement Financier"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_delete.html:7
+msgid ""
+"Are you sure you want to delete the finance record for <span id=\"delete-"
+"name\"></span>?"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer l'enregistrement financier pour <span id="
+"\"delete-name\"></span> ?"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:6
+msgid "Finance Record Details"
+msgstr "Détails de l'Enregistrement Financier"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/finance/modals/finance_detail.html:20
+msgid "Finance Information"
+msgstr "Informations Financières"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:6
+#, python-format
+msgid "New Loan for %(season)s"
+msgstr "Nouveau Prêt pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:8
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:8
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:8
+msgid "Back to Loans"
+msgstr "Retour aux Prêts"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:17
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:15
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:6
+msgid "Loan Details"
+msgstr "Détails du Prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:38
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:27
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:29
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:33
+msgid "Amount Borrowed"
+msgstr "Montant Emprunté"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:50
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:36
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:34
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:68
+msgid "Borrow Date"
+msgstr "Date d'Emprunt"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:74
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:72
+#, python-format
+msgid "Interest to Be Paid (1.5%%)"
+msgstr "Intérêt à Payer (1.5%%)"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:108
+msgid "Create Loan"
+msgstr "Créer le Prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:154
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:28
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:137
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:97
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:166
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:168
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:145
+msgid "Select a member"
+msgstr "Sélectionner un membre"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/create_loan.html:201
+msgid "An error occurred while creating the loan."
+msgstr "Une erreur s'est produite lors de la création du prêt."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:6
+#, python-format
+msgid "Pay Loan for %(season)s"
+msgstr "Payer le Prêt pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:17
+msgid "Loan Payment Details"
+msgstr "Détails du Paiement du Prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:39
+msgid "Select Loan"
+msgstr "Sélectionner le Prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:51
+msgid "Amount Repaid"
+msgstr "Montant Remboursé"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:63
+msgid "Payment Date"
+msgstr "Date de Paiement"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:90
+msgid "Record Payment"
+msgstr "Enregistrer le Paiement"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:137
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:150
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:159
+msgid "Select a loan"
+msgstr "Sélectionner un prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:171
+msgid "Failed to fetch loans."
+msgstr "Échec de la récupération des prêts."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/pay_loan.html:218
+msgid "An error occurred while recording the loan payment."
+msgstr "Une erreur s'est produite lors de l'enregistrement du paiement du prêt."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:6
+#, python-format
+msgid "Update Loan for %(season)s"
+msgstr "Mettre à jour le Prêt pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:81
+msgid "Update Loan"
+msgstr "Mettre à jour le Prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/includes/update_loan.html:142
+msgid "An error occurred while updating the loan."
+msgstr "Une erreur s'est produite lors de la mise à jour du prêt."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:9
+#, python-format
+msgid "Loans for %(season)s"
+msgstr "Prêts pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:15
+msgid "New Loan"
+msgstr "Nouveau Prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:30
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:40
+msgid "Total (with Interest)"
+msgstr "Total (avec Intérêt)"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:31
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:47
+msgid "Amount Paid"
+msgstr "Montant Payé"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:32
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:54
+msgid "Amount Left"
+msgstr "Montant Restant"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:35
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:75
+msgid "Status"
+msgstr "Statut"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:96
+msgid "No loans for this season."
+msgstr "Aucun prêt pour cette saison."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/loan_list.html:133
+msgid "No loans found."
+msgstr "Aucun prêt trouvé."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_delete.html:6
+msgid "Confirm Delete"
+msgstr "Confirmer la Suppression"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_delete.html:12
+msgid ""
+"\n"
+"            Are you sure you want to delete the loan for <span id=\"delete-"
+"name\" class=\"font-medium\"></span>?\n"
+"            This action cannot be undone.\n"
+"            "
+msgstr ""
+"\n"
+"            Êtes-vous sûr de vouloir supprimer le prêt pour <span id=\"delete-"
+"name\" class=\"font-medium\"></span> ?\n"
+"            Cette action est irréversible.\n"
+"            "
+
+#: mota_apps/templates/publics/dashboard/admin/pages/loans/modals/loan_detail.html:20
+msgid "Loan Information"
+msgstr "Informations sur le Prêt"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/add_njangi_member.html:6
+#, python-format
+msgid "Add Njangi Member for %(season)s"
+msgstr "Ajouter un Membre Njangi pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/add_njangi_member.html:8
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:8
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:8
+msgid "Back to Njangis"
+msgstr "Retour aux Njangis"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/add_njangi_member.html:17
+msgid "Njangi Member Details"
+msgstr "Détails du Membre Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/add_njangi_member.html:96
+msgid "Select a user"
+msgstr "Sélectionner un utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/add_njangi_member.html:143
+msgid "An error occurred while adding the njangi member."
+msgstr "Une erreur s'est produite lors de l'ajout du membre njangi."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:6
+#, python-format
+msgid "New Njangi Beneficiary for %(season)s"
+msgstr "Nouveau Bénéficiaire Njangi pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:17
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:17
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:7
+msgid "Njangi Beneficiary Details"
+msgstr "Détails du Bénéficiaire Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:59
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:59
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:14
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:30
+msgid "Amount"
+msgstr "Montant"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:122
+msgid "Create Njangi Beneficiary"
+msgstr "Créer le Bénéficiaire Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:222
+msgid "Failed to create njangi beneficiary."
+msgstr "Échec de la création du bénéficiaire njangi."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/create_njangi.html:232
+msgid "An error occurred while creating the njangi beneficiary."
+msgstr "Une erreur s'est produite lors de la création du bénéficiaire njangi."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:6
+#, python-format
+msgid "Update Njangi Beneficiary for %(season)s"
+msgstr "Mettre à jour le Bénéficiaire Njangi pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:122
+msgid "Update Njangi Beneficiary"
+msgstr "Mettre à jour le Bénéficiaire Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/includes/update_njangi.html:215
+msgid "An error occurred while updating the njangi beneficiary."
+msgstr "Une erreur s'est produite lors de la mise à jour du bénéficiaire njangi."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/delete_njangi_modal.html:7
+msgid "Are you sure you want to delete this njangi beneficiary?"
+msgstr "Êtes-vous sûr de vouloir supprimer ce bénéficiaire njangi ?"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html:11
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:27
+#: mota_apps/users/models.py:198
+msgid "Name"
+msgstr "Nom"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:6
+#, python-format
+msgid "Njangi Beneficiaries for %(season)s"
+msgstr "Bénéficiaires Njangi pour %(season)s"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:9
+msgid "Add New Njangi Member"
+msgstr "Ajouter un Nouveau Membre Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:12
+msgid "Add New Njangi Beneficiary"
+msgstr "Ajouter un Nouveau Bénéficiaire Njangi"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:46
+msgid "View Details"
+msgstr "Voir les Détails"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:60
+msgid "No njangi beneficiaries for this season."
+msgstr "Aucun bénéficiaire njangi pour cette saison."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:198
+msgid "An error occurred while deleting the njangi."
+msgstr "Une erreur s'est produite lors de la suppression du njangi."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/njangis/njangi_list.html:238
+msgid "An error occurred while fetching njangi details."
+msgstr "Une erreur s'est produite lors de la récupération des détails du njangi."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:7
+msgid "Select or Create Season"
+msgstr "Sélectionner ou Créer une Saison"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:9
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:14
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:23
+msgid "Select Season"
+msgstr "Sélectionner la Saison"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:10
+msgid "Create New Season"
+msgstr "Créer une Nouvelle Saison"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:19
+msgid "No seasons available"
+msgstr "Aucune saison disponible"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:27
+msgid "Year"
+msgstr "Année"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:31
+msgid "Month"
+msgstr "Mois"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:33
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:25
+msgid "January"
+msgstr "Janvier"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:34
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:26
+msgid "February"
+msgstr "Février"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:35
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:27
+msgid "March"
+msgstr "Mars"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:36
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:28
+msgid "April"
+msgstr "Avril"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:37
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:29
+msgid "May"
+msgstr "Mai"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:38
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:30
+msgid "June"
+msgstr "Juin"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:39
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:31
+msgid "July"
+msgstr "Juillet"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:40
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:32
+msgid "August"
+msgstr "Août"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:41
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:33
+msgid "September"
+msgstr "Septembre"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:42
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:34
+msgid "October"
+msgstr "Octobre"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:43
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:35
+msgid "November"
+msgstr "Novembre"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:44
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:36
+msgid "December"
+msgstr "Décembre"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:47
+msgid "Create Season"
+msgstr "Créer la Saison"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:70
+msgid "Please select a season"
+msgstr "Veuillez sélectionner une saison"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:81
+msgid "Please provide year and month"
+msgstr "Veuillez fournir l'année et le mois"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/season_selection.html:125
+msgid "An unexpected error occurred. Please try again."
+msgstr "Une erreur inattendue s'est produite. Veuillez réessayer."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:6
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:14
+msgid "New User"
+msgstr "Nouvel Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:8
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:8
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:8
+msgid "Back to Users"
+msgstr "Retour aux Utilisateurs"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:17
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:17
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/user_detail_modal.html:8
+msgid "User Details"
+msgstr "Détails de l'Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:47
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:47
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:23
+#: mota_apps/users/forms/user_form.py:48 mota_apps/users/models.py:273
+msgid "Email"
+msgstr "E-mail"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:59
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:59
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:24
+#: mota_apps/users/forms/user_form.py:8 mota_apps/users/models.py:170
+msgid "Phone Number"
+msgstr "Numéro de Téléphone"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:69
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:69
+msgid "Roles"
+msgstr "Rôles"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:74
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:74
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:42
+#: mota_apps/users/forms/user_form.py:49
+msgid "Staff"
+msgstr "Personnel"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:80
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:80
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:40
+#: mota_apps/users/forms/user_form.py:50
+msgid "Admin"
+msgstr "Administrateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:86
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:86
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:44
+#: mota_apps/users/forms/user_form.py:51
+msgid "Client"
+msgstr "Client"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:92
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:92
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:46
+#: mota_apps/users/forms/user_form.py:52
+msgid "Visitor"
+msgstr "Visiteur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:111
+msgid "Create User"
+msgstr "Créer l'Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/create_user.html:169
+msgid "An error occurred while creating the user."
+msgstr "Une erreur s'est produite lors de la création de l'utilisateur."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:15
+msgid "Manage User Status"
+msgstr "Gérer le Statut de l'Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:18
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:54
+msgid "Activate User"
+msgstr "Activer l'Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:19
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:61
+msgid "Deactivate User"
+msgstr "Désactiver l'Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:31
+msgid "Toggle Status"
+msgstr "Basculer le Statut"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:81
+msgid "Failed to fetch users."
+msgstr "Échec de la récupération des utilisateurs."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:90
+msgid "An error occurred while fetching users."
+msgstr "Une erreur s'est produite lors de la récupération des utilisateurs."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:105
+msgid "Please select a user."
+msgstr "Veuillez sélectionner un utilisateur."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:136
+msgid "Failed to toggle user status."
+msgstr "Échec du basculement du statut de l'utilisateur."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/toggle_user_status.html:145
+msgid "An error occurred while toggling user status."
+msgstr "Une erreur s'est produite lors du basculement du statut de l'utilisateur."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:6
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:111
+msgid "Update User"
+msgstr "Mettre à jour l'Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/includes/update_user.html:169
+msgid "An error occurred while updating the user."
+msgstr "Une erreur s'est produite lors de la mise à jour de l'utilisateur."
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/user_detail_modal.html:12
+msgid "Full Name:"
+msgstr "Nom Complet :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/user_detail_modal.html:13
+msgid "Email:"
+msgstr "E-mail :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/user_detail_modal.html:14
+msgid "Phone Number:"
+msgstr "Numéro de Téléphone :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/user_detail_modal.html:15
+msgid "Role:"
+msgstr "Rôle :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/modals/user_detail_modal.html:16
+msgid "Date Joined:"
+msgstr "Date d'Inscription :"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:22
+msgid "Full Name"
+msgstr "Nom Complet"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:25
+msgid "Role"
+msgstr "Rôle"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:26
+msgid "Joined Date"
+msgstr "Date d'Inscription"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:38
+msgid "Superuser"
+msgstr "Superutilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:48
+#: mota_apps/users/models.py:126
+msgid "User"
+msgstr "Utilisateur"
+
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:75
+#: mota_apps/templates/publics/dashboard/admin/pages/users/user_list.html:128
+msgid "No users found."
+msgstr "Aucun utilisateur trouvé."
+
+#: mota_apps/templates/publics/emails/password_reset_email.html:5
+msgid "Your Password Reset Code"
+msgstr "Votre Code de Réinitialisation de Mot de Passe"
+
+#: mota_apps/templates/publics/emails/password_reset_email.html:11
+#: mota_apps/templates/publics/emails/two_factor_email.html:11
+msgid "Hello"
+msgstr "Bonjour"
+
+#: mota_apps/templates/publics/emails/password_reset_email.html:12
+msgid "We received a request to reset your password for"
+msgstr "Nous avons reçu une demande de réinitialisation de votre mot de passe pour"
+
+#: mota_apps/templates/publics/emails/password_reset_email.html:12
+msgid "Please use the following 6-digit code to reset your password:"
+msgstr "Veuillez utiliser le code à 6 chiffres suivant pour réinitialiser votre mot de passe :"
+
+#: mota_apps/templates/publics/emails/password_reset_email.html:16
+msgid ""
+"This code will expire in 10 minutes. If you did not request a password "
+"reset, please ignore this email."
+msgstr ""
+"Ce code expirera dans 10 minutes. Si vous n'avez pas demandé de "
+"réinitialisation de mot de passe, veuillez ignorer cet e-mail."
+
+#: mota_apps/templates/publics/emails/password_reset_email.html:17
+#: mota_apps/templates/publics/emails/two_factor_email.html:17
+msgid "If you need assistance, contact our support team at"
+msgstr "Si vous avez besoin d'assistance, contactez notre équipe de support à"
+
+#: mota_apps/templates/publics/emails/two_factor_email.html:5
+msgid "Your 2-Factor Authentication Code"
+msgstr "Votre Code d'Authentification à 2 Facteurs"
+
+#: mota_apps/templates/publics/emails/two_factor_email.html:12
+msgid "Thank you for registering with"
+msgstr "Merci de vous être inscrit sur"
+
+#: mota_apps/templates/publics/emails/two_factor_email.html:12
+msgid "To complete your registration, please use the following 6-digit code:"
+msgstr "Pour finaliser votre inscription, veuillez utiliser le code à 6 chiffres suivant :"
+
+#: mota_apps/templates/publics/emails/two_factor_email.html:16
+msgid ""
+"This code will expire in 10 minutes. If you did not request this code, "
+"please ignore this email."
+msgstr ""
+"Ce code expirera dans 10 minutes. Si vous n'avez pas demandé ce code, "
+"veuillez ignorer cet e-mail."
+
+#: mota_apps/templates/publics/home/includes/_footer.html:11
+#, python-format
+msgid "Logo of %(company_name)s"
+msgstr "Logo de %(company_name)s"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:15
+msgid "Mota Logo"
+msgstr "Logo Mota"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:23
+msgid ""
+"Providing professional IT solutions since 2010. Quality products for "
+"business and personal use."
+msgstr ""
+"Fourniture de solutions informatiques professionnelles depuis 2010. Produits "
+"de qualité pour un usage professionnel et personnel."
+
+#: mota_apps/templates/publics/home/includes/_footer.html:28
+msgid "Facebook"
+msgstr "Facebook"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:31
+msgid "Twitter"
+msgstr "Twitter"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:34
+msgid "Instagram"
+msgstr "Instagram"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:37
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:45
+msgid "Quick Links"
+msgstr "Liens Rapides"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:54
+#: mota_apps/templates/publics/home/includes/_navbar.html:47
+#: mota_apps/templates/publics/home/includes/_navbar.html:142
+msgid "About Us"
+msgstr "À Propos de Nous"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:59
+#: mota_apps/templates/publics/home/includes/_navbar.html:144
+msgid "Services"
+msgstr "Services"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:64
+msgid "Contact"
+msgstr "Contact"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:72
+msgid "Customer Service"
+msgstr "Service Client"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:76
+msgid "My Account"
+msgstr "Mon Compte"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:81
+msgid "Savings Accounts"
+msgstr "Comptes d'Épargne"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:86
+msgid "Credit Cards"
+msgstr "Cartes de Crédit"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:91
+msgid "Home Loans"
+msgstr "Prêts Immobiliers"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:96
+msgid "Returns & Refunds"
+msgstr "Retours et Remboursements"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:104
+msgid "Newsletter"
+msgstr "Newsletter"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:106
+msgid "Subscribe to our newsletter for the latest updates and offers."
+msgstr "Abonnez-vous à notre newsletter pour les dernières mises à jour et offres."
+
+#: mota_apps/templates/publics/home/includes/_footer.html:109
+msgid "Your email"
+msgstr "Votre e-mail"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:111
+msgid "Subscribe"
+msgstr "S'abonner"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:119
+msgid "I agree to receive emails"
+msgstr "J'accepte de recevoir des e-mails"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:127
+#, python-format
+msgid "© %(year)s Mota. All rights reserved."
+msgstr "© %(year)s Mota. Tous droits réservés."
+
+#: mota_apps/templates/publics/home/includes/_footer.html:130
+msgid "Payment Methods:"
+msgstr "Méthodes de Paiement :"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:132
+msgid "Visa"
+msgstr "Visa"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:133
+msgid "Mastercard"
+msgstr "Mastercard"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:134
+msgid "PayPal"
+msgstr "PayPal"
+
+#: mota_apps/templates/publics/home/includes/_footer.html:135
+msgid "Amex"
+msgstr "Amex"
+
+#: mota_apps/templates/publics/home/includes/_head.html:7
+msgid "Mota - Professional IT Solutions"
+msgstr "Mota - Solutions Informatiques Professionnelles"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:54
+#: mota_apps/templates/publics/home/includes/_navbar.html:172
+msgid "Shop Grid"
+msgstr "Grille de Boutique"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:68
+#: mota_apps/templates/publics/home/includes/_navbar.html:93
+msgid "Admin Dashboard"
+msgstr "Tableau de Bord Admin"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:99
+msgid "My Profile"
+msgstr "Mon Profil"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:102
+msgid "My Addresses"
+msgstr "Mes Adresses"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:105
+msgid "My Orders"
+msgstr "Mes Commandes"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:111
+#: mota_apps/templates/publics/home/includes/_topbar.html:31
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:116
+#: mota_apps/templates/publics/home/includes/_topbar.html:33
+msgid "Login"
+msgstr "Connexion"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:136
+msgid "Pages"
+msgstr "Pages"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:143
+msgid "Our Team"
+msgstr "Notre Équipe"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:145
+msgid "FAQ"
+msgstr "FAQ"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:151
+msgid "Products"
+msgstr "Produits"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:157
+msgid "All Products"
+msgstr "Tous les Produits"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:158
+msgid "New Arrivals"
+msgstr "Nouveautés"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:159
+msgid "Best Sellers"
+msgstr "Meilleures Ventes"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:160
+msgid "Special Offers"
+msgstr "Offres Spéciales"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:166
+msgid "Shop"
+msgstr "Boutique"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:173
+msgid "Shop List"
+msgstr "Liste de Boutique"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:174
+msgid "Shopping Cart"
+msgstr "Panier"
+
+#: mota_apps/templates/publics/home/includes/_navbar.html:175
+msgid "Checkout"
+msgstr "Paiement"
+
+#: mota_apps/templates/publics/home/includes/_topbar.html:24
+msgid "Contact Support"
+msgstr "Contacter le Support"
+
+#: mota_apps/templates/publics/home/includes/_topbar.html:24
+msgid "Help"
+msgstr "Aide"
+
+#: mota_apps/users/forms/user_form.py:12
+msgid "Enter phone number (e.g., +237123456789)"
+msgstr "Entrez le numéro de téléphone (ex. : +237123456789)"
+
+#: mota_apps/users/models.py:27
+msgid "Marks the record as deleted without removing it."
+msgstr "Marque l'enregistrement comme supprimé sans le supprimer."
+
+#: mota_apps/users/models.py:32
+msgid "Stores additional metadata in JSON format."
+msgstr "Stocke des métadonnées supplémentaires au format JSON."
+
+#: mota_apps/users/models.py:37
+msgid "IP address associated with the record creation or update."
+msgstr "Adresse IP associée à la création ou à la mise à jour de l'enregistrement."
+
+#: mota_apps/users/models.py:50
+msgid "email address"
+msgstr "adresse e-mail"
+
+#: mota_apps/users/models.py:54
+msgid "A user with that email already exists."
+msgstr "Un utilisateur avec cet e-mail existe déjà."
+
+#: mota_apps/users/models.py:56
+msgid "Full name of the user."
+msgstr "Nom complet de l'utilisateur."
+
+#: mota_apps/users/models.py:57
+msgid "first name"
+msgstr "prénom"
+
+#: mota_apps/users/models.py:58
+msgid "last name"
+msgstr "nom"
+
+#: mota_apps/users/models.py:61
+msgid "staff status"
+msgstr "statut staff"
+
+#: mota_apps/users/models.py:63
+msgid "Designates whether the user can log into the admin site."
+msgstr "Indique si l'utilisateur peut se connecter au site d'administration."
+
+#: mota_apps/users/models.py:66
+msgid "active"
+msgstr "actif"
+
+#: mota_apps/users/models.py:68
+msgid ""
+"Designates whether this user should be treated as active. Unselect instead "
+"of deleting accounts."
+msgstr ""
+"Indique si cet utilisateur doit être traité comme actif. Désélectionnez "
+"plutôt que de supprimer les comptes."
+
+#: mota_apps/users/models.py:71
+msgid "superuser status"
+msgstr "statut superutilisateur"
+
+#: mota_apps/users/models.py:73
+msgid ""
+"Designates that this user has all permissions without explicitly assigning "
+"them."
+msgstr ""
+"Désigne que cet utilisateur dispose de toutes les permissions sans qu'elles "
+"lui soient explicitement attribuées."
+
+#: mota_apps/users/models.py:75
+msgid "date joined"
+msgstr "date d'inscription"
+
+#: mota_apps/users/models.py:76
+msgid "User's IP address."
+msgstr "Adresse IP de l'utilisateur."
+
+#: mota_apps/users/models.py:80
+msgid "is visitor"
+msgstr "est visiteur"
+
+#: mota_apps/users/models.py:85
+msgid "is client"
+msgstr "est client"
+
+#: mota_apps/users/models.py:87
+msgid "User is a client."
+msgstr "L'utilisateur est un client."
+
+#: mota_apps/users/models.py:90
+msgid "is admin"
+msgstr "est admin"
+
+#: mota_apps/users/models.py:92
+msgid "User is an admin."
+msgstr "L'utilisateur est un administrateur."
+
+#: mota_apps/users/models.py:95
+msgid "is manually deleted"
+msgstr "est supprimé manuellement"
+
+#: mota_apps/users/models.py:97
+msgid "Marks if the user was manually deleted."
+msgstr "Indique si l'utilisateur a été supprimé manuellement."
+
+#: mota_apps/users/models.py:102
+msgid "has accepted terms"
+msgstr "a accepté les conditions"
+
+#: mota_apps/users/models.py:104
+msgid ""
+"Indicates whether the user has accepted the Terms of Service and Privacy "
+"Policy during registration."
+msgstr ""
+"Indique si l'utilisateur a accepté les Conditions d'Utilisation et la "
+"Politique de Confidentialité lors de l'inscription."
+
+#: mota_apps/users/models.py:113
+msgid "User's profile picture."
+msgstr "Photo de profil de l'utilisateur."
+
+#: mota_apps/users/models.py:167
+msgid "Associated user account."
+msgstr "Compte utilisateur associé."
+
+#: mota_apps/users/models.py:169
+msgid "Country"
+msgstr "Pays"
+
+#: mota_apps/users/models.py:171
+msgid "Region"
+msgstr "Région"
+
+#: mota_apps/users/models.py:172
+msgid "City"
+msgstr "Ville"
+
+#: mota_apps/users/models.py:173
+msgid "Address"
+msgstr "Adresse"
+
+#: mota_apps/users/models.py:174
+msgid "Zip Code"
+msgstr "Code Postal"
+
+#: mota_apps/users/models.py:178
+msgid "Profiles"
+msgstr "Profils"
+
+#: mota_apps/users/models.py:201
+msgid "Name of the partner organization."
+msgstr "Nom de l'organisation partenaire."
+
+#: mota_apps/users/models.py:208
+msgid "URL-friendly identifier for the partner."
+msgstr "Identifiant convivial pour les URL du partenaire."
+
+#: mota_apps/users/models.py:211
+msgid "Description"
+msgstr "Description"
+
+#: mota_apps/users/models.py:213
+msgid "Description of the partner organization."
+msgstr "Description de l'organisation partenaire."
+
+#: mota_apps/users/models.py:216
+msgid "Logo"
+msgstr "Logo"
+
+#: mota_apps/users/models.py:221
+msgid "Partner's logo image."
+msgstr "Image du logo du partenaire."
+
+#: mota_apps/users/models.py:224
+msgid "Website"
+msgstr "Site Web"
+
+#: mota_apps/users/models.py:227
+msgid "Partner's website URL."
+msgstr "URL du site web du partenaire."
+
+#: mota_apps/users/models.py:230
+msgid "Is Active"
+msgstr "Est Actif"
+
+#: mota_apps/users/models.py:232
+msgid "Indicates whether the partner is actively displayed."
+msgstr "Indique si le partenaire est activement affiché."
+
+#: mota_apps/users/models.py:236
+msgid "Partner"
+msgstr "Partenaire"
+
+#: mota_apps/users/models.py:237
+msgid "Partners"
+msgstr "Partenaires"
+
+#: mota_apps/users/models.py:265
+msgid "Utilisateur ayant soumis le formulaire, s'il est authentifié."
+msgstr "Utilisateur ayant soumis le formulaire, s'il est authentifié."
+
+#: mota_apps/users/models.py:268
+msgid "Nom"
+msgstr "Nom"
+
+#: mota_apps/users/models.py:270
+msgid "Nom de la personne soumettant le formulaire."
+msgstr "Nom de la personne soumettant le formulaire."
+
+#: mota_apps/users/models.py:274
+msgid "Adresse email de contact."
+msgstr "Adresse email de contact."
+
+#: mota_apps/users/models.py:277
+msgid "Sujet"
+msgstr "Sujet"
+
+#: mota_apps/users/models.py:279
+msgid "Sujet de la demande."
+msgstr "Sujet de la demande."
+
+#: mota_apps/users/models.py:282
+msgid "Message"
+msgstr "Message"
+
+#: mota_apps/users/models.py:283
+msgid "Contenu de la demande."
+msgstr "Contenu de la demande."
+
+#: mota_apps/users/models.py:286
+msgid "Est Résolu"
+msgstr "Est Résolu"
+
+#: mota_apps/users/models.py:288
+msgid ""
+"Champ conservé pour compatibilité avec l'admin, non utilisé dans le "
+"dashboard."
+msgstr ""
+"Champ conservé pour compatibilité avec l'admin, non utilisé dans le "
+"dashboard."
+
+#: mota_apps/users/models.py:291
+msgid "Est Lu"
+msgstr "Est Lu"
+
+#: mota_apps/users/models.py:293
+msgid "Indique si le message a été ouvert/lu par un admin."
+msgstr "Indique si le message a été ouvert/lu par un admin."
+
+#: mota_apps/users/models.py:297
+msgid "Contactez-nous"
+msgstr "Contactez-nous"
+
+#: mota_apps/users/models.py:298
+msgid "Entrées Contactez-nous"
+msgstr "Entrées Contactez-nous"
+
+#: mota_apps/users/models.py:318
+msgid "The official name of the company"
+msgstr "Le nom officiel de l'entreprise"
+
+#: mota_apps/users/models.py:324
+msgid "Main company logo (preferably in SVG or PNG format)"
+msgstr "Logo principal de l'entreprise (de préférence au format SVG ou PNG)"
+
+#: mota_apps/users/models.py:330
+msgid "Favicon for the website"
+msgstr "Favicon pour le site web"
+
+#: mota_apps/users/models.py:334
+msgid "Mark this configuration as active"
+msgstr "Marquer cette configuration comme active"
+
+#: mota_apps/users/models.py:340
+msgid "Primary contact email address"
+msgstr "Adresse e-mail de contact principale"
+
+#: mota_apps/users/models.py:345
+msgid "Customer support email address"
+msgstr "Adresse e-mail du support client"
+
+#: mota_apps/users/models.py:350
+msgid "Sales inquiries email address"
+msgstr "Adresse e-mail pour les demandes de vente"
+
+#: mota_apps/users/models.py:355
+msgid "Primary contact phone number"
+msgstr "Numéro de téléphone de contact principal"
+
+#: mota_apps/users/models.py:360
+msgid "Secondary contact phone number"
+msgstr "Numéro de téléphone de contact secondaire"
+
+#: mota_apps/users/models.py:367
+msgid "Physical company address"
+msgstr "Adresse physique de l'entreprise"
+
+#: mota_apps/users/models.py:373
+msgid "Postal address if different from physical address"
+msgstr "Adresse postale si différente de l'adresse physique"
+
+#: mota_apps/users/models.py:388
+msgid "Company tax identification number"
+msgstr "Numéro d'identification fiscale de l'entreprise"
+
+#: mota_apps/users/models.py:394
+msgid "Company registration number"
+msgstr "Numéro d'enregistrement de l'entreprise"
+
+#: mota_apps/users/models.py:400
+msgid "VAT percentage applied to products/services"
+msgstr "Pourcentage de TVA appliqué aux produits/services"
+
+#: mota_apps/users/models.py:407
+msgid "Company working hours"
+msgstr "Heures d'ouverture de l'entreprise"
+
+#: mota_apps/users/models.py:412
+msgid "Company timezone"
+msgstr "Fuseau horaire de l'entreprise"
+
+#: mota_apps/users/models.py:419
+msgid "Terms of service content"
+msgstr "Contenu des conditions d'utilisation"
+
+#: mota_apps/users/models.py:424
+msgid "Privacy policy content"
+msgstr "Contenu de la politique de confidentialité"
+
+#: mota_apps/users/models.py:429
+msgid "Refund policy content"
+msgstr "Contenu de la politique de remboursement"
+
+#: mota_apps/users/models.py:437
+msgid "Default meta title for SEO"
+msgstr "Méta titre par défaut pour le SEO"
+
+#: mota_apps/users/models.py:442
+msgid "Default meta description for SEO"
+msgstr "Méta description par défaut pour le SEO"
+
+#: mota_apps/users/models.py:447
+msgid "Default meta keywords for SEO"
+msgstr "Méta mots-clés par défaut pour le SEO"
+
+#: mota_apps/users/models.py:451
+msgid "Company Configuration"
+msgstr "Configuration de l'Entreprise"
+
+#: mota_apps/users/models.py:452
+msgid "Company Configurations"
+msgstr "Configurations de l'Entreprise"
+
+#: mota_apps/users/views/login_views.py:39
+msgid "Email and password are required."
+msgstr "L'e-mail et le mot de passe sont requis."
+
+#: mota_apps/users/views/login_views.py:47
+msgid "Invalid email or password."
+msgstr "E-mail ou mot de passe invalide."
+
+#: mota_apps/users/views/login_views.py:54
+msgid "Your account is not activated. Please verify your email."
+msgstr "Votre compte n'est pas activé. Veuillez vérifier votre e-mail."
+
+#: mota_apps/users/views/login_views.py:65
+msgid "Login successful! Welcome back."
+msgstr "Connexion réussie ! Bon retour parmi nous."
+
+#: mota_apps/users/views/login_views.py:77
+#: mota_apps/users/views/logout_views.py:30
+#: mota_apps/users/views/password_reset_views.py:114
+#: mota_apps/users/views/password_reset_views.py:192
+#: mota_apps/users/views/password_reset_views.py:269
+#: mota_apps/users/views/register_views.py:169
+#: mota_apps/users/views/register_views.py:259
+msgid "An unexpected error occurred. Please try again later."
+msgstr "Une erreur inattendue s'est produite. Veuillez réessayer plus tard."
+
+#: mota_apps/users/views/logout_views.py:25
+msgid "You have been logged out successfully."
+msgstr "Vous avez été déconnecté avec succès."
+
+#: mota_apps/users/views/password_reset_views.py:42
+msgid "Email is required."
+msgstr "L'e-mail est requis."
+
+#: mota_apps/users/views/password_reset_views.py:50
+#: mota_apps/users/views/register_views.py:73
+msgid "Invalid email format."
+msgstr "Format d'e-mail invalide."
+
+#: mota_apps/users/views/password_reset_views.py:58
+#: mota_apps/users/views/password_reset_views.py:140
+#: mota_apps/users/views/password_reset_views.py:241
+#: mota_apps/users/views/register_views.py:196
+msgid "No user found with this email."
+msgstr "Aucun utilisateur trouvé avec cet e-mail."
+
+#: mota_apps/users/views/password_reset_views.py:101
+msgid "Password reset code sent! Please check your email."
+msgstr "Code de réinitialisation envoyé ! Veuillez vérifier votre e-mail."
+
+#: mota_apps/users/views/password_reset_views.py:147
+#: mota_apps/users/views/password_reset_views.py:156
+msgid "Invalid or expired reset code. Please request a new one."
+msgstr "Code de réinitialisation invalide ou expiré. Veuillez en demander un nouveau."
+
+#: mota_apps/users/views/password_reset_views.py:165
+msgid "Reset code has expired. Please request a new one."
+msgstr "Le code de réinitialisation a expiré. Veuillez en demander un nouveau."
+
+#: mota_apps/users/views/password_reset_views.py:172
+msgid "Invalid reset code."
+msgstr "Code de réinitialisation invalide."
+
+#: mota_apps/users/views/password_reset_views.py:179
+msgid "Code verified! Please set your new password."
+msgstr "Code vérifié ! Veuillez définir votre nouveau mot de passe."
+
+#: mota_apps/users/views/password_reset_views.py:219
+msgid "Both password fields are required."
+msgstr "Les deux champs de mot de passe sont requis."
+
+#: mota_apps/users/views/password_reset_views.py:226
+#: mota_apps/users/views/register_views.py:87
+msgid "Passwords do not match."
+msgstr "Les mots de passe ne correspondent pas."
+
+#: mota_apps/users/views/password_reset_views.py:233
+#: mota_apps/users/views/register_views.py:80
+msgid ""
+"Password must be at least 8 characters and contain at least one letter and "
+"one number."
+msgstr ""
+"Le mot de passe doit comporter au moins 8 caractères et contenir au moins "
+"une lettre et un chiffre."
+
+#: mota_apps/users/views/password_reset_views.py:256
+msgid "Password reset successful! You are now logged in."
+msgstr "Réinitialisation du mot de passe réussie ! Vous êtes maintenant connecté."
+
+#: mota_apps/users/views/register_views.py:58
+msgid "All fields are required."
+msgstr "Tous les champs sont requis."
+
+#: mota_apps/users/views/register_views.py:65
+msgid "You must agree to the Terms of Service and Privacy Policy."
+msgstr "Vous devez accepter les Conditions d'Utilisation et la Politique de Confidentialité."
+
+#: mota_apps/users/views/register_views.py:94
+msgid "A user with this email already exists."
+msgstr "Un utilisateur avec cet e-mail existe déjà."
+
+#: mota_apps/users/views/register_views.py:156
+msgid "Registration successful! Please check your email for the 2FA code."
+msgstr "Inscription réussie ! Veuillez vérifier votre e-mail pour le code 2FA."
+
+#: mota_apps/users/views/register_views.py:203
+#: mota_apps/users/views/register_views.py:212
+msgid "Invalid or expired 2FA code. Please register again."
+msgstr "Code 2FA invalide ou expiré. Veuillez vous inscrire à nouveau."
+
+#: mota_apps/users/views/register_views.py:222
+msgid "2FA code has expired. Please register again."
+msgstr "Le code 2FA a expiré. Veuillez vous inscrire à nouveau."
+
+#: mota_apps/users/views/register_views.py:229
+msgid "Invalid 2FA code."
+msgstr "Code 2FA invalide."
+
+#: mota_apps/users/views/register_views.py:246
+msgid "2FA verification successful! You are now logged in."
+msgstr "Vérification 2FA réussie ! Vous êtes maintenant connecté."
+
+#: mota_apps/users/views/user_view.py:92
+msgid "User added successfully."
+msgstr "Utilisateur ajouté avec succès."
+
+#: mota_apps/users/views/user_view.py:99
+msgid "An unexpected error occurred while creating the user. Please try again."
+msgstr "Une erreur inattendue s'est produite lors de la création de l'utilisateur. Veuillez réessayer."
+
+#: mota_apps/users/views/user_view.py:157
+msgid "User updated successfully."
+msgstr "Utilisateur mis à jour avec succès."
+
+#: mota_apps/users/views/user_view.py:164
+msgid "An unexpected error occurred while updating the user. Please try again."
+msgstr "Une erreur inattendue s'est produite lors de la mise à jour de l'utilisateur. Veuillez réessayer."
+
+#: mota_apps/users/views/user_view.py:175
+msgid "You do not have permission to delete this user."
+msgstr "Vous n'avez pas la permission de supprimer cet utilisateur."
+
+#: mota_apps/users/views/user_view.py:187
+msgid "User deleted successfully."
+msgstr "Utilisateur supprimé avec succès."
+
+#: mota_apps/users/views/user_view.py:193
+#: mota_apps/users/views/user_view.py:220
+msgid "User not found."
+msgstr "Utilisateur non trouvé."
+
+#: mota_apps/users/views/user_view.py:199
+msgid "An unexpected error occurred while deleting the user. Please try again."
+msgstr "Une erreur inattendue s'est produite lors de la suppression de l'utilisateur. Veuillez réessayer."
+
+#: mota_apps/users/views/user_view.py:225
+msgid "An unexpected error occurred while fetching user details."
+msgstr "Une erreur inattendue s'est produite lors de la récupération des détails de l'utilisateur."
+
+#: mota_apps/users/views/user_view.py:265
+msgid "Invalid status parameter"
+msgstr "Paramètre de statut invalide"
+
+#: mota_apps/users/views/user_view.py:278
+msgid "Failed to fetch users"
+msgstr "Échec de la récupération des utilisateurs"
+
+#: mota_apps/users/views/user_view.py:294
+msgid "Missing user_id or action"
+msgstr "user_id ou action manquant"
+
+#: mota_apps/users/views/user_view.py:298
+msgid "User not found"
+msgstr "Utilisateur non trouvé"
+
+#: mota_apps/users/views/user_view.py:301
+msgid "Cannot toggle your own status"
+msgstr "Impossible de basculer votre propre statut"
+
+#: mota_apps/users/views/user_view.py:305
+#, python-brace-format
+msgid "User {email} has been activated."
+msgstr "L'utilisateur {email} a été activé."
+
+#: mota_apps/users/views/user_view.py:308
+#, python-brace-format
+msgid "User {email} has been deactivated."
+msgstr "L'utilisateur {email} a été désactivé."
+
+#: mota_apps/users/views/user_view.py:310
+msgid "Invalid action"
+msgstr "Action invalide"
+
+#: mota_apps/users/views/user_view.py:317
+msgid "Invalid request data"
+msgstr "Données de requête invalides"
+
+#: mota_apps/users/views/user_view.py:320
+msgid "Failed to toggle user status"
+msgstr "Échec du basculement du statut de l'utilisateur"
+
+#: venv/lib/python3.10/site-packages/django/contrib/sitemaps/apps.py:8
+msgid "Site Maps"
+msgstr "Plans de Site"
+
+#: venv/lib/python3.10/site-packages/django/contrib/staticfiles/apps.py:9
+msgid "Static Files"
+msgstr "Fichiers Statiques"
+
+#: venv/lib/python3.10/site-packages/django/contrib/syndication/apps.py:7
+msgid "Syndication"
+msgstr "Syndication"
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: venv/lib/python3.10/site-packages/django/core/paginator.py:30
+msgid "…"
+msgstr "…"
+
+#: venv/lib/python3.10/site-packages/django/core/paginator.py:32
+msgid "That page number is not an integer"
+msgstr "Ce numéro de page n'est pas un entier"
+
+#: venv/lib/python3.10/site-packages/django/core/paginator.py:33
+msgid "That page number is less than 1"
+msgstr "Ce numéro de page est inférieur à 1"
+
+#: venv/lib/python3.10/site-packages/django/core/paginator.py:34
+msgid "That page contains no results"
+msgstr "Cette page ne contient aucun résultat"
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:22
+msgid "Enter a valid value."
+msgstr "Saisissez une valeur valide."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:70
+msgid "Enter a valid domain name."
+msgstr "Saisissez un nom de domaine valide."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:153
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:775
+msgid "Enter a valid URL."
+msgstr "Saisissez une URL valide."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:200
+msgid "Enter a valid integer."
+msgstr "Saisissez un entier valide."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:211
+msgid "Enter a valid email address."
+msgstr "Saisissez une adresse e-mail valide."
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: venv/lib/python3.10/site-packages/django/core/validators.py:289
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+"Saisissez un “slug” valide composé de lettres, de chiffres, de traits de "
+"soulignement ou de traits d'union."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:297
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+"Saisissez un “slug” valide composé de lettres Unicode, de chiffres, de "
+"traits de soulignement ou de traits d'union."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:309
+#: venv/lib/python3.10/site-packages/django/core/validators.py:318
+#: venv/lib/python3.10/site-packages/django/core/validators.py:332
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2220
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr "Saisissez une adresse %(protocol)s valide."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:311
+msgid "IPv4"
+msgstr "IPv4"
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:320
+#: venv/lib/python3.10/site-packages/django/utils/ipv6.py:43
+msgid "IPv6"
+msgstr "IPv6"
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:334
+msgid "IPv4 or IPv6"
+msgstr "IPv4 ou IPv6"
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:375
+msgid "Enter only digits separated by commas."
+msgstr "Saisissez uniquement des chiffres séparés par des virgules."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:381
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr "Assurez-vous que cette valeur est %(limit_value)s (c'est %(show_value)s)."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:416
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr "Assurez-vous que cette valeur est inférieure ou égale à %(limit_value)s."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:425
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr "Assurez-vous que cette valeur est supérieure ou égale à %(limit_value)s."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:434
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr "Assurez-vous que cette valeur est un multiple de la taille de pas %(limit_value)s."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:441
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+"Assurez-vous que cette valeur est un multiple de la taille de pas "
+"%(limit_value)s, à partir de %(offset)s, par ex. %(offset)s, "
+"%(valid_value1)s, %(valid_value2)s, etc."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:473
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+"Assurez-vous que cette valeur comporte au moins %(limit_value)d caractère "
+"(elle en a %(show_value)d)."
+msgstr[1] ""
+"Assurez-vous que cette valeur comporte au moins %(limit_value)d caractères "
+"(elle en a %(show_value)d)."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:491
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+"Assurez-vous que cette valeur comporte au plus %(limit_value)d caractère "
+"(elle en a %(show_value)d)."
+msgstr[1] ""
+"Assurez-vous que cette valeur comporte au plus %(limit_value)d caractères "
+"(elle en a %(show_value)d)."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:514
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:366
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:405
+msgid "Enter a number."
+msgstr "Saisissez un nombre."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:516
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+"Assurez-vous qu'il n'y a pas plus de %(max)s chiffre au total."
+msgstr[1] ""
+"Assurez-vous qu'il n'y a pas plus de %(max)s chiffres au total."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:521
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+"Assurez-vous qu'il n'y a pas plus de %(max)s décimale."
+msgstr[1] ""
+"Assurez-vous qu'il n'y a pas plus de %(max)s décimales."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:526
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+"Assurez-vous qu'il n'y a pas plus de %(max)s chiffre avant la virgule "
+"décimale."
+msgstr[1] ""
+"Assurez-vous qu'il n'y a pas plus de %(max)s chiffres avant la virgule "
+"décimale."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:597
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+"L'extension de fichier “%(extension)s” n'est pas autorisée. Les extensions "
+"autorisées sont : %(allowed_extensions)s."
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:659
+msgid "Null characters are not allowed."
+msgstr "Les caractères nuls ne sont pas autorisés."
+
+#: venv/lib/python3.10/site-packages/django/db/models/base.py:1602
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr "%(model_name)s avec ce(s) %(field_labels)s existe déjà."
+
+#: venv/lib/python3.10/site-packages/django/db/models/constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr "La contrainte “%(name)s” est violée."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr "La valeur %(value)r n'est pas un choix valide."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:135
+msgid "This field cannot be null."
+msgstr "Ce champ ne peut pas être nul."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:136
+msgid "This field cannot be blank."
+msgstr "Ce champ ne peut pas être vide."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr "%(model_name)s avec ce %(field_label)s existe déjà."
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+"%(field_label)s doit être unique pour %(date_field_label)s %(lookup_type)s."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr "Champ de type : %(field_type)s"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1162
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr "La valeur “%(value)s” doit être soit True soit False."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1163
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr "La valeur “%(value)s” doit être True, False ou None."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1165
+msgid "Boolean (Either True or False)"
+msgstr "Booléen (True ou False)"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1215
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr "Chaîne (jusqu'à %(max_length)s)"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1217
+msgid "String (unlimited)"
+msgstr "Chaîne (illimitée)"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1326
+msgid "Comma-separated integers"
+msgstr "Entiers séparés par des virgules"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1427
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+"La valeur “%(value)s” a un format de date invalide. Elle doit être au format "
+"AAAA-MM-JJ."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1431
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1566
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+"La valeur “%(value)s” a le format correct (AAAA-MM-JJ) mais c'est une date "
+"invalide."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1435
+msgid "Date (without time)"
+msgstr "Date (sans heure)"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1562
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+"La valeur “%(value)s” a un format invalide. Elle doit être au format AAAA-MM-"
+"JJ HH:MM[:ss[.uuuuuu]][TZ]."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1570
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+"La valeur “%(value)s” a le format correct (AAAA-MM-JJ HH:MM[:ss[.uuuuuu]]"
+"[TZ]) mais c'est une date/heure invalide."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1575
+msgid "Date (with time)"
+msgstr "Date (avec heure)"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1702
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr "La valeur “%(value)s” doit être un nombre décimal."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1704
+msgid "Decimal number"
+msgstr "Nombre décimal"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1864
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+"La valeur “%(value)s” a un format invalide. Elle doit être au format [JJ] "
+"[[HH:]MM:]ss[.uuuuuu]."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1868
+msgid "Duration"
+msgstr "Durée"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1920
+msgid "Email address"
+msgstr "Adresse e-mail"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1945
+msgid "File path"
+msgstr "Chemin du fichier"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2023
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr "La valeur “%(value)s” doit être un nombre à virgule flottante."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2025
+msgid "Floating point number"
+msgstr "Nombre à virgule flottante"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2065
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr "La valeur “%(value)s” doit être un entier."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2067
+msgid "Integer"
+msgstr "Entier"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2163
+msgid "Big (8 byte) integer"
+msgstr "Grand entier (8 octets)"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2180
+msgid "Small integer"
+msgstr "Petit entier"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2188
+msgid "IPv4 address"
+msgstr "Adresse IPv4"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2219
+msgid "IP address"
+msgstr "Adresse IP"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2310
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2311
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr "La valeur “%(value)s” doit être None, True ou False."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2313
+msgid "Boolean (Either True, False or None)"
+msgstr "Booléen (True, False ou None)"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2364
+msgid "Positive big integer"
+msgstr "Grand entier positif"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2379
+msgid "Positive integer"
+msgstr "Entier positif"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2394
+msgid "Positive small integer"
+msgstr "Petit entier positif"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2410
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr "Slug (jusqu'à %(max_length)s)"
+
+#: venv/lib/python3.10/site极packages/django/db/models/fields/__init__.py:2446
+msgid "Text"
+msgstr "Texte"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2526
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+"La valeur “%(value)s” a un format invalide. Elle doit être au format HH:MM[:ss[.uuuuuu]]."
+
+#: ven极/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2530
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+"La valeur “%(value)s” a le format correct (HH:MM[:ss[.uuuuuu]]) mais c'est une heure invalide."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2534
+msgid "Time"
+msgstr "Heure"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.极py:2642
+msgid "URL"
+msgstr "URL"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2666
+msgid "Raw binary data"
+msgstr "Données binaires brutes"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2731
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr "“%(value)s” n'est pas un UUID valide."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2733
+msgid "Universally unique identifier"
+msgstr "Identifiant universel unique"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/files.py:244
+msgid "File"
+msgstr "Fichier"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/files.py:420
+msgid "Image"
+msgstr "Image"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/json.py:24
+msgid "A JSON object"
+msgstr "Un objet JSON"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/json.py:26
+msgid "Value must be valid JSON."
+msgstr "La valeur doit être un JSON valide."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:978
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
+msgstr "L'instance %(model)s avec %(field)s %(value)r n'est pas un choix valide."
+
+#: venv/lib/python3.10/site-packages/django/db/models/极fields/related.py:981
+msgid "Foreign Key (type determined by related field)"
+msgstr "Clé étrangère (type déterminé par le champ lié)"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:1275
+msgid "One-to-one relationship"
+msgstr "Relation un-à-un"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:1332
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr "Relation %(from)s-%(to)s"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:1334
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr "Relations %(from)s-%(to)s"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:1382
+msgid "Many-to-many relationship"
+msgstr "Relation plusieurs-à-plusieurs"
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: venv/lib/python3.10/site-packages/django/forms/boundfield.py:185
+msgid ":?.!"
+msgstr ":?.!"
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:95
+msgid "This field is required."
+msgstr "Ce champ est obligatoire."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:315
+msgid "Enter a whole number."
+msgstr "Saisissez un nombre entier."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:486
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1267
+msgid "Enter a valid date."
+msgstr "Saisissez une date valide."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:509
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1268
+msgid "Enter a valid time."
+msgstr "Saisissez une heure valide."
+
+#: venv/lib/python3.10/s极packages/django/forms/fields.py:536
+msgid "Enter a valid date/time."
+msgstr "Saisissez une date/heure valide."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:570
+msgid "Enter a valid duration."
+msgstr "Saisissez une durée valide."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:571
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr "Le nombre de jours doit être entre {min_days} et {max_days}."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:640
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr "Aucun fichier n'a été soumis. Vérifiez le type d'encodage sur le formulaire."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:641
+msgid "No file was submitted."
+msgstr "Aucun fichier n'a été soumis."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:642
+msgid "The submitted file is empty."
+msgstr "Le fichier soumis est vide."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:644
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural "Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] "Assurez-vous que ce nom de fichier comporte au plus %(max)d caractère (il en a %(length)d)."
+msgstr[1] "Assurez-vous que ce nom de fichier comporte au plus %(max)d caractères (il en a %(length)d)."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:649
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr "Veuillez soit soumettre un fichier, soit cocher la case d'effacement, pas les deux."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:717
+msgid "Upload a valid image. The file you uploaded was either not an image or a corrupted image."
+msgstr "Téléversez une image valide. Le fichier que vous avez téléversé n'était pas une image ou était une image corrompue."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:889
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:975
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr "Sélectionnez un choix valide. %(value)s ne fait pas partie des choix disponibles."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:977
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1096
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1590
+msgid "Enter a list of values."
+msgstr "Saisissez une liste de valeurs."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1097
+msgid "Enter a complete value."
+msgstr "Saisissez une valeur complète."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1339
+msgid "Enter a valid UUID."
+msgstr "Saisissez un UUID valide."
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1369
+msgid "Enter a valid JSON."
+msgstr "Saisissez un JSON valide."
+
+#: venv/lib/python3.10/site-packages/django/forms/forms.py:97
+msgid ":"
+msgstr ":"
+
+#: venv/lib/python3.10/site-packages/django/forms/forms.py:239
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr "(Champ caché %(name)s) %(error)s"
+
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:61
+#, python-format
+msgid "ManagementForm data is missing or has been tampered with. Missing fields: %(field_names)s. You may need to file a bug report if the issue persists."
+msgstr "Les données de ManagementForm sont manquantes ou ont été altérées. Champs manquants: %(field_names)s. Vous devrez peut-être signaler un bug si le problème persiste."
+
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] "Veuillez soumettre au plus %(num)d formulaire."
+msgstr[1] "Veuillez soumettre au plus %(num)d formulaires."
+
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] "Veuillez soumettre au moins %(num)d formulaire."
+msgstr[1] "Veuillez soumettre au moins %(num)d formulaires."
+
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:484
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:491
+msgid "Order"
+msgstr "Ordre"
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:901
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr "Veuillez corriger les données en double pour %(field)s."
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr "Veuillez corriger les données en double pour %(field)s, qui doivent être uniques."
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:913
+#, python-format
+msgid "Please correct the duplicate data for %(field_name)s which must be unique for the %(lookup)s in %(date_field)s."
+msgstr "Veuillez corriger les données en double pour %(field_name)s qui doivent être uniques pour le %(lookup)s dans %(date_field)s."
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:922
+msgid "Please correct the duplicate values below."
+msgstr "Veuillez corriger les valeurs en double ci-dessous."
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr "La valeur en ligne ne correspond pas à l'instance parente."
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1450
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr "Sélectionnez un choix valide. Ce choix ne fait pas partie des choix disponibles."
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr "“%(pk)s” n'est pas une valeur valide."
+
+#: venv/lib/python3.10/site-packages/django/forms/utils.py:229
+#, python-format
+msgid "%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it may be ambiguous or it may not exist."
+msgstr "%(datetime)s n'a pas pu être interprété dans le fuseau horaire %(current_timezone)s; il peut être ambigu ou ne pas exister."
+
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:527
+msgid "Clear"
+msgstr "Effacer"
+
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:528
+msgid "Currently"
+msgstr "Actuellement"
+
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:529
+msgid "Change"
+msgstr "Modifier"
+
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:866
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:867
+msgid "Yes"
+msgstr "Oui"
+
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:868
+msgid "No"
+msgstr "Non"
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr "oui,non,peut-être"
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:903
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] "%(size)d octet"
+msgstr[1] "%(size)d octets"
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr "%s Ko"
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr "%s Mo"
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr "%s Go"
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr "%s To"
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr "%s Po"
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:74
+msgid "p.m."
+msgstr "p.m."
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:75
+msgid "a.m."
+msgstr "a.m."
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:80
+msgid "PM"
+msgstr "PM"
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:81
+msgid "AM"
+msgstr "AM"
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:153
+msgid "midnight"
+msgstr "minuit"
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:155
+msgid "noon"
+msgstr "midi"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:7
+msgid "Monday"
+msgstr "Lundi"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:8
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:9
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:10
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:11
+msgid "Friday"
+msgstr "Vendredi"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:12
+msgid "Saturday"
+msgstr "Samedi"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:13
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:16
+msgid "Mon"
+msgstr "Lun"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:17
+msgid "Tue"
+msgstr "Mar"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:18
+msgid "Wed"
+msgstr "Mer"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:19
+msgid "Thu"
+msgstr "Jeu"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:20
+msgid "Fri"
+msgstr "Ven"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:21
+msgid "Sat"
+msgstr "Sam"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:22
+msgid "Sun"
+msgstr "Dim"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:39
+msgid "jan"
+msgstr "janv"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:40
+msgid "feb"
+msgstr "févr"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:41
+msgid "mar"
+msgstr "mars"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:42
+msgid "apr"
+msgstr "avr"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:43
+msgid "may"
+msgstr "mai"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:44
+msgid "jun"
+msgstr "juin"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:45
+msgid "jul"
+msgstr "juil"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:46
+msgid "aug"
+msgstr "août"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:47
+msgid "sep"
+msgstr "sept"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:48
+msgid "oct"
+msgstr "oct"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:49
+msgid "nov"
+msgstr "nov"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:50
+msgid "dec"
+msgstr "déc"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr "Janv."
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr "Févr."
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr "Mars"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr "Avril"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr "Mai"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr "Juin"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr "Juillet"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr "Août"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr "Sept."
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr "Oct."
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr "Nov."
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr "Déc."
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr "Janvier"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr "Février"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr "Mars"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr "Avril"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr "Mai"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr "Juin"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr "Juillet"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr "Août"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr "Septembre"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr "Octobre"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr "Novembre"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr "Décembre"
+
+#: venv/lib/python3.10/site-packages/django/utils/ipv6.py:20
+msgid "This is not a valid IPv6 address."
+msgstr "Ce n'est pas une adresse IPv6 valide."
+
+#: venv/lib/python3.10/site-packages/django/utils/text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr "%(truncated_text)s…"
+
+#: venv/lib/python3.10/site-packages/django/utils/text.py:287
+msgid "or"
+msgstr "ou"
+
+#: venv/lib/python3.10/site-packages/django/utils/text.py:306
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:135
+msgid ", "
+msgstr ", "
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] "%(num)d an"
+msgstr[1] "%(num)d ans"
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] "%(num)d mois"
+msgstr[1] "%(num)d mois"
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] "%(num)d semaine"
+msgstr[1] "%(num)d semaines"
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] "%(num)d jour"
+msgstr[1] "%(num)d jours"
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] "%(num)d heure"
+msgstr[1] "%(num)d heures"
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] "%(num)d minute"
+msgstr[1] "%(num)d minutes"
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:29
+msgid "Forbidden"
+msgstr "Interdit"
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr "La vérification CSRF a échoué. Requête abandonnée."
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+"Vous voyez ce message parce que ce site HTTPS nécessite l'envoi d'un “en-tête Referer” par votre navigateur web, mais aucun n'a été envoyé. Cet en-tête est requis pour des raisons de sécurité, pour garantir que votre navigateur n'est pas détourné par des tiers."
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+"Si vous avez configuré votre navigateur pour désactiver les “en-têtes Referer”, veuillez les réactiver, au moins pour ce site, ou pour les connexions HTTPS, ou pour les requêtes “same-origin”."
+
+#: venv/lib/python3.10/site-packages/django极/views/csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+"Si vous utilisez la balise <meta name=\"referrer\" content=\"no-referrer\"> ou incluez l'en-tête “Referrer-Policy: no-referrer”, veuillez les supprimer. La protection CSRF nécessite l'en-tête “Referer” pour effectuer une vérification stricte du référent. Si vous êtes préoccupé par la vie privée, utilisez des alternatives comme <a rel=\"noreferrer\" …> pour les liens vers des sites tiers."
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+"Vous voyez ce message parce que ce site nécessite un cookie CSRF lors de la soumission de formulaires. Ce cookie est requis pour des raisons de sécurité, pour garantir que votre navigateur n'est pas détourné par des tiers."
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+"Si vous avez configuré votre navigateur pour désactiver les cookies, veuillez les réactiver, au moins pour ce site, ou pour les requêtes “same-origin”."
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr "Plus d'informations sont disponibles avec DEBUG=True."
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:44
+msgid "No year specified"
+msgstr "Aucune année spécifiée"
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:64
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:115
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:214
+msgid "Date out of range"
+msgstr "Date hors plage"
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:94
+msgid "No month specified"
+msgstr "Aucun mois spécifié"
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:147
+msgid "No day specified"
+msgstr "Aucun jour spécifié"
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:194
+msgid "No week specified"
+msgstr "Aucune semaine spécifiée"
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:353
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:384
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr "Aucun(e) %(verbose_name_plural)s disponible"
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:680
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+"Les %(verbose_name_plural)s futurs ne sont pas disponibles car %(class_name)s."
+"allow_future est False."
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:720
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr "Chaîne de date invalide « %(datestr)s » pour le format « %(format)s »"
+
+#: venv/lib/python3.10/site-packages/django/views/generic/detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr "Aucun(e) %(verbose_name)s trouvé(e) correspondant à la requête"
+
+#: venv/lib/python3.10/site-packages/django/views/generic/list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr "La page n'est pas « last » et ne peut pas être convertie en entier."
+
+#: venv/lib/python3.10/site-packages/django/views/generic/list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr "Page invalide (%(page_number)s) : %(message)s"
+
+#: venv/lib/python3.10/site-packages/django/views/generic/list.py:173
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr "Liste vide et « %(class_name)s.allow_empty » est False."
+
+#: venv/lib/python3.10/site-packages/django/views/static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr "Les index de répertoire ne sont pas autorisés ici."
+
+#: venv/lib/python3.10/site-packages/django/views/static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr "« %(path)s » n'existe pas"
+
+#: venv/lib/python3.10/site-packages/django/views/static.py:68
+#: venv/lib/python3.10/site-packages/django/views/templates/directory_index.html:8
+#: venv/lib/python3.10/site-packages/django/views/templates/directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr "Index de %(directory)s"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:7
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr "L'installation a réussi ! Félicitations !"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+"Voir les <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">notes de version</a> pour Django %(version)s"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+"Vous voyez cette page car <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> est dans votre fichier de paramètres et vous n'avez "
+"configuré aucune URL."
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:217
+msgid "Django Documentation"
+msgstr "Documentation Django"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr "Sujets, références et guides pratiques"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr "Tutoriel : Une application de sondage"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:227
+msgid "Get started with Django"
+msgstr "Commencer avec Django"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:235
+msgid "Django Community"
+msgstr "Communauté Django"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr "Connectez-vous, obtenez de l'aide ou contribuez"
+
+#: venv/lib/python3.10/site-packages/kombu/transport/qpid.py:1311
+#, python-format
+msgid "Attempting to connect to qpid with SASL mechanism %s"
+msgstr "Tentative de connexion à qpid avec le mécanisme SASL %s"
+
+#: venv/lib/python3.10/site-packages/kombu/transport/qpid.py:1316
+#, python-format
+msgid "Connected to qpid with SASL mechanism %s"
+msgstr "Connecté à qpid avec le mécanisme SASL %s"
+
+#: venv/lib/python3.10/site-packages/kombu/transport/qpid.py:1334
+#, python-format
+msgid "Unable to connect to qpid with SASL mechanism %s"
+msgstr "Impossible de se connecter à qpid avec le mécanisme SASL %s"

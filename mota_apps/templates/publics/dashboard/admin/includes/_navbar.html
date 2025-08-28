@@ -66,25 +66,30 @@
             <span class="font-medium"></span>
           </div>
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            <i class="fas fa-user mr-2"></i> {% trans 'Profile' %}
+            <i class="fas fa-user mr-2"></i> {% trans "Profile" %}
           </a>
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            <i class="fas fa-home mr-2"></i> {% trans 'Home' %}
+            <i class="fas fa-home mr-2"></i> {% trans "Home" %}
           </a>
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            <i class="fas fa-envelope mr-2"></i> {% trans 'Messages' %}
+            <i class="fas fa-envelope mr-2"></i> {% trans "Messages" %}
           </a>
           <a href="{% url 'users:logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            <i class="fas fa-sign-out-alt mr-2"></i> {% trans 'Sign out' %}
+            <i class="fas fa-sign-out-alt mr-2"></i> {% trans "Sign out" %}
           </a>
         </div>
       </div>
 
-      <form method="post" action="" class="inline" id="language-form">
+      <!-- Language Switcher -->
+      <form method="post" action="{% url 'set_language' %}" class="inline" id="language-form">
         {% csrf_token %}
         <select name="language" class="bg-white border-none text-gray-700 focus:ring-0 pl-1 pr-6 py-0.5" title="{% trans 'Select Language' %}" id="language-select">
-          <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧</option>
-          <option value="fr" {% if LANGUAGE_CODE == 'fr' %}selected{% endif %}>🇫🇷</option>
+          {% get_available_languages as LANGUAGES %}
+          {% for lang in LANGUAGES %}
+            <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
+              {{ lang.1 }} {% if lang.0 == 'en' %}🇬🇧{% elif lang.0 == 'fr' %}🇫🇷{% endif %}
+            </option>
+          {% endfor %}
         </select>
       </form>
     </div>
