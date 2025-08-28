@@ -16,5 +16,6 @@ urlpatterns = [
     # App URLs with namespaces
     path('', include('mota_apps.users.urls', namespace='users')),
     path('', include('mota_apps.finance.urls', namespace='finance')),
+    path('', include('mota_apps.agents.urls')),
     # Add prefix_untranslated=True if you want these URLs to be accessible without a language prefix
 ) + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0] if settings.STATICFILES_DIRS else settings.STATIC_ROOT)

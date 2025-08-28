@@ -1,4 +1,5 @@
-{% load static %}
+{%load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,7 +115,7 @@
 <body>
     <div class="email-container">
         <div class="header">
-            <img src="{% static 'images/Logo.bmp' %}" alt="{{ site_name }} Logo" class="logo">
+            <img src="cid:logo_image" alt="{{ site_name }} Logo" class="logo">
         </div>
         
         {% block content %}
@@ -125,7 +126,7 @@
             &copy; {{ site_name }}. All rights reserved.
             {% if unsubscribe_url %}
             <div style="margin-top: 8px;">
-                <a href="{{ unsubscribe_url }}" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a>
+                <a href="{{ unsubscribe_url }}" style="color: #6b7280; text-decoration: underline;">{% trans "Unsubscribe" %}</a>
             </div>
             {% endif %}
         </div>

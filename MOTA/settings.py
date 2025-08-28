@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'mota_apps.users',
     'mota_apps.finance',
+    'mota_apps.agents',
 ]
 
 MIDDLEWARE = [
@@ -180,6 +181,7 @@ EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool)
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SITE_NAME = 'MOTA'
 
 
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")

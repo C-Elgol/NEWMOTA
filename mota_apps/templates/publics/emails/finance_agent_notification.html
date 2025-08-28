@@ -1,0 +1,29 @@
+{% extends "publics/emails/base.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Finance Agent Task Notification" %} - {{ site_name }}
+{% endblock %}
+
+{% block content %}
+<div class="content-block">
+  {% if status == "success" %}
+    <h2 style="color: #2e86de;">✅ {% trans "Finance Agent Task Completed Successfully" %}</h2>
+    <p>{% trans "Hello," %}</p>
+    <p>{% trans "Your Finance Agent task has been processed successfully. Here are the details:" %}</p>
+    <ul style="line-height: 1.6;">
+      <li><strong>{% trans "Processed Members" %}:</strong> {{ processed_members }}</li>
+      <li><strong>{% trans "Season Date" %}:</strong> {{ season_date }}</li>
+    </ul>
+    <p style="margin-top: 15px;">{% trans "Thank you for using" %} <strong>{{ site_name }}</strong>.</p>
+  {% else %}
+    <h2 style="color: #e74c3c;">❌ {% trans "Finance Agent Task Failed" %}</h2>
+    <p>{% trans "Hello," %}</p>
+    <p>{% trans "Unfortunately, your Finance Agent task did not complete successfully. Details are below:" %}</p>
+    <ul style="line-height: 1.6; color: #e74c3c;">
+      <li><strong>{% trans "Error" %}:</strong> {{ error }}</li>
+    </ul>
+    <p style="margin-top: 15px;">{% trans "Please try again or contact support if the issue persists." %}</p>
+  {% endif %}
+</div>
+{% endblock %}

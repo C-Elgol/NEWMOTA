@@ -131,10 +131,9 @@
                 <span>{% trans 'Add Expenditures' %}</span>
               </a>
 
-              {% url 'sav:partenaires_management' as partenaires_management_url %}
-              <a href="{{ partenaires_management_url }}"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == partenaires_management_url %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-briefcase mr-3 text-lg"></i>
+              <a href="{% url 'agents:finance_agent' %}"
+                class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/agent/finance-agent/' %}active{% else %}inactive{% endif %}">
+                <i class="fas fa-rocket mr-3 text-lg"></i>
                 <span>{% trans "Agents" %}</span>
               </a>
             </div>
