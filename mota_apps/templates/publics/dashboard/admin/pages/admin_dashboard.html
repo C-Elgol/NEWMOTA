@@ -177,10 +177,13 @@
 
   <!-- Net Balance -->
   <div class="text-center">
-    <h2 class="text-2xl font-bold text-gray-800">
-      Net Balance 💰: {{ net_income|floatformat:2 }} FCFA
-    </h2>
-  </div>
+  <h2 class="text-2xl font-bold text-gray-800">
+    {% blocktrans with net_income=net_income|floatformat:2 %}
+      Net Balance 💰: {{ net_income }} FCFA
+    {% endblocktrans %}
+  </h2>
+</div>
+
 </div>
 {% endblock %}
 
