@@ -1,4 +1,5 @@
 {% extends 'publics/dashboard/admin/base.html' %}
+{% load i18n static %}
 
 {% block content %}
   <div class="p-4">
@@ -8,298 +9,224 @@
       
     </div>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-      <!-- Total Revenue -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-medium text-gray-500">Total Revenue</p>
-            <p class="mt-1 text-3xl font-semibold text-gray-900">$24,780</p>
-            <p class="mt-1 text-sm text-green-600">
-              <span class="font-medium">+12.5%</span> from last month
-            </p>
-          </div>
-          <div class="bg-primary bg-opacity-10 p-3 rounded-full">
-            <i class="fas fa-dollar-sign text-primary text-xl"></i>
-          </div>
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <!-- Total Revenue -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">{% trans "Net Income" %}</p>
+          <p class="mt-1 text-3xl font-semibold text-gray-900">{{ net_income|floatformat:2 }} FCFA</p>
         </div>
-      </div>
-
-      <!-- Total Orders -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-medium text-gray-500">Total Orders</p>
-            <p class="mt-1 text-3xl font-semibold text-gray-900">1,245</p>
-            <p class="mt-1 text-sm text-green-600">
-              <span class="font-medium">+8.2%</span> from last month
-            </p>
-          </div>
-          <div class="bg-secondary bg-opacity-10 p-3 rounded-full">
-            <i class="fas fa-shopping-cart text-secondary text-xl"></i>
-          </div>
-        </div>
-      </div>
-
-      <!-- Products -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-medium text-gray-500">Total Products</p>
-            <p class="mt-1 text-3xl font-semibold text-gray-900">356</p>
-            <p class="mt-1 text-sm text-green-600">
-              <span class="font-medium">+5.3%</span> from last month
-            </p>
-          </div>
-          <div class="bg-primary bg-opacity-10 p-3 rounded-full">
-            <i class="fas fa-box-open text-primary text-xl"></i>
-          </div>
-        </div>
-      </div>
-
-      <!-- Customers -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-medium text-gray-500">Total Customers</p>
-            <p class="mt-1 text-3xl font-semibold text-gray-900">1,893</p>
-            <p class="mt-1 text-sm text-green-600">
-              <span class="font-medium">+3.7%</span> from last month
-            </p>
-          </div>
-          <div class="bg-secondary bg-opacity-10 p-3 rounded-full">
-            <i class="fas fa-users text-secondary text-xl"></i>
-          </div>
+        <div class="bg-green-200 bg-opacity-10 p-3 rounded-full">
+          <i class="fas fa-dollar-sign text-xl text-green-600"></i>
         </div>
       </div>
     </div>
 
-    <!-- Charts and Tables -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-      <!-- Sales Chart -->
-      <div class="bg-white rounded-lg shadow p-6 lg:col-span-2">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-lg font-medium text-gray-900">Sales Overview</h2>
-          <div class="flex space-x-2">
-            <button class="px-3 py-1 text-sm bg-gray-100 rounded-md">Week</button>
-            <button class="px-3 py-1 text-sm bg-primary text-white rounded-md">Month</button>
-            <button class="px-3 py-1 text-sm bg-gray-100 rounded-md">Year</button>
-          </div>
+    <!-- Total Users -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">{% trans "Total Users" %}</p>
+          <p class="mt-1 text-3xl font-semibold text-gray-900">{{ total_users }}</p>
         </div>
-        <!-- Chart placeholder -->
-        <div class="h-64 bg-gray-100 rounded-md flex items-center justify-center">
-          <p class="text-gray-500">Sales chart will be displayed here</p>
+        <div class="bg-green-200 bg-opacity-10 p-3 rounded-full">
+          <i class="fas fa-users text-xl text-green-600"></i>
         </div>
-      </div>
-
-      <!-- Recent Orders -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <h2 class="text-lg font-medium text-gray-900 mb-4">Recent Orders</h2>
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-900">#ORD-2023-001</p>
-              <p class="text-sm text-gray-500">John Doe - $249.99</p>
-            </div>
-            <span class="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Completed</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-900">#ORD-2023-002</p>
-              <p class="text-sm text-gray-500">Jane Smith - $599.99</p>
-            </div>
-            <span class="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">Processing</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-900">#ORD-2023-003</p>
-              <p class="text-sm text-gray-500">Robert Johnson - $129.99</p>
-            </div>
-            <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">Shipped</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-900">#ORD-2023-004</p>
-              <p class="text-sm text-gray-500">Emily Davis - $349.99</p>
-            </div>
-            <span class="px-2 py-1 text-xs bg-red-100 text-red-800 rounded-full">Cancelled</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-900">#ORD-2023-005</p>
-              <p class="text-sm text-gray-500">Michael Wilson - $199.99</p>
-            </div>
-            <span class="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Completed</span>
-          </div>
-        </div>
-        <a href="#" class="mt-4 block text-sm text-primary hover:underline text-center">View all orders</a>
       </div>
     </div>
 
-    <!-- Products Table -->
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-      <div class="px-6 py-4 border-b border-gray-200">
-        <div class="flex items-center justify-between">
-          <h2 class="text-lg font-medium text-gray-900">Recent Products</h2>
-          <button class="px-3 py-1 bg-primary text-white rounded-md text-sm hover:bg-blue-800">
-            View All
-          </button>
+    <!-- Total Savings -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">{% trans "Total Savings" %}</p>
+          <p class="mt-1 text-3xl font-semibold text-gray-900">{{ total_savings|floatformat:2 }} FCFA</p>
+        </div>
+        <div class="bg-green-200 bg-opacity-10 p-3 rounded-full">
+          <i class="fas fa-piggy-bank text-xl text-green-600"></i>
         </div>
       </div>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-          <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Product
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Category
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Price
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Stock
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Status
-            </th>
-            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Actions
-            </th>
-          </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <img class="h-10 w-10 rounded"
-                       src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                       alt="">
-                </div>
-                <div class="ml-4">
-                  <div class="text-sm font-medium text-gray-900">Ultra HD Monitor</div>
-                  <div class="text-sm text-gray-500">MON-001</div>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">Monitors</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">$299.99</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">45</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">In Stock</span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <a href="#" class="text-primary hover:text-blue-800 mr-3">Edit</a>
-              <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <img class="h-10 w-10 rounded"
-                       src="https://images.unsplash.com/photo-1587202372775-e229f1723e1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                       alt="">
-                </div>
-                <div class="ml-4">
-                  <div class="text-sm font-medium text-gray-900">Wireless Keyboard</div>
-                  <div class="text-sm text-gray-500">KEY-001</div>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">Accessories</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">$49.99</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">112</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">In Stock</span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <a href="#" class="text-primary hover:text-blue-800 mr-3">Edit</a>
-              <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <img class="h-10 w-10 rounded"
-                       src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                       alt="">
-                </div>
-                <div class="ml-4">
-                  <div class="text-sm font-medium text-gray-900">Professional Laptop</div>
-                  <div class="text-sm text-gray-500">LAP-001</div>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">Laptops</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">$899.99</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">18</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <span
-                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Low Stock</span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <a href="#" class="text-primary hover:text-blue-800 mr-3">Edit</a>
-              <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <img class="h-10 w-10 rounded"
-                       src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                       alt="">
-                </div>
-                <div class="ml-4">
-                  <div class="text-sm font-medium text-gray-900">Bluetooth Headset</div>
-                  <div class="text-sm text-gray-500">AUD-001</div>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">Audio</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">$79.99</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">0</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Out of Stock</span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <a href="#" class="text-primary hover:text-blue-800 mr-3">Edit</a>
-              <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+    </div>
+
+    <!-- Total Entertainment -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">{% trans "Total Entertainment" %}</p>
+          <p class="mt-1 text-3xl font-semibold text-gray-900">{{ total_entertainment|floatformat:2 }} FCFA</p>
+        </div>
+        <div class="bg-green-200 bg-opacity-10 p-3 rounded-full">
+          <i class="fas fa-glass-cheers text-xl text-green-600"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Njangi -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">{% trans "Total Njangi" %}</p>
+          <p class="mt-1 text-3xl font-semibold text-gray-900">{{ total_njangi|floatformat:2 }} FCFA</p>
+        </div>
+        <div class="bg-green-200 bg-opacity-10 p-3 rounded-full">
+          <i class="fas fa-hand-holding-usd text-xl text-green-600"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Projects -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">{% trans "Total Projects" %}</p>
+          <p class="mt-1 text-3xl font-semibold text-gray-900">{{ total_projects|floatformat:2 }} FCFA</p>
+        </div>
+        <div class="bg-green-200 bg-opacity-10 p-3 rounded-full">
+          <i class="fas fa-project-diagram text-xl text-green-600"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Others -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">{% trans "Total Others" %}</p>
+          <p class="mt-1 text-3xl font-semibold text-gray-900">{{ total_others|floatformat:2 }} FCFA</p>
+        </div>
+        <div class="bg-green-200 bg-opacity-10 p-3 rounded-full">
+          <i class="fas fa-ellipsis-h text-xl text-green-600"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Finance -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">{% trans "Total Finance" %}</p>
+          <p class="mt-1 text-3xl font-semibold text-gray-900">{{ total_finance|floatformat:2 }} FCFA</p>
+        </div>
+        <div class="bg-green-200 bg-opacity-10 p-3 rounded-full">
+          <i class="fas fa-wallet text-xl text-green-600"></i>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Income and Outcome Summaries -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Income Summary -->
+    <div class="summary-table-wrapper bg-white rounded-lg shadow p-6">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-arrow-up mr-2 text-green-500"></i>
+        {% trans "Income Summary" %}
+      </h3>
+      <table class="summary-table w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3 text-left text-sm font-medium text-gray-600">{% trans "Category" %}</th>
+            <th class="p-3 text-right text-sm font-medium text-gray-600">{% trans "Total (FCFA)" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in income_summary %}
+            <tr class="{% if item.category == 'Total Income' %}total-row font-bold{% endif %}">
+              <td class="p-3 border-t border-gray-200">{{ item.category }}</td>
+              <td class="p-3 border-t border-gray-200 text-right">{{ item.total|floatformat:2 }} FCFA</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="2" class="p-3 text-center text-gray-500">{% trans "No income data available." %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Outcome Summary -->
+    <div class="summary-table-wrapper bg-white rounded-lg shadow p-6">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-arrow-down mr-2 text-red-500"></i>
+        {% trans "Outcome Summary" %}
+      </h3>
+      <table class="summary-table w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3 text-left text-sm font-medium text-gray-600">{% trans "Category" %}</th>
+            <th class="p-3 text-right text-sm font-medium text-gray-600">{% trans "Total (FCFA)" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in outcome_summary %}
+            <tr class="{% if item.category == 'Total Outcome' %}total-row font-bold{% endif %}">
+              <td class="p-3 border-t border-gray-200">{{ item.category }}</td>
+              <td class="p-3 border-t border-gray-200 text-right">{{ item.total|floatformat:2 }} FCFA</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="2" class="p-3 text-center text-gray-500">{% trans "No outcome data available." %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Net Balance -->
+  <div class="text-center">
+    <h2 class="text-2xl font-bold text-gray-800">
+      Net Balance 💰: {{ net_income|floatformat:2 }} FCFA
+    </h2>
+  </div>
+</div>
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+<style>
+.summary-table-wrapper {
+  overflow-x: auto;
+}
+.summary-table {
+  min-width: 100%;
+}
+.summary-table th, .summary-table td {
+  padding: 0.75rem;
+}
+.total-row {
+  background-color: #f7fafc;
+}
+</style>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+  const loaderManager = new SectionLoaderManager();
+  
+  // Show loader for 1.5 seconds on page load
+  loaderManager.showLoader();
+  setTimeout(function() {
+    loaderManager.hideLoader();
+  }, 1500);
+
+  // Handle unauthorized access or other errors (if redirected with error message)
+  {% if messages %}
+    {% for message in messages %}
+      window.toastManager.buildToast()
+        .setMessage('{{ message }}')
+        .setType('danger')
+        .setPosition('top-right')
+        .setDuration(4000)
+        .show();
+    {% endfor %}
+  {% endif %}
+});
+</script>
 {% endblock %}
