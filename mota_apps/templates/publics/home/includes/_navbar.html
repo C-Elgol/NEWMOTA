@@ -84,10 +84,9 @@
       <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "My Addresses" %}</a>
       <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "My Orders" %}</a>
       <div class="border-t border-gray-200"></div>
-      <form method="post" action="#">
-        {% csrf_token %}
-        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Logout" %}</button>
-      </form>
+      <a href="{% url 'users:logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <i class="fas fa-sign-out-alt mr-2"></i> {% trans "Sign out" %}
+          </a>
     {% else %}
       <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Login" %}</a>
       <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Register" %}</a>
