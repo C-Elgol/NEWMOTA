@@ -17,6 +17,7 @@ cryptography==45.0.5
 cssselect2==0.8.0
 dj-database-url==3.0.1
 Django==5.2.4
+django-celery-beat==2.5.1
 django-environ
 django-extensions
 django-phonenumber-field
