@@ -27,7 +27,7 @@ kombu==5.5.4
 lxml==6.0.0
 oscrypto==1.3.0
 packaging==25.0
-phonenumbers-9.0.12
+phonenumbers
 pillow==11.3.0
 prompt_toolkit==3.0.51
 psycopg-c==3.2.9
