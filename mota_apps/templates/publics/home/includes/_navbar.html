@@ -10,120 +10,88 @@
         {% if company_settings.company_logo %}
           <img src="{{ company_settings.company_logo.url }}" alt="{{ company_settings.company_name }} Logo" class="h-10 mr-2">
         {% else %}
-          <!-- Fallback if no logo is set -->
-           
           <img src="{% static 'images/Logo.bmp' %}" alt="Mota Logo" class="h-10 mr-2">
         {% endif %}
       </div>
 
-      <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
+      <div class="flex items-center space-x-4">
+        <!-- Profile Dropdown Button (Mobile) -->
+        <button id="profileDropdownButtonMobile" class="text-gray-700 hover:text-secondary transition focus:outline-none flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Desktop Navigation (hidden on mobile) -->
     <nav class="hidden md:flex items-center justify-between py-4">
       <!-- Logo Desktop -->
-    <div class="flex items-center">
+      <div class="flex items-center">
         {% if company_settings.company_logo %}
-            <img src="{{ company_settings.company_logo.url }}" 
-                alt="{{ company_settings.company_name }} Logo" 
-                class="h-10 mr-2 object-cover">
+          <img src="{{ company_settings.company_logo.url }}" 
+               alt="{{ company_settings.company_name }} Logo" 
+               class="h-10 mr-2 object-cover">
         {% endif %}
-    </div>
+      </div>
 
       <!-- Navigation Links with Dropdowns -->
       <div class="flex items-center space-x-1">
-        <div class="relative group">
-          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
-            {% trans 'Home' %}
-          </a>
-        </div>
-
-        <div class="relative group">
-          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
-            {% trans 'About Us' %}
-          </a>
-        </div>
-
-        <div class="relative group">
-          <a href="#" >
-            <button class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
-              {% trans 'Shop Grid' %}
-            </button>
-          </a>
-        </div>
-
-        <div class="relative group">
-          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium flex items-center">
-            {% trans 'Contact Us' %}
-          </a>
-        </div>
-
+        <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">{% trans 'Home' %}</a>
+        <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">{% trans 'About Us' %}</a>
+        <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">{% trans 'Shop Grid' %}</a>
+        <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">{% trans 'Contact Us' %}</a>
         {% if request.user.is_authenticated and request.user.is_admin %}
-        <div class="relative group">
-          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">
-            {% trans 'Admin Dashboard' %}
-          </a>
-        </div>
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">{% trans 'Admin Dashboard' %}</a>
         {% endif %}
       </div>
 
       <!-- Icons -->
       <div class="flex items-center space-x-6">
-        <!-- Dropdown Profil -->
+        <!-- Dropdown Profile (Desktop) -->
         <div class="relative">
           <button id="profileDropdownButton" class="text-gray-700 hover:text-secondary transition focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
             </svg>
           </button>
-
-          <!-- Dropdown Menu -->
-          <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-              {% if user.is_authenticated %}
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  {% trans "Dashboard" %}
-                </a>
-                
-                {% if request.user.is_superuser %}
-                  <a href="{% url 'finance:admin-dashboard' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  {% trans "Admin Dashboard" %}
-                </a>
-                {% endif %}
-                  
-                
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  {% trans "My Profile" %}
-                </a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  {% trans "My Addresses" %}
-                </a>
-                <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  {% trans "My Orders" %}
-                </a>
-                <div class="border-t border-gray-200"></div>
-                <form method="post" action="#">
-                  {% csrf_token %}
-                  <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    {% trans "Logout" %}
-                  </button>
-                </form>
-              {% else %}
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  {% trans "Login" %}
-                </a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  {% trans "Register" %}
-                </a>
-              {% endif %}
-            </div>
-
         </div>
       </div>
     </nav>
+  </div>
+
+  <!-- Profile Dropdown Menu (shared for mobile & desktop) -->
+  <div id="profileDropdown" class="hidden absolute right-4 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+    {% if user.is_authenticated %}
+      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Dashboard" %}</a>
+      {% if request.user.is_superuser %}
+        <a href="{% url 'finance:admin-dashboard' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Admin Dashboard" %}</a>
+      {% endif %}
+      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "My Profile" %}</a>
+      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "My Addresses" %}</a>
+      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "My Orders" %}</a>
+      <div class="border-t border-gray-200"></div>
+      <form method="post" action="#">
+        {% csrf_token %}
+        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Logout" %}</button>
+      </form>
+    {% else %}
+      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Login" %}</a>
+      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Register" %}</a>
+    {% endif %}
   </div>
 
   <!-- Mobile Menu (hidden by default) -->
@@ -206,17 +174,23 @@
 
 <script>
   // Script uniquement pour le dropdown Profil
-  document.addEventListener('DOMContentLoaded', function() {
-    const dropdownButton = document.getElementById('profileDropdownButton');
+    document.addEventListener('DOMContentLoaded', function() {
     const dropdownMenu = document.getElementById('profileDropdown');
+    const desktopBtn = document.getElementById('profileDropdownButton');
+    const mobileBtn = document.getElementById('profileDropdownButtonMobile');
 
-    dropdownButton.addEventListener('click', function(e) {
+    function toggleDropdown(e) {
       e.stopPropagation();
       dropdownMenu.classList.toggle('hidden');
-    });
+    }
 
-    document.addEventListener('click', function() {
-      dropdownMenu.classList.add('hidden');
+    desktopBtn?.addEventListener('click', toggleDropdown);
+    mobileBtn?.addEventListener('click', toggleDropdown);
+
+    document.addEventListener('click', function(e) {
+      if (!dropdownMenu.contains(e.target) && !desktopBtn?.contains(e.target) && !mobileBtn?.contains(e.target)) {
+        dropdownMenu.classList.add('hidden');
+      }
     });
   });
 </script>
