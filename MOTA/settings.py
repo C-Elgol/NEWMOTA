@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 import environ
+import dj_database_url
 from decouple import config
 from django.utils.translation import gettext_lazy as _
 
@@ -90,20 +91,20 @@ WSGI_APPLICATION = 'MOTA.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DB_NAME", "postgres"),
-        "USER": config("DB_USER", "postgres"),
-        "PASSWORD": config("DB_PASSWORD", "postgres"),
-        "HOST": config("DB_HOST", "db"),
-        "PORT": config("DB_PORT", "5432"),
-    },
-}
-
 # DATABASES = {
-#     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": config("DB_NAME", "postgres"),
+#         "USER": config("DB_USER", "postgres"),
+#         "PASSWORD": config("DB_PASSWORD", "postgres"),
+#         "HOST": config("DB_HOST", "db"),
+#         "PORT": config("DB_PORT", "5432"),
+#     },
 # }
+
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
