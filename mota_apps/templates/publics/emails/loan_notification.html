@@ -1,0 +1,31 @@
+{% extends "publics/emails/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="content-block">
+  <h2>{% trans "Loan Payment Reminder" %}</h2>
+  {% if details.message %}
+    {{ details.message | safe }}
+  {% else %}
+    <p>{% trans "Dear Member," %}</p>
+    <p>{% trans "We hope this message finds you well. This is a gentle reminder about your outstanding loan(s) with MOTA. Timely repayment helps keep our community strong." %}</p>
+    {% if details.loans %}
+      <h3>{% trans "Your Loan Details:" %}</h3>
+      <ul>
+        {% for loan in details.loans %}
+          <li>
+            {% blocktrans with name=loan.member_name borrowed=loan.amount_borrowed paid=loan.amount_paid left=loan.amount_left_to_pay date=loan.borrow_date status=loan.status %}
+              <strong>{{ name }}</strong>: Borrowed: ${{ borrowed }}, Paid: ${{ paid }}, Left to Pay: ${{ left }}, Borrowed On: {{ date }}, Status: {{ status }}
+            {% endblocktrans %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>{% trans "No outstanding loans found at this time." %}</p>
+    {% endif %}
+    <p>{% trans "Please make arrangements to settle your outstanding balance as soon as possible. Contact us at support@mota.com for assistance." %}</p>
+    <p>{% trans "Thank you for your commitment to our community!" %}</p>
+    <p>{% trans "Warm regards," %}<br>{% trans "The MOTA Team" %}</p>
+  {% endif %}
+</div>
+{% endblock %}

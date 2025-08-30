@@ -27,6 +27,15 @@ environ.Env.read_env(BASE_DIR / ".env")
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 
+TAVILY_API_KEY = config("TAVILY_API_KEY", default="fadfa")
+# This is the OpenAI API key for the agent to use
+OPENAI_API_KEY = config("OPENAI_API_KEY", default="fadfa")
+DEEPSEEK_API_KEY = config("DEEPSEEK_API_KEY", default="fadfa")
+ANTHROPIC_API_KEY = config("ANTHROPIC_API_KEY", default="fadfa")
+
+GOOGLE_API_KEY = config("GOOGLE_API_KEY", default="fadfa")
+GOOGLE_CSE_ID = config("GOOGLE_CSE_ID", default="fadfa")
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
