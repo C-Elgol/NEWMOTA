@@ -11,7 +11,6 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 OPENAI_API_KEY = settings.OPENAI_API_KEY
 DEEPSEEK_API_KEY = settings.DEEPSEEK_API_KEY
 ANTHROPIC_API_KEY = settings.ANTHROPIC_API_KEY
-GOOGLE_API_KEY = settings.GOOGLE_API_KEY
 
 def load_llm(
     model_name: str,
@@ -53,11 +52,5 @@ def load_llm(
             temperature=temperature,
         )
 
-    if model_name.startswith("gemini-"):
-        return ChatGoogleGenerativeAI(
-            model=model_name,
-            google_api_key=api_key or GOOGLE_API_KEY,
-            temperature=temperature,
-        )
 
     raise ValueError(f"Unknown or unsupported model: {model_name}")

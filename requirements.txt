@@ -21,7 +21,6 @@ django-celery-beat
 django-environ
 django-extensions
 django-phonenumber-field
-google-ai-generativelanguage>=0.6.18,<0.7.0
 google-generativeai
 gunicorn==22.0.0
 html5lib==1.1

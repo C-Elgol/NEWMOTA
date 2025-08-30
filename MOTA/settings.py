@@ -33,7 +33,7 @@ OPENAI_API_KEY = config("OPENAI_API_KEY", default="fadfa")
 DEEPSEEK_API_KEY = config("DEEPSEEK_API_KEY", default="fadfa")
 ANTHROPIC_API_KEY = config("ANTHROPIC_API_KEY", default="fadfa")
 
-GOOGLE_API_KEY = config("GOOGLE_API_KEY", default="fadfa")
+GOOGLE_API_KEY = config("GOOGLE_API_KEY", default="fadfa") 
 GOOGLE_CSE_ID = config("GOOGLE_CSE_ID", default="fadfa")
 
 
