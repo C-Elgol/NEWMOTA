@@ -17,7 +17,7 @@ class NjangiListView(FinanceBaseView, ListView):
     template_name = "publics/dashboard/admin/pages/njangis/njangi_list.html"
     model = Njangi
     context_object_name = 'njangis'
-    paginate_by = 10
+    paginate_by = 100
 
     def get_queryset(self):
         selected_season = self.request.session.get('selected_season')

@@ -17,7 +17,7 @@ class LoanListView(FinanceBaseView, ListView):
     template_name = "publics/dashboard/admin/pages/loans/loan_list.html"
     model = Loan
     context_object_name = 'loans'
-    paginate_by = 10
+    paginate_by = 100
 
     def get_queryset(self):
         selected_season = self.request.session.get('selected_season')

@@ -16,7 +16,7 @@ class ExpenditureListView(FinanceBaseView, ListView):
     template_name = "publics/dashboard/admin/pages/expenditures/expenditure_list.html"
     model = Expenditure
     context_object_name = 'expenditures'
-    paginate_by = 10
+    paginate_by = 100
 
     def get_queryset(self):
         selected_season = self.request.session.get('selected_season')

@@ -29,7 +29,7 @@ class UserListView(ListView):
     template_name = "publics/dashboard/admin/pages/users/user_list.html"
     model = User
     context_object_name = 'users'
-    paginate_by = 10
+    paginate_by = 100
 
     def get_queryset(self):
         return User.objects.filter(is_deleted=False).order_by('-date_joined')

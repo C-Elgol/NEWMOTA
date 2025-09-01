@@ -33,7 +33,7 @@ class FinanceListView(FinanceBaseView, ListView):
     template_name = "publics/dashboard/admin/pages/finance/finance_list.html"
     model = FinanceRecord
     context_object_name = 'finance_records'
-    paginate_by = 10
+    paginate_by = 100
 
     def get_queryset(self):
         selected_season = self.request.session.get('selected_season')
