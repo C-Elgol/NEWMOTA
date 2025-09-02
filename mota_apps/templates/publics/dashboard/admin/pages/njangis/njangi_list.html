@@ -4,12 +4,12 @@
 {% block content %}
 <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Njangi Beneficiaries for {{ season }}{% endblocktrans %}</h2>
-    <div class="space-x-3">
+    <div class="space-x-3  mt-4">
         <a href="{% url 'finance:add_njangi_member' %}" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
             {% trans "New Njangi Member" %}
         </a>
         <a href="{% url 'finance:new_njangi' %}" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors" {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
-            {% trans "New Njangi Beneficiary" %}
+            {% trans "Njangi Beneficiary" %}
         </a>
     </div>
 </div>
