@@ -93,11 +93,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     let table = null;
 
+    // Initialize DataTable
     if (document.getElementById("finance_list") && typeof simpleDatatables.DataTable !== 'undefined') {
         const resetTable = function () {
-            if (table) {
-                table.destroy();
-            }
+            if (table) table.destroy();
 
             const options = {
                 selectable: false,
@@ -120,8 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         resetTable();
-
-        // Reinitialize table on window resize for responsiveness
         window.addEventListener('resize', resetTable);
     }
 
@@ -151,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Modal Close Handlers
-    document.querySelectorAll('[id$="-close-btn"]').forEach(btn => {
+    document.querySelectorAll('.close-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             hideModal(this.closest('.modal').id);
         });
@@ -159,9 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideModal(this.id);
-            }
+            if (e.target === this) hideModal(this.id);
         });
     });
 
@@ -200,9 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             loaderManager.hideLoader();
-            if (!response.ok) {
-                throw new Error(gettext('An error occurred while deleting the finance record.'));
-            }
+            if (!response.ok) throw new Error(gettext('An error occurred while deleting the finance record.'));
             return response.json();
         })
         .then(data => {
@@ -218,12 +211,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.currentDeleteId = null;
 
                 const row = document.querySelector(`tr td button[data-id="${data.id}"]`)?.closest('tr');
-                if (row) {
-                    row.remove();
-                }
-                if (typeof resetTable === 'function') {
-                    resetTable();
-                }
+                if (row) row.remove();
+                if (typeof resetTable === 'function') resetTable();
             } else {
                 window.toastManager.buildToast()
                     .setMessage(data.message || gettext('Failed to delete finance record. Please try again.'))

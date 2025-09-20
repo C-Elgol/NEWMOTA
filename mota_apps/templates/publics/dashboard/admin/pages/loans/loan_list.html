@@ -114,14 +114,15 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let table = null;
+    let currentDeleteId = null;
+    const loaderManager = new SectionLoaderManager();
 
+    // Initialize DataTable
     if (document.getElementById("loan_list") && typeof simpleDatatables.DataTable !== 'undefined') {
         const resetTable = function () {
-            if (table) {
-                table.destroy();
-            }
+            if (table) table.destroy();
 
-            const options = {
+            table = new simpleDatatables.DataTable("#loan_list", {
                 selectable: false,
                 rowNavigation: false,
                 tabIndex: false,
@@ -134,65 +135,71 @@ document.addEventListener('DOMContentLoaded', function() {
                     info: `{% trans 'Showing {start} to {end} of {rows} entries' %}`,
                     noResults: `{% trans 'No results match your search query' %}`,
                 },
-            };
-
-            table = new simpleDatatables.DataTable("#loan_list", options);
+            });
         };
-
-        const isMobile = window.matchMedia("(any-pointer:coarse)").matches;
-        if (isMobile) {
-            rowNavigation = false;
-        }
-
         resetTable();
+        window.addEventListener('resize', resetTable);
     }
 
-    const loaderManager = new SectionLoaderManager();
+    // -------------------------------
+    // Detail Modal Handlers
+    // -------------------------------
+    const detailModal = document.getElementById('detail-modal');
 
     document.querySelectorAll('.detail-btn').forEach(button => {
         button.addEventListener('click', function() {
-            document.getElementById('detail-member').textContent = this.getAttribute('data-member') || 'N/A';
-            document.getElementById('detail-amount-borrowed').textContent = this.getAttribute('data-amount-borrowed') || '0.00';
-            document.getElementById('detail-total-amount').textContent = this.getAttribute('data-total-amount') || '0.00';
-            document.getElementById('detail-amount-paid').textContent = this.getAttribute('data-amount-paid') || '0.00';
-            document.getElementById('detail-amount-left').textContent = this.getAttribute('data-amount-left') || '0.00';
-            document.getElementById('detail-interest').textContent = this.getAttribute('data-interest') || '0.00';
-            document.getElementById('detail-borrow-date').textContent = this.getAttribute('data-borrow-date') || 'N/A';
-            document.getElementById('detail-status').textContent = this.getAttribute('data-status') || 'N/A';
-            document.getElementById('detail-id-card-number').textContent = this.getAttribute('data-id-card-number') || 'N/A';
-            document.getElementById('detail-signature').textContent = this.getAttribute('data-signature') || 'N/A';
-            document.getElementById('detail-comment').textContent = this.getAttribute('data-comment') || 'N/A';
+            document.getElementById('detail-member').textContent = this.dataset.member || 'N/A';
+            document.getElementById('detail-amount-borrowed').textContent = this.dataset.amountBorrowed || '0.00';
+            document.getElementById('detail-total-amount').textContent = this.dataset.totalAmount || '0.00';
+            document.getElementById('detail-amount-paid').textContent = this.dataset.amountPaid || '0.00';
+            document.getElementById('detail-amount-left').textContent = this.dataset.amountLeft || '0.00';
+            document.getElementById('detail-interest').textContent = this.dataset.interest || '0.00';
+            document.getElementById('detail-borrow-date').textContent = this.dataset.borrowDate || 'N/A';
+            document.getElementById('detail-status').textContent = this.dataset.status || 'N/A';
+            document.getElementById('detail-id-card-number').textContent = this.dataset.idCardNumber || 'N/A';
+            document.getElementById('detail-signature').textContent = this.dataset.signature || 'N/A';
+            document.getElementById('detail-comment').textContent = this.dataset.comment || 'N/A';
 
-            showDetailModal();
+            showModal(detailModal);
         });
     });
 
-    document.getElementById('close-detail-btn').addEventListener('click', hideDetailModal);
-    document.getElementById('close-detail-btn-bottom').addEventListener('click', hideDetailModal);
-
-    document.getElementById('detail-modal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            hideDetailModal();
-        }
+    document.querySelectorAll('#detail-modal .close-btn').forEach(btn => {
+        btn.addEventListener('click', () => hideModal(detailModal));
     });
 
-    let currentDeleteId = null;
+    detailModal.addEventListener('click', function(e) {
+        if (e.target === this) hideModal(detailModal);
+    });
+
+    // -------------------------------
+    // Delete Modal Handlers
+    // -------------------------------
+    const deleteModal = document.getElementById('delete-modal');
+    const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
 
     window.confirmDelete = function(id, name, deleteUrl) {
         currentDeleteId = id;
         document.getElementById('delete-name').textContent = name;
-        document.getElementById('delete-modal').classList.remove('hidden');
-        document.body.classList.add('overflow-hidden');
-        document.getElementById('confirm-delete-btn').dataset.deleteUrl = deleteUrl;
+        confirmDeleteBtn.dataset.deleteUrl = deleteUrl;
+        showModal(deleteModal);
     };
 
-    document.getElementById('cancel-delete-btn').addEventListener('click', function() {
-        document.getElementById('delete-modal').classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-        currentDeleteId = null;
+    document.querySelectorAll('#delete-modal .close-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentDeleteId = null;
+            hideModal(deleteModal);
+        });
     });
 
-    document.getElementById('confirm-delete-btn').addEventListener('click', function() {
+    deleteModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            currentDeleteId = null;
+            hideModal(deleteModal);
+        }
+    });
+
+    confirmDeleteBtn.addEventListener('click', function() {
         if (!currentDeleteId) return;
 
         const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
@@ -208,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const deleteUrl = this.dataset.deleteUrl;
         loaderManager.showLoader();
+
         fetch(deleteUrl, {
             method: 'POST',
             headers: {
@@ -218,9 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             loaderManager.hideLoader();
-            if (!response.ok) {
-                throw new Error(gettext('An error occurred while deleting the loan.'));
-            }
+            if (!response.ok) throw new Error(gettext('An error occurred while deleting the loan.'));
             return response.json();
         })
         .then(data => {
@@ -232,17 +238,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     .setDuration(4000)
                     .show();
 
-                document.getElementById('delete-modal').classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
-                currentDeleteId = null;
-
                 const row = document.querySelector(`tr td button[data-id="${data.id}"]`)?.closest('tr');
-                if (row) {
-                    row.remove();
-                }
-                if (typeof resetTable === 'function') {
-                    resetTable();
-                }
+                if (row) row.remove();
+
+                currentDeleteId = null;
+                hideModal(deleteModal);
+
+                if (typeof resetTable === 'function') resetTable();
             } else {
                 window.toastManager.buildToast()
                     .setMessage(data.message || gettext('Failed to delete loan. Please try again.'))
@@ -263,43 +265,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.getElementById('delete-modal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            document.getElementById('delete-modal').classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-            currentDeleteId = null;
-        }
-    });
-
+    // -------------------------------
+    // Keyboard Escape Handler
+    // -------------------------------
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            if (!document.getElementById('detail-modal').classList.contains('hidden')) {
-                hideDetailModal();
-            }
-            if (!document.getElementById('delete-modal').classList.contains('hidden')) {
-                document.getElementById('delete-modal').classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
+            if (!detailModal.classList.contains('hidden')) hideModal(detailModal);
+            if (!deleteModal.classList.contains('hidden')) {
                 currentDeleteId = null;
+                hideModal(deleteModal);
             }
         }
     });
 
-    function showDetailModal() {
-        const modal = document.getElementById('detail-modal');
+    // -------------------------------
+    // Modal Show/Hide Functions
+    // -------------------------------
+    function showModal(modal) {
         modal.classList.remove('hidden');
-        setTimeout(() => {
-            modal.classList.add('opacity-100');
-            modal.querySelector('div').classList.remove('scale-95');
-        }, 10);
+        setTimeout(() => modal.classList.add('opacity-100'), 10);
+        modal.querySelector('.modal-content')?.classList.remove('scale-95');
+        document.body.classList.add('overflow-hidden');
     }
 
-    function hideDetailModal() {
-        const modal = document.getElementById('detail-modal');
+    function hideModal(modal) {
         modal.classList.remove('opacity-100');
-        modal.querySelector('div').classList.add('scale-95');
+        modal.querySelector('.modal-content')?.classList.add('scale-95');
         setTimeout(() => {
             modal.classList.add('hidden');
-        }, 300);
+            document.body.classList.remove('overflow-hidden');
+        }, 200);
     }
 });
 </script>
