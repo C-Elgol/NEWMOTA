@@ -2,6 +2,7 @@
 {% load i18n static %}
 
 {% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
 <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Njangi Beneficiaries for {{ season }}{% endblocktrans %}</h2>
     <div class="space-x-3  mt-4">
@@ -91,7 +92,7 @@
         </div>
     {% endif %}
 </div>
-
+</div>
 {% include "publics/dashboard/admin/pages/njangis/modals/delete_njangi_modal.html" %}
 {% include "publics/dashboard/admin/pages/njangis/modals/details_njangi_modal.html" %}
 
