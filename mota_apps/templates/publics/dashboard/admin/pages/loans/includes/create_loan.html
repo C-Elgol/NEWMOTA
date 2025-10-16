@@ -82,7 +82,17 @@
                     {% trans "Signature" %}
                 </label>
                 <div class="mt-2">
-                    {{ form.signature }}
+                    <canvas id="signature-pad" class="border border-gray-300 rounded-md w-full" height="200"></canvas>
+                    <div class="flex justify-end space-x-3 mt-2">
+                        <button type="button" id="clear-signature" class="bg-gray-300 text-gray-800 px-3 py-1 rounded hover:bg-gray-400">
+                            {% trans "Clear" %}
+                        </button>
+                        <button type="button" id="save-signature" class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700">
+                            {% trans "Save Signature" %}
+                        </button>
+                    </div>
+                    <!-- Hidden input to hold base64 image -->
+                    <input type="hidden" name="signature" id="signature-input">
                 </div>
                 {% if form.signature.errors %}
                     <p class="mt-1 text-sm text-red-600">{{ form.signature.errors.as_text }}</p>
@@ -147,10 +157,12 @@
 {% block js %}
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <script src="{% static 'js/common/toast_manager.js' %}"></script>
 <script src="{% static 'js/common/loader_manager.js' %}"></script>
 <script>
 $(document).ready(function() {
+    // Initialize Select2 dropdowns
     $('.select2').select2({
         placeholder: "{% trans 'Select a member' %}",
         allowClear: true,
@@ -159,14 +171,61 @@ $(document).ready(function() {
         selectionCssClass: 'text-gray-700'
     });
 
+    // Initialize loader
     const loaderManager = new SectionLoaderManager();
 
+    // ==============================
+    // ✍️ SignaturePad Initialization
+    // ==============================
+    const canvas = document.getElementById('signature-pad');
+    const signaturePad = new SignaturePad(canvas);
+
+    // Function to make canvas responsive
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = 200 * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear();
+    }
+
+    // Resize on load and when window resizes
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    // Clear signature button
+    $('#clear-signature').on('click', function() {
+        signaturePad.clear();
+    });
+
+    // Save signature button
+    $('#save-signature').on('click', function() {
+        if (signaturePad.isEmpty()) {
+            alert("{% trans 'Please sign before saving.' %}");
+            return;
+        }
+        const dataURL = signaturePad.toDataURL(); // Base64 string
+        $('#signature-input').val(dataURL); // Save in hidden input
+        alert("{% trans 'Signature saved successfully!' %}");
+    });
+
+    // ==============================
+    // 💾 Loan Form Submission
+    // ==============================
     $('#create-loan-form').on('submit', function(e) {
         e.preventDefault();
+
+        // Ensure signature is captured before submission
+        if (signaturePad && !signaturePad.isEmpty()) {
+            const dataURL = signaturePad.toDataURL();
+            $('#signature-input').val(dataURL);
+        }
+
         const formData = new FormData(this);
         const csrfToken = $('[name=csrfmiddlewaretoken]').val();
 
         loaderManager.showLoader();
+
         $.ajax({
             url: '{% url "finance:new_loan" %}',
             type: 'POST',
@@ -210,6 +269,9 @@ $(document).ready(function() {
         });
     });
 
+    // ==============================
+    // 💰 Interest Auto-Calculation
+    // ==============================
     $('#{{ form.amount_borrowed.id_for_label }}').on('input', function() {
         const amount = parseFloat($(this).val()) || 0;
         const interest = (amount * 0.015).toFixed(2);
@@ -217,4 +279,5 @@ $(document).ready(function() {
     });
 });
 </script>
+
 {% endblock %}
