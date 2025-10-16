@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div id="detail-modal" class="fixed inset-0 bg-gray-900/50 flex items-center justify-center z-[10000002] hidden opacity-0 transition-opacity duration-300">
-    <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-auto border border-gray-200 max-h-[95vh] overflow-y-auto">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-auto border border-gray-200 max-h-[95vh] overflow-y-auto modal-content transform transition-transform duration-300 scale-95">
         <div class="sticky top-0 bg-white z-10 border-b border-gray-200 px-4 py-3 flex justify-between items-center">
             <h3 class="text-lg font-semibold text-gray-800">{% trans "Loan Details" %}</h3>
             <button class="close-btn text-gray-400 hover:text-gray-500 focus:outline-none p-1">
@@ -88,7 +88,9 @@
                             <i class="fas fa-signature mr-1 text-indigo-500"></i>
                             {% trans "Signature" %}
                         </p>
-                        <p id="detail-signature" class="text-sm text-gray-900 mt-1"></p>
+                        <div id="detail-signature" class="mt-2">
+                            <!-- Signature image will be dynamically loaded here -->
+                        </div>
                     </div>
                     <div>
                         <p class="text-xs font-medium text-gray-500 flex items-center">

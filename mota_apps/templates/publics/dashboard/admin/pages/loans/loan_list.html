@@ -158,20 +158,47 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('detail-borrow-date').textContent = this.dataset.borrowDate || 'N/A';
             document.getElementById('detail-status').textContent = this.dataset.status || 'N/A';
             document.getElementById('detail-id-card-number').textContent = this.dataset.idCardNumber || 'N/A';
-            document.getElementById('detail-signature').textContent = this.dataset.signature || 'N/A';
             document.getElementById('detail-comment').textContent = this.dataset.comment || 'N/A';
+
+            const sig = this.dataset.signature;
+            const signatureContainer = document.getElementById('detail-signature');
+            signatureContainer.innerHTML = '';
+
+            if (sig) {
+                const imgSrc = sig.startsWith('data:image') ? sig : `data:image/png;base64,${sig}`;
+                signatureContainer.innerHTML = `<img src="${imgSrc}" alt="Signature" class="border border-gray-300 rounded-md max-h-40 object-contain"/>`;
+            } else {
+                signatureContainer.textContent = 'No signature provided';
+            }
 
             showModal(detailModal);
         });
-    });
+    
 
     document.querySelectorAll('#detail-modal .close-btn').forEach(btn => {
         btn.addEventListener('click', () => hideModal(detailModal));
-    });
+            });
 
-    detailModal.addEventListener('click', function(e) {
-        if (e.target === this) hideModal(detailModal);
-    });
+            detailModal.addEventListener('click', function(e) {
+                if (e.target === this) hideModal(detailModal);
+            });
+
+            function showModal(modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.add('opacity-100'), 10);
+                modal.querySelector('.modal-content')?.classList.remove('scale-95');
+                document.body.classList.add('overflow-hidden');
+            }
+
+            function hideModal(modal) {
+                modal.classList.remove('opacity-100');
+                modal.querySelector('.modal-content')?.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                }, 200);
+            }
+        });
 
     // -------------------------------
     // Delete Modal Handlers
