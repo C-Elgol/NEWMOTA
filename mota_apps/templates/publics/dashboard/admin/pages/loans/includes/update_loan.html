@@ -57,7 +57,7 @@
                             </button>
                         </div>
                         <!-- Hidden field for Base64 signature -->
-                        <input type="hidden" name="signature" id="signature-input">
+                        <input type="hidden" name="signature" id="signature-input" value="{{ signature_data }}">
                     </div>
                 </div>
 
@@ -111,19 +111,31 @@ $(document).ready(function() {
     const canvas = document.getElementById('signature-pad');
     const signaturePad = new SignaturePad(canvas);
 
-    // Resize canvas for retina displays
     function resizeCanvas() {
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
         canvas.width = canvas.offsetWidth * ratio;
         canvas.height = 200 * ratio;
         canvas.getContext("2d").scale(ratio, ratio);
         signaturePad.clear();
+
+        const existingSignature = $('#signature-input').val();
+        if (existingSignature) {
+            const img = new Image();
+            img.onload = function() {
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, canvas.width / ratio, canvas.height / ratio);
+            };
+            img.src = existingSignature;
+        }
     }
+
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    // Clear signature button
-    $('#clear-signature').on('click', () => signaturePad.clear());
+    $('#clear-signature').on('click', () => {
+        signaturePad.clear();
+        $('#signature-input').val('');
+    });
 
     // ==============================
     // 💾 Update Loan Form Submission
@@ -141,7 +153,6 @@ $(document).ready(function() {
             return;
         }
 
-        // Capture signature data as Base64
         const dataURL = signaturePad.toDataURL();
         $('#signature-input').val(dataURL);
 
@@ -166,9 +177,7 @@ $(document).ready(function() {
                         .setPosition('top-right')
                         .setDuration(4000)
                         .show();
-                    setTimeout(() => {
-                        window.location.href = response.redirect;
-                    }, 4000);
+                    setTimeout(() => window.location.href = response.redirect, 4000);
                 } else {
                     window.toastManager.buildToast()
                         .setMessage(response.message)
@@ -200,7 +209,6 @@ $(document).ready(function() {
         $('#interest-preview').text(interest);
     });
 
-    // Initialize interest on page load
     const initialAmount = parseFloat($('#{{ form.amount_borrowed.id_for_label }}').val()) || 0;
     $('#interest-preview').text((initialAmount * 0.015).toFixed(2));
 });

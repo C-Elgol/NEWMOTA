@@ -128,14 +128,21 @@ class UpdateLoanView(FinanceBaseView, UpdateView):
         season_date = datetime(selected_season['year'], selected_season['month'], 1)
         context['season'] = season_date.strftime('%B %Y')
         context['members'] = User.objects.filter(is_active=True, is_deleted=False)
-        context['is_current_season'] = (season_date.date() == Loan.objects.aggregate(latest_date=Max('season_date'))['latest_date']) if Loan.objects.exists() else True
         context['is_admin'] = self.request.user.is_admin
+        context['signature_data'] = self.object.signature if getattr(self.object, "signature", None) else ""
+
+        latest_season = Loan.objects.aggregate(latest_date=Max('season_date'))['latest_date']
+        context['is_current_season'] = (
+            season_date.date() == latest_season
+        ) if latest_season else True
+
         logger.debug(f"Rendering update loan form for user {self.request.user.id}, Loan ID {self.kwargs['pk']}")
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.form_class(request.POST, instance=self.object)
+
         if not form.is_valid():
             logger.warning(f'Invalid form submission by user {request.user.id}: {form.errors}')
             return JsonResponse({
@@ -157,7 +164,14 @@ class UpdateLoanView(FinanceBaseView, UpdateView):
                 }, status=403)
 
             loan = form.save(commit=False)
-            loan.interest_to_be_paid = loan.amount_borrowed * Decimal('0.015')  # Recalculate interest
+
+            # Save signature (Base64)
+            signature_data = request.POST.get('signature')
+            if signature_data:
+                loan.signature = signature_data
+
+            # Recalculate interest
+            loan.interest_to_be_paid = loan.amount_borrowed * Decimal('0.015')
             loan.save()
 
             logger.info(f'Loan updated by user {request.user.id}: {loan.id}')
@@ -167,13 +181,13 @@ class UpdateLoanView(FinanceBaseView, UpdateView):
                 'message': _('Loan updated successfully.'),
                 'redirect': reverse_lazy('finance:loan_list')
             }, status=200)
+
         except Exception as e:
             logger.error(f'Unexpected error during loan update: {str(e)}', exc_info=True)
             return JsonResponse({
                 'success': False,
                 'message': _('An unexpected error occurred while updating the loan. Please try again.')
             }, status=500)
-
 class DeleteLoanView(FinanceBaseView, View):
     def post(self, request, *args, **kwargs):
         try:
