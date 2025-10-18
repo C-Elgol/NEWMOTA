@@ -54,7 +54,7 @@
         <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">{% trans 'Shop Grid' %}</a>
         <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">{% trans 'Contact Us' %}</a>
         {% if request.user.is_authenticated and request.user.is_admin %}
-          <a href="#" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">{% trans 'Admin Dashboard' %}</a>
+          <a href="{% url 'finance:admin-dashboard' %}" class="px-4 py-2 text-gray-700 hover:text-primary font-medium">{% trans 'Admin Dashboard' %}</a>
         {% endif %}
       </div>
 
@@ -80,16 +80,13 @@
       {% if request.user.is_superuser %}
         <a href="{% url 'finance:admin-dashboard' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Admin Dashboard" %}</a>
       {% endif %}
-      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "My Profile" %}</a>
-      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "My Addresses" %}</a>
-      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "My Orders" %}</a>
       <div class="border-t border-gray-200"></div>
       <a href="{% url 'users:logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             <i class="fas fa-sign-out-alt mr-2"></i> {% trans "Sign out" %}
           </a>
     {% else %}
-      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Login" %}</a>
-      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Register" %}</a>
+      <a href="{% url 'users:login' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Login" %}</a>
+      <a href="{% url 'users:register' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{% trans "Register" %}</a>
     {% endif %}
   </div>
 
