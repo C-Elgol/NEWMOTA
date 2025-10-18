@@ -1,5 +1,5 @@
 from django.views.generic import ListView, CreateView, UpdateView, View
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse, Http404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Max, Sum
@@ -74,22 +74,34 @@ class InterestListView(FinanceBaseView, ListView):
         ).aggregate(total=Sum('savings'))['total'] or Decimal('0.00')
         context['total_savings'] = total_savings
 
-        # Get collected amounts
+        # Get collected amounts and signatures
         collections = Collection.objects.filter(
             season_date=season_date
-        ).values('member_id').annotate(total_collected=Sum('amount_collected'))
-        collected_dict = {c['member_id']: c['total_collected'] for c in collections}
+        ).values('member_id').annotate(
+            total_collected=Sum('amount_collected'),
+            latest_signature=Max('signature')
+        )
+        collected_dict = {str(c['member_id']): {
+            'total_collected': c['total_collected'] or Decimal('0.00'),
+            'signature': c['latest_signature'] or ''
+        } for c in collections}
 
-        # Update interests with collected and net interest
+        # Update interests with collected, net interest, and signature
         interests = []
         for interest in self.get_queryset():
-            collected = collected_dict.get(str(interest.member_id), Decimal('0.00'))
+            collection_data = collected_dict.get(str(interest.member_id), {
+                'total_collected': Decimal('0.00'),
+                'signature': ''
+            })
+            collected = collection_data['total_collected']
+            signature = collection_data['signature']
             net_interest = interest.interest_share - collected
             interests.append({
                 'interest': interest,
                 'collected': collected,
                 'net_interest': net_interest,
-                'total': interest.total_savings + net_interest
+                'total': interest.total_savings + net_interest,
+                'signature': signature
             })
         context['interests'] = interests
 
@@ -462,4 +474,4 @@ class CollectInterestView(FinanceBaseView, View):
             return JsonResponse({
                 'success': False,
                 'message': _('An error occurred while recording the collection.')
-            }, status=500)  
+            }, status=500)

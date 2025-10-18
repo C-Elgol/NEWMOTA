@@ -57,13 +57,13 @@
                         {{ item.interest.interest_share }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" style="color: red;">
-                        {{ item.collected }}
+                        {{ item.collected|floatformat:2 }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ item.net_interest }}
+                        {{ item.net_interest|floatformat:2 }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ item.total }}
+                        {{ item.total|floatformat:2 }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button class="detail-btn text-indigo-600 hover:text-indigo-800 mr-3"
@@ -71,9 +71,10 @@
                                 data-member="{{ item.interest.member.get_full_name }}"
                                 data-total-savings="{{ item.interest.total_savings }}"
                                 data-interest-share="{{ item.interest.interest_share }}"
-                                data-collected="{{ item.collected }}"
-                                data-net-interest="{{ item.net_interest }}"
-                                data-total="{{ item.total }}">
+                                data-collected="{{ item.collected|floatformat:2 }}"
+                                data-net-interest="{{ item.net_interest|floatformat:2 }}"
+                                data-total="{{ item.total|floatformat:2 }}"
+                                data-signature="{{ item.signature|default:'' }}">
                             <i class="fas fa-eye mr-2"></i>{% trans "View" %}
                         </button>
                         {% if is_admin or is_staff and is_current_season %}
@@ -126,10 +127,20 @@
 
 {% endblock %}
 
+{% block css %}
+<style>
+    #interest_list th,
+    #interest_list td {
+        white-space: nowrap;
+    }
+</style>
+{% endblock %}
+
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.6/dist/signature_pad.umd.min.js"></script>
 <script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let table = null;
@@ -138,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentMemberId = null;
     let currentInterestId = null;
     const loaderManager = new SectionLoaderManager();
+    const toastManager = window.toastManager;
 
     // Initialize DataTable
     if (document.getElementById("interest_list") && typeof simpleDatatables.DataTable !== 'undefined') {
@@ -181,6 +193,14 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('detail-collected').textContent = this.dataset.collected || '0.00';
             document.getElementById('detail-net-interest').textContent = this.dataset.netInterest || '0.00';
             document.getElementById('detail-total').textContent = this.dataset.total || '0.00';
+            const signatureImg = document.getElementById('detail-signature');
+            if (this.dataset.signature) {
+                signatureImg.src = this.dataset.signature;
+                signatureImg.classList.remove('hidden');
+            } else {
+                signatureImg.src = '';
+                signatureImg.classList.add('hidden');
+            }
 
             showModal(detailModal);
         });
@@ -224,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
         if (!csrfTokenElement) {
-            window.toastManager.buildToast()
+            toastManager.buildToast()
                 .setMessage(gettext('CSRF token is missing. Please refresh the page and try again.'))
                 .setType('danger')
                 .setPosition('top-right')
@@ -251,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             if (data.success) {
-                window.toastManager.buildToast()
+                toastManager.buildToast()
                     .setMessage(data.message || gettext('Interest record deleted successfully.'))
                     .setType('success')
                     .setPosition('top-right')
@@ -266,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (typeof resetTable === 'function') resetTable();
             } else {
-                window.toastManager.buildToast()
+                toastManager.buildToast()
                     .setMessage(data.message || gettext('Failed to delete interest record. Please try again.'))
                     .setType('danger')
                     .setPosition('top-right')
@@ -276,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             loaderManager.hideLoader();
-            window.toastManager.buildToast()
+            toastManager.buildToast()
                 .setMessage(gettext('An unexpected error occurred: ') + error.message)
                 .setType('danger')
                 .setPosition('top-right')
@@ -303,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('submit-signature').addEventListener('click', () => {
         if (!signaturePad || signaturePad.isEmpty()) {
-            window.toastManager.buildToast()
+            toastManager.buildToast()
                 .setMessage('{% trans "Please provide a signature." %}')
                 .setType('danger')
                 .setPosition('top-right')
@@ -338,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             if (data.success) {
-                window.toastManager.buildToast()
+                toastManager.buildToast()
                     .setMessage(data.message)
                     .setType('success')
                     .setPosition('top-right')
@@ -347,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 hideModal(signatureModal);
                 location.reload();
             } else {
-                window.toastManager.buildToast()
+                toastManager.buildToast()
                     .setMessage(data.message || '{% trans "Failed to record collection." %}')
                     .setType('danger')
                     .setPosition('top-right')
@@ -357,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             loaderManager.hideLoader();
-            window.toastManager.buildToast()
+            toastManager.buildToast()
                 .setMessage(error.message || '{% trans "An unexpected error occurred." %}')
                 .setType('danger')
                 .setPosition('top-right')
@@ -389,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const amount = document.querySelector(`#collected_input_${this.dataset.interestId}`).value;
             if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
-                window.toastManager.buildToast()
+                toastManager.buildToast()
                     .setMessage('{% trans "Please enter a valid amount." %}')
                     .setType('danger')
                     .setPosition('top-right')
