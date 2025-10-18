@@ -179,3 +179,35 @@ class Expenditure(MotaBaseModel, SeasonMixin):
 
     def __str__(self):
         return f"Expenditure - {self.entertainment_spent} + {self.other_expenditures} on {self.season_date.strftime('%B %Y')}"
+
+# Collection Model
+class Collection(MotaBaseModel, SeasonMixin):
+    member = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='collections',
+        help_text="The member who made the collection.",
+        db_index=True
+    )
+    amount_collected = models.DecimalField(
+        max_digits=MAX_DIGITS_MEDIUM,
+        decimal_places=DECIMAL_PLACES,
+        default=0.00,
+        verbose_name=_("Amount Collected")
+    )
+    signature = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name=_("Signature"),
+        help_text="Digital signature data for collection confirmation."
+    )
+
+    class Meta:
+        verbose_name = _( "Collection" )
+        verbose_name_plural = _( "Collections" )
+        constraints = [
+            models.UniqueConstraint(fields=["member", "season_date"], name="unique_member_season_collection")
+        ]
+
+    def __str__(self):
+        return f"Collection of {self.amount_collected} for {self.member.get_full_name} - {self.season_date.strftime('%B %Y')}"

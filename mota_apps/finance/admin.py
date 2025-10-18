@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     FinanceRecord, Loan, LoanPayment, Njangi,
-    Interest, ProjectRecord, Expenditure
+    Interest, ProjectRecord, Expenditure, Collection
 )
 
 # ---------------------------
@@ -73,3 +73,36 @@ class ExpenditureAdmin(admin.ModelAdmin):
     list_filter = ('season_date',)
     search_fields = ('recorded_by__email', 'recorded_by__fullname')
     readonly_fields = ('id',)
+@admin.register(Collection)
+class CollectionAdmin(admin.ModelAdmin):
+    list_display = (
+        "member",
+        "amount_collected",
+        "season_date",
+        "created",
+    )
+    list_filter = ("season_date", "created")
+    search_fields = (
+        "member__first_name",
+        "member__last_name",
+        "member__email",
+    )
+    readonly_fields = ("created",)
+    ordering = ("-created",)
+    autocomplete_fields = ("member",)
+
+    fieldsets = (
+        (None, {
+            "fields": ("member", "amount_collected", "signature")
+        }),
+        ("Season Info", {
+            "fields": ("season_date",),
+        }),
+        ("Timestamps", {
+            "fields": ("created",),
+        }),
+    )
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.select_related("member")  # Optimize member loading
