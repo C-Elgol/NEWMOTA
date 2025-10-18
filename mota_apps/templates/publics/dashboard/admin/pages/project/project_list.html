@@ -39,6 +39,7 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Amount Collected" %}</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Interest Collected" %}</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Comment" %}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Uploaded File" %}</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Recorded By" %}</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Actions" %}</th>
                 </tr>
@@ -57,6 +58,17 @@
                     </td>
                     <td class="px-6 py-4 text-sm text-gray-500">
                         {{ item.comment|default:'N/A' }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {% if item.file_path %}
+                            {% if ".pdf" in item.file_path.name|lower %}
+                                <a href="{{ item.file_path.url }}" target="_blank" class="text-blue-600 hover:underline">{% trans "View PDF" %}</a>
+                            {% else %}
+                                <a href="{{ item.file_path.url }}" target="_blank" class="text-blue-600 hover:underline">{% trans "View Image" %}</a>
+                            {% endif %}
+                        {% else %}
+                            {% trans "No File" %}
+                        {% endif %}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {{ item.recorded_by.get_full_name|default:'N/A' }}
@@ -85,7 +97,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6" class="px-6 py-4 text-sm text-gray-500 text-center">{% trans "No project records for this season." %}</td>
+                    <td colspan="7" class="px-6 py-4 text-sm text-gray-500 text-center">{% trans "No project records for this season." %}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -108,6 +120,11 @@
     }
     #project_list td:nth-child(4) { /* Comment column */
         max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    #project_list td:nth-child(5) { /* Uploaded File column */
+        max-width: 150px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -176,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const fileLink = document.getElementById('detail-file-link');
             const fileImg = document.getElementById('detail-file-img');
             if (this.dataset.filePath) {
-                if (this.dataset.filePath.endsWith('.pdf')) {
+                if (this.dataset.filePath.toLowerCase().endsWith('.pdf')) {
                     fileLink.href = this.dataset.filePath;
                     fileLink.classList.remove('hidden');
                     fileImg.classList.add('hidden');
