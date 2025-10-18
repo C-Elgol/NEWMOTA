@@ -162,7 +162,13 @@ class ProjectRecord(MotaBaseModel, SeasonMixin):
         verbose_name=_("Signature"),
         help_text="Digital signature data for collection confirmation."
     )
-
+    file_path = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name=_("Uploaded File"),
+        help_text="Path to the uploaded project form (PDF, JPG, PNG)."
+    )
     class Meta:
         verbose_name = _( "Project Record" )
         verbose_name_plural = _( "Project Records" )

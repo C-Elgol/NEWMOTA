@@ -23,12 +23,17 @@
             </div>
         </div>
 
-        <form id="update-project-form" method="post" class="space-y-6">
+        <form id="update-project-form" method="post" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
             {{ form.as_p }}
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{% trans "Signature" %}</label>
+                <canvas id="signatureCanvas" class="border border-gray-300 w-full" style="max-width: 500px; height: 200px;"></canvas>
+                <button type="button" id="clear-signature" class="mt-2 bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">{% trans "Clear Signature" %}</button>
+            </div>
             <div class="flex justify-end space-x-2">
                 <a href="{% url 'finance:project_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">{% trans "Cancel" %}</a>
-                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark">{% trans "Update Project Record" %}</button>
+                <button type="submit" id="submit-form" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark">{% trans "Update Project Record" %}</button>
             </div>
         </form>
     </div>
@@ -37,16 +42,42 @@
 {% endblock %}
 
 {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.6/dist/signature_pad.umd.min.js"></script>
 <script src="{% static 'js/common/loader_manager.js' %}"></script>
 <script src="{% static 'js/common/toast_manager.js' %}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('update-project-form');
+    const signatureCanvas = document.getElementById('signatureCanvas');
+    const signatureInput = document.getElementById('signature-input');
+    const clearSignatureBtn = document.getElementById('clear-signature');
     const loaderManager = new SectionLoaderManager();
     const toastManager = window.toastManager;
+    let signaturePad = new SignaturePad(signatureCanvas);
+
+    // Load existing signature if available
+    if (signatureInput.value) {
+        signaturePad.fromDataURL(signatureInput.value);
+    }
+
+    clearSignatureBtn.addEventListener('click', () => {
+        signaturePad.clear();
+        signatureInput.value = '';
+    });
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
+        if (signaturePad.isEmpty()) {
+            toastManager.buildToast()
+                .setMessage('{% trans "Please provide a signature." %}')
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+            return;
+        }
+
+        signatureInput.value = signaturePad.toDataURL();
         const formData = new FormData(form);
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 

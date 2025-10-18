@@ -6,7 +6,7 @@ from mota_apps.finance.views.expenditure_view import DeleteExpenditureView, Expe
 from mota_apps.finance.views.interest_view import CollectInterestView, DeleteInterestView, GetMemberSavingsView, InterestListView, NewInterestView, UpdateInterestView
 from mota_apps.finance.views.loan_view import DeleteLoanView, GetLoansView, LoanListView, NewLoanView, PayLoanView, UpdateLoanView
 from mota_apps.finance.views.njangi_view import AddNjangiMemberView, DeleteNjangiView, GetNjangiDetailsView, GetNjangiView, NewNjangiView, NjangiListView, UpdateNjangiView
-from mota_apps.finance.views.project_view import CollectProjectView, DeleteProjectView, NewProjectView, ProjectListView, UpdateProjectView
+from mota_apps.finance.views.project_view import DeleteProjectView, NewProjectView, ProjectListView, UpdateProjectView
 from mota_apps.finance.views.record_finance_view import DeleteFinanceView, FinanceListView, NewFinanceView, UpdateFinanceView
 from mota_apps.finance.views.season_selection_view import SeasonSelectionView
 
@@ -46,9 +46,9 @@ urlpatterns = [
     path('get-member-savings/<str:member_id>/', GetMemberSavingsView.as_view(), name='get_member_savings'),
     path('collect-interest/', CollectInterestView.as_view(), name='collect_interest'),
     
+    # Project
     path('project-list/', ProjectListView.as_view(), name='project_list'),
     path('new-project/', NewProjectView.as_view(), name='new_project'),
     path('project/update/<uuid:pk>/', UpdateProjectView.as_view(), name='project_update'),
     path('project/delete/<uuid:pk>/', DeleteProjectView.as_view(), name='project_delete'),
-    path('collect-project/', CollectProjectView.as_view(), name='collect_project'),
 ]

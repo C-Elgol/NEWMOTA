@@ -47,43 +47,39 @@
                 {% for item in projects %}
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ item.project.date_collected|date:"Y-m-d" }}
+                        {{ item.date_collected|date:"Y-m-d" }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ item.project.amount_collected|floatformat:2 }}
+                        {{ item.amount_collected|floatformat:2 }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ item.project.interest_collected|floatformat:2 }}
+                        {{ item.interest_collected|floatformat:2 }}
                     </td>
                     <td class="px-6 py-4 text-sm text-gray-500">
-                        {{ item.project.comment|default:'N/A' }}
+                        {{ item.comment|default:'N/A' }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ item.project.recorded_by.get_full_name|default:'N/A' }}
+                        {{ item.recorded_by.get_full_name|default:'N/A' }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button class="detail-btn text-indigo-600 hover:text-indigo-800 mr-3"
-                                data-id="{{ item.project.id }}"
-                                data-date-collected="{{ item.project.date_collected|date:'Y-m-d' }}"
-                                data-amount-collected="{{ item.project.amount_collected|floatformat:2 }}"
-                                data-interest-collected="{{ item.project.interest_collected|floatformat:2 }}"
-                                data-comment="{{ item.project.comment|default:'N/A' }}"
-                                data-recorded-by="{{ item.project.recorded_by.get_full_name|default:'N/A' }}"
-                                data-signature="{{ item.signature|default:'' }}">
+                                data-id="{{ item.id }}"
+                                data-date-collected="{{ item.date_collected|date:'Y-m-d' }}"
+                                data-amount-collected="{{ item.amount_collected|floatformat:2 }}"
+                                data-interest-collected="{{ item.interest_collected|floatformat:2 }}"
+                                data-comment="{{ item.comment|default:'N/A' }}"
+                                data-recorded-by="{{ item.recorded_by.get_full_name|default:'N/A' }}"
+                                data-signature="{{ item.signature|default:'' }}"
+                                data-file-path="{% if item.file_path %}{{ item.file_path.url }}{% else %}''{% endif %}">
                             <i class="fas fa-eye mr-2"></i>{% trans "View" %}
                         </button>
                         {% if is_admin or is_staff and is_current_season %}
-                        <a href="{% url 'finance:project_update' pk=item.project.id %}" class="text-yellow-600 hover:text-yellow-800 mr-3">
+                        <a href="{% url 'finance:project_update' pk=item.id %}" class="text-yellow-600 hover:text-yellow-800 mr-3">
                             <i class="fas fa-edit mr-2"></i>{% trans "Edit" %}
                         </a>
-                        <button onclick="confirmDelete('{{ item.project.id }}', '{{ item.project.date_collected|date:'Y-m-d' }}', '{% url 'finance:project_delete' pk=item.project.id %}')" class="text-red-600 hover:text-red-800 mr-3">
+                        <button onclick="confirmDelete('{{ item.id }}', '{{ item.date_collected|date:'Y-m-d' }}', '{% url 'finance:project_delete' pk=item.id %}')" class="text-red-600 hover:text-red-800 mr-3">
                             <i class="fas fa-trash-alt mr-2"></i>{% trans "Delete" %}
                         </button>
-                        <input type="number" id="amount_input_{{ item.project.id }}" step="0.01" min="0" placeholder="{% trans 'Enter amount' %}" class="w-24 rounded-md border-gray-300 shadow-sm">
-                        <input type="number" id="interest_input_{{ item.project.id }}" step="0.01" min="0" placeholder="{% trans 'Enter interest' %}" class="w-24 rounded-md border-gray-300 shadow-sm">
-                        <button class="collect-btn bg-primary text-white px-2 py-1 rounded-md hover:bg-primary-dark"
-                                data-project-id="{{ item.project.id }}"
-                                data-date-collected="{{ item.project.date_collected|date:'Y-m-d' }}">{% trans "Submit" %}</button>
                         {% endif %}
                     </td>
                 </tr>
@@ -101,24 +97,6 @@
 
 <!-- Delete Confirmation Modal -->
 {% include 'publics/dashboard/admin/pages/project/modals/project_delete.html' %}
-
-<!-- Signature Modal -->
-<div id="signature-modal" class="fixed inset-0 bg-gray-900/50 flex items-center justify-center z-[10000002] hidden opacity-0 transition-opacity duration-300">
-    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 modal-content">
-        <div class="flex justify-between items-center mb-4">
-            <h3 id="signature-heading" class="text-lg font-semibold text-gray-800"></h3>
-            <button class="close-btn text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <canvas id="signatureCanvas" class="border border-gray-300 w-full" style="max-width: 500px; height: 200px;"></canvas>
-        <div class="mt-4 flex justify-end space-x-2">
-            <button id="clear-signature" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">{% trans "Clear" %}</button>
-            <button id="submit-signature" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark">{% trans "Confirm Collection" %}</button>
-            <button class="close-btn bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">{% trans "Cancel" %}</button>
-        </div>
-    </div>
-</div>
 
 {% endblock %}
 
@@ -138,15 +116,12 @@
 
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
-<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.6/dist/signature_pad.umd.min.js"></script>
 <script src="{% static 'js/common/loader_manager.js' %}"></script>
 <script src="{% static 'js/common/toast_manager.js' %}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let table = null;
     let currentDeleteId = null;
-    let signaturePad = null;
-    let currentProjectId = null;
     const loaderManager = new SectionLoaderManager();
     const toastManager = window.toastManager;
 
@@ -197,6 +172,22 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 signatureImg.src = '';
                 signatureImg.classList.add('hidden');
+            }
+            const fileLink = document.getElementById('detail-file-link');
+            const fileImg = document.getElementById('detail-file-img');
+            if (this.dataset.filePath) {
+                if (this.dataset.filePath.endsWith('.pdf')) {
+                    fileLink.href = this.dataset.filePath;
+                    fileLink.classList.remove('hidden');
+                    fileImg.classList.add('hidden');
+                } else {
+                    fileImg.src = this.dataset.filePath;
+                    fileImg.classList.remove('hidden');
+                    fileLink.classList.add('hidden');
+                }
+            } else {
+                fileLink.classList.add('hidden');
+                fileImg.classList.add('hidden');
             }
 
             showModal(detailModal);
@@ -302,121 +293,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Signature Modal Handlers
-    const signatureModal = document.getElementById('signature-modal');
-
-    function initSignaturePad(projectId, dateCollected, amount, interest) {
-        currentProjectId = projectId;
-        document.getElementById('signature-heading').textContent = `Confirm collection of ${amount} FCFA (Interest: ${interest} FCFA) for ${dateCollected}`;
-        const canvas = document.getElementById('signatureCanvas');
-        signaturePad = new SignaturePad(canvas);
-        showModal(signatureModal);
-    }
-
-    document.getElementById('clear-signature').addEventListener('click', () => {
-        if (signaturePad) signaturePad.clear();
-    });
-
-    document.getElementById('submit-signature').addEventListener('click', () => {
-        if (!signaturePad || signaturePad.isEmpty()) {
-            toastManager.buildToast()
-                .setMessage('{% trans "Please provide a signature." %}')
-                .setType('danger')
-                .setPosition('top-right')
-                .setDuration(4000)
-                .show();
-            return;
-        }
-
-        const signatureData = signaturePad.toDataURL();
-        const amount = document.querySelector(`#amount_input_${currentProjectId}`).value;
-        const interest = document.querySelector(`#interest_input_${currentProjectId}`).value || '0.00';
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-        loaderManager.showLoader();
-
-        fetch('{% url "finance:collect_project" %}', {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': csrfToken,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                project_id: currentProjectId,
-                amount_collected: amount,
-                interest_collected: interest,
-                signature: signatureData
-            })
-        })
-        .then(response => {
-            loaderManager.hideLoader();
-            if (!response.ok) throw new Error('Failed to submit collection.');
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                toastManager.buildToast()
-                    .setMessage(data.message)
-                    .setType('success')
-                    .setPosition('top-right')
-                    .setDuration(4000)
-                    .show();
-                hideModal(signatureModal);
-                location.reload();
-            } else {
-                toastManager.buildToast()
-                    .setMessage(data.message || '{% trans "Failed to record collection." %}')
-                    .setType('danger')
-                    .setPosition('top-right')
-                    .setDuration(4000)
-                    .show();
-            }
-        })
-        .catch(error => {
-            loaderManager.hideLoader();
-            toastManager.buildToast()
-                .setMessage(error.message || '{% trans "An unexpected error occurred." %}')
-                .setType('danger')
-                .setPosition('top-right')
-                .setDuration(4000)
-                .show();
-        });
-    });
-
-    document.querySelectorAll('#signature-modal .close-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            currentProjectId = null;
-            if (signaturePad) signaturePad.clear();
-            hideModal(signatureModal);
-        });
-    });
-
-    signatureModal.addEventListener('click', function(e) {
-        if (e.target === this) {
-            currentProjectId = null;
-            if (signaturePad) signaturePad.clear();
-            hideModal(signatureModal);
-        }
-    });
-
-    // Collection Button Handlers
-    document.querySelectorAll('.collect-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const amount = document.querySelector(`#amount_input_${this.dataset.projectId}`).value;
-            const interest = document.querySelector(`#interest_input_${this.dataset.projectId}`).value || '0.00';
-            if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
-                toastManager.buildToast()
-                    .setMessage('{% trans "Please enter a valid amount." %}')
-                    .setType('danger')
-                    .setPosition('top-right')
-                    .setDuration(4000)
-                    .show();
-                return;
-            }
-            initSignaturePad(this.dataset.projectId, this.dataset.dateCollected, amount, interest);
-        });
-    });
-
     // Keyboard Escape Handler
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
@@ -424,11 +300,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!deleteModal.classList.contains('hidden')) {
                 currentDeleteId = null;
                 hideModal(deleteModal);
-            }
-            if (!signatureModal.classList.contains('hidden')) {
-                currentProjectId = null;
-                if (signaturePad) signaturePad.clear();
-                hideModal(signatureModal);
             }
         }
     });

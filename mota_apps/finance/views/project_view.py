@@ -4,14 +4,13 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Max, Sum
 from mota_apps.finance.models import ProjectRecord
-from mota_apps.users.models import User
 from mota_apps.finance.forms.project_form import ProjectForm
 from mota_apps.finance.views.record_finance_view import FinanceBaseView
 from datetime import datetime
 import logging
 from decimal import Decimal
-import json
-import uuid
+import os
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
@@ -63,15 +62,6 @@ class ProjectListView(FinanceBaseView, ListView):
         context['total_amount_collected'] = totals['total_amount'] or Decimal('0.00')
         context['total_interest_collected'] = totals['total_interest'] or Decimal('0.00')
 
-        # Prepare project records with signature
-        projects = []
-        for project in self.get_queryset():
-            projects.append({
-                'project': project,
-                'signature': project.signature or ''
-            })
-        context['projects'] = projects
-
         context['is_admin'] = self.request.user.is_admin
         context['is_staff'] = self.request.user.is_staff
         context['is_visitor'] = self.request.user.is_visitor
@@ -111,7 +101,7 @@ class NewProjectView(FinanceBaseView, CreateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
         if not form.is_valid():
             logger.warning(f'Invalid form submission by user {request.user.id}: {form.errors}')
             return JsonResponse({
@@ -132,6 +122,18 @@ class NewProjectView(FinanceBaseView, CreateView):
             project = form.save(commit=False)
             project.season_date = season_date
             project.recorded_by = self.request.user
+
+            # Handle file upload
+            if 'file_path' in request.FILES:
+                uploaded_file = request.FILES['file_path']
+                upload_dir = os.path.join(settings.MEDIA_ROOT, 'project_uploads')
+                os.makedirs(upload_dir, exist_ok=True)
+                file_path = os.path.join(upload_dir, uploaded_file.name)
+                with open(file_path, 'wb+') as destination:
+                    for chunk in uploaded_file.chunks():
+                        destination.write(chunk)
+                project.file_path = os.path.join('project_uploads', uploaded_file.name)
+
             project.save()
 
             logger.info(f'Project created by user {request.user.id}: {project.id}')
@@ -195,7 +197,7 @@ class UpdateProjectView(FinanceBaseView, UpdateView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form = self.form_class(request.POST, instance=self.object)
+        form = self.form_class(request.POST, request.FILES, instance=self.object)
 
         if not form.is_valid():
             logger.warning(f'Invalid form submission by user {request.user.id}: {form.errors}')
@@ -225,6 +227,18 @@ class UpdateProjectView(FinanceBaseView, UpdateView):
 
             project = form.save(commit=False)
             project.recorded_by = self.request.user
+
+            # Handle file upload
+            if 'file_path' in request.FILES:
+                uploaded_file = request.FILES['file_path']
+                upload_dir = os.path.join(settings.MEDIA_ROOT, 'project_uploads')
+                os.makedirs(upload_dir, exist_ok=True)
+                file_path = os.path.join(upload_dir, uploaded_file.name)
+                with open(file_path, 'wb+') as destination:
+                    for chunk in uploaded_file.chunks():
+                        destination.write(chunk)
+                project.file_path = os.path.join('project_uploads', uploaded_file.name)
+
             project.save()
 
             logger.info(f'Project updated by user {request.user.id}: {project.id}')
@@ -282,59 +296,4 @@ class DeleteProjectView(FinanceBaseView, View):
             return JsonResponse({
                 'success': False,
                 'message': _('An unexpected error occurred while deleting the project record. Please try again.')
-            }, status=500)
-
-class CollectProjectView(FinanceBaseView, View):
-    def post(self, request, *args, **kwargs):
-        try:
-            data = json.loads(request.body)
-            project_id = data.get('project_id')
-            amount_collected = Decimal(data.get('amount_collected'))
-            interest_collected = Decimal(data.get('interest_collected', '0.00'))
-            signature = data.get('signature')
-
-            if not (project_id and amount_collected and signature):
-                return JsonResponse({
-                    'success': False,
-                    'message': _('Missing required fields.')
-                }, status=400)
-
-            try:
-                uuid.UUID(project_id)
-            except ValueError:
-                return JsonResponse({
-                    'success': False,
-                    'message': _('Invalid project ID format.')
-                }, status=400)
-
-            selected_season = request.session.get('selected_season')
-            season_date = datetime(selected_season['year'], selected_season['month'], 1)
-            if season_date.month == 6:
-                return JsonResponse({
-                    'success': False,
-                    'message': _('Collections not allowed for June.')
-                }, status=400)
-
-            project = ProjectRecord.objects.get(id=project_id)
-            project.amount_collected += amount_collected
-            project.interest_collected += interest_collected
-            project.signature = signature
-            project.recorded_by = self.request.user
-            project.save()
-
-            logger.info(f'Collection recorded for project {project_id} by user {request.user.id}')
-            return JsonResponse({
-                'success': True,
-                'message': _('Collection recorded successfully.')
-            }, status=200)
-        except ProjectRecord.DoesNotExist:
-            return JsonResponse({
-                'success': False,
-                'message': _('Project record not found.')
-            }, status=404)
-        except Exception as e:
-            logger.error(f'Error recording collection: {str(e)}', exc_info=True)
-            return JsonResponse({
-                'success': False,
-                'message': _('An error occurred while recording the collection.')
             }, status=500)
