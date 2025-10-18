@@ -156,7 +156,19 @@ class ProjectRecord(MotaBaseModel, SeasonMixin):
     date_collected = models.DateField()
     comment = models.TextField(blank=True)
     recorded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name='project_records', null=True)
-
+    signature = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name=_("Signature"),
+        help_text="Digital signature data for collection confirmation."
+    )
+    file_path = models.FileField(
+        upload_to='uploads/projects/',
+        blank=True,
+        null=True,
+        verbose_name=_("Uploaded File"),
+        help_text="Uploaded project form (PDF, JPG, PNG)."
+    )
     class Meta:
         verbose_name = _( "Project Record" )
         verbose_name_plural = _( "Project Records" )

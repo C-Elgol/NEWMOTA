@@ -89,12 +89,13 @@
                       <span>{% trans "Add New Interest" %}</span>
                   </a>
 
-                  {% url 'products:category_management' as category_management_url %}
-                  <a href="{{ category_management_url }}"
-                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == category_management_url %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-tags mr-3 text-lg"></i>
-                      <span>{% trans "Projects" %}</span>
-                  </a>
+                  <li>
+                      <a href="{% url 'finance:project_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/project-list/' %}active{% else %}inactive{% endif %}">
+                          <i class="fas fa-tags mr-3 text-lg"></i>
+                          <span>{% trans "Projects" %}</span>
+                      </a>
+                  </li>
+                  
                   {% url 'users:admin_payment_list' as admin_payment_list_url %}
                     <a href="{{ admin_payment_list_url }}"
                       class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_payment_list_url %}active{% else %}inactive{% endif %}">

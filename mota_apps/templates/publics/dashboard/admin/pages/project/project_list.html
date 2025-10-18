@@ -1,0 +1,341 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <form id="csrf-form" style="display: none;">
+        {% csrf_token %}
+    </form>
+    <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+        <h2 class="text-2xl font-bold text-gray-800">{% blocktrans %}Projects for {{ season }}{% endblocktrans %}</h2>
+        <div class="flex gap-4">
+            <a href="{% url 'finance:new_project' %}" class="bg-primary text-white px-4 py-2 rounded-md whitespace-nowrap inline-flex items-center justify-center hover:bg-primary-dark">
+                <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                {% trans "New Project" %}
+            </a>
+        </div>
+    </div>
+
+    <div class="bg-white shadow rounded-lg p-4 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <p class="text-sm font-medium text-gray-700">{% trans "Total Amount Collected" %}</p>
+                <p class="text-lg font-semibold text-gray-900">{{ total_amount_collected|floatformat:2 }}</p>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-gray-700">{% trans "Total Interest Collected" %}</p>
+                <p class="text-lg font-semibold text-gray-900">{{ total_interest_collected|floatformat:2 }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table id="project_list" class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Date Collected" %}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Amount Collected" %}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Interest Collected" %}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Comment" %}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Uploaded File" %}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Recorded By" %}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for item in projects %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ item.date_collected|date:"Y-m-d" }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ item.amount_collected|floatformat:2 }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ item.interest_collected|floatformat:2 }}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-500">
+                        {{ item.comment|default:'N/A' }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {% if item.file_path %}
+                            {% if ".pdf" in item.file_path.name|lower %}
+                                <a href="{{ item.file_path.url }}" target="_blank" class="text-blue-600 hover:underline">{% trans "View PDF" %}</a>
+                            {% else %}
+                                <a href="{{ item.file_path.url }}" target="_blank" class="text-blue-600 hover:underline">{% trans "View Image" %}</a>
+                            {% endif %}
+                        {% else %}
+                            {% trans "No File" %}
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ item.recorded_by.get_full_name|default:'N/A' }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="detail-btn text-indigo-600 hover:text-indigo-800 mr-3"
+                                data-id="{{ item.id }}"
+                                data-date-collected="{{ item.date_collected|date:'Y-m-d' }}"
+                                data-amount-collected="{{ item.amount_collected|floatformat:2 }}"
+                                data-interest-collected="{{ item.interest_collected|floatformat:2 }}"
+                                data-comment="{{ item.comment|default:'N/A' }}"
+                                data-recorded-by="{{ item.recorded_by.get_full_name|default:'N/A' }}"
+                                data-signature="{{ item.signature|default:'' }}"
+                                data-file-path="{% if item.file_path %}{{ item.file_path.url }}{% else %}''{% endif %}">
+                            <i class="fas fa-eye mr-2"></i>{% trans "View" %}
+                        </button>
+                        {% if is_admin or is_staff and is_current_season %}
+                        <a href="{% url 'finance:project_update' pk=item.id %}" class="text-yellow-600 hover:text-yellow-800 mr-3">
+                            <i class="fas fa-edit mr-2"></i>{% trans "Edit" %}
+                        </a>
+                        <button onclick="confirmDelete('{{ item.id }}', '{{ item.date_collected|date:'Y-m-d' }}', '{% url 'finance:project_delete' pk=item.id %}')" class="text-red-600 hover:text-red-800 mr-3">
+                            <i class="fas fa-trash-alt mr-2"></i>{% trans "Delete" %}
+                        </button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="px-6 py-4 text-sm text-gray-500 text-center">{% trans "No project records for this season." %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Detail Modal -->
+{% include 'publics/dashboard/admin/pages/project/modals/project_detail.html' %}
+
+<!-- Delete Confirmation Modal -->
+{% include 'publics/dashboard/admin/pages/project/modals/project_delete.html' %}
+
+{% endblock %}
+
+{% block css %}
+<style>
+    #project_list th,
+    #project_list td {
+        white-space: nowrap;
+    }
+    #project_list td:nth-child(4) { /* Comment column */
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    #project_list td:nth-child(5) { /* Uploaded File column */
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let table = null;
+    let currentDeleteId = null;
+    const loaderManager = new SectionLoaderManager();
+    const toastManager = window.toastManager;
+
+    // Initialize DataTable
+    if (document.getElementById("project_list") && typeof simpleDatatables.DataTable !== 'undefined') {
+        const resetTable = function () {
+            if (table) table.destroy();
+
+            console.log("Table headers:", document.querySelectorAll("#project_list thead th").length);
+            console.log("Table rows:", document.querySelectorAll("#project_list tbody tr").length);
+            document.querySelectorAll("#project_list tbody tr").forEach((row, index) => {
+                console.log(`Row ${index} cells:`, row.querySelectorAll("td").length);
+            });
+
+            table = new simpleDatatables.DataTable("#project_list", {
+                selectable: false,
+                rowNavigation: false,
+                tabIndex: false,
+                labels: {
+                    placeholder: `{% trans 'Search...' %}`,
+                    searchTitle: `{% trans 'Search within table' %}`,
+                    pageTitle: `{% trans 'Page {page}' %}`,
+                    perPage: `{% trans 'entries per page' %}`,
+                    noRows: `{% trans 'No project records found.' %}`,
+                    info: `{% trans 'Showing {start} to {end} of {rows} entries' %}`,
+                    noResults: `{% trans 'No results match your search query' %}`,
+                },
+            });
+        };
+        resetTable();
+        window.addEventListener('resize', resetTable);
+    }
+
+    // Detail Modal Handlers
+    const detailModal = document.getElementById('detail-modal');
+
+    document.querySelectorAll('.detail-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            document.getElementById('detail-date-collected').textContent = this.dataset.dateCollected || 'N/A';
+            document.getElementById('detail-amount-collected').textContent = this.dataset.amountCollected || '0.00';
+            document.getElementById('detail-interest-collected').textContent = this.dataset.interestCollected || '0.00';
+            document.getElementById('detail-comment').textContent = this.dataset.comment || 'N/A';
+            document.getElementById('detail-recorded-by').textContent = this.dataset.recordedBy || 'N/A';
+            const signatureImg = document.getElementById('detail-signature');
+            if (this.dataset.signature) {
+                signatureImg.src = this.dataset.signature;
+                signatureImg.classList.remove('hidden');
+            } else {
+                signatureImg.src = '';
+                signatureImg.classList.add('hidden');
+            }
+            const fileLink = document.getElementById('detail-file-link');
+            const fileImg = document.getElementById('detail-file-img');
+            if (this.dataset.filePath) {
+                if (this.dataset.filePath.toLowerCase().endsWith('.pdf')) {
+                    fileLink.href = this.dataset.filePath;
+                    fileLink.classList.remove('hidden');
+                    fileImg.classList.add('hidden');
+                } else {
+                    fileImg.src = this.dataset.filePath;
+                    fileImg.classList.remove('hidden');
+                    fileLink.classList.add('hidden');
+                }
+            } else {
+                fileLink.classList.add('hidden');
+                fileImg.classList.add('hidden');
+            }
+
+            showModal(detailModal);
+        });
+    });
+
+    document.querySelectorAll('#detail-modal .close-btn').forEach(btn => {
+        btn.addEventListener('click', () => hideModal(detailModal));
+    });
+
+    detailModal.addEventListener('click', function(e) {
+        if (e.target === this) hideModal(detailModal);
+    });
+
+    // Delete Modal Handlers
+    const deleteModal = document.getElementById('delete-modal');
+    const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+
+    window.confirmDelete = function(id, dateCollected, deleteUrl) {
+        currentDeleteId = id;
+        document.getElementById('delete-date').textContent = dateCollected;
+        confirmDeleteBtn.dataset.deleteUrl = deleteUrl;
+        showModal(deleteModal);
+    };
+
+    document.querySelectorAll('#delete-modal .close-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentDeleteId = null;
+            hideModal(deleteModal);
+        });
+    });
+
+    deleteModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            currentDeleteId = null;
+            hideModal(deleteModal);
+        }
+    });
+
+    confirmDeleteBtn.addEventListener('click', function() {
+        if (!currentDeleteId) return;
+
+        const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (!csrfTokenElement) {
+            toastManager.buildToast()
+                .setMessage(gettext('CSRF token is missing. Please refresh the page and try again.'))
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+            return;
+        }
+
+        const deleteUrl = this.dataset.deleteUrl;
+        loaderManager.showLoader();
+
+        fetch(deleteUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfTokenElement.value,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: currentDeleteId })
+        })
+        .then(response => {
+            loaderManager.hideLoader();
+            if (!response.ok) throw new Error(gettext('An error occurred while deleting the project record.'));
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                toastManager.buildToast()
+                    .setMessage(data.message || gettext('Project record deleted successfully.'))
+                    .setType('success')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+
+                const row = document.querySelector(`tr td button[data-id="${data.id}"]`)?.closest('tr');
+                if (row) row.remove();
+
+                currentDeleteId = null;
+                hideModal(deleteModal);
+
+                if (typeof resetTable === 'function') resetTable();
+            } else {
+                toastManager.buildToast()
+                    .setMessage(data.message || gettext('Failed to delete project record. Please try again.'))
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        })
+        .catch(error => {
+            loaderManager.hideLoader();
+            toastManager.buildToast()
+                .setMessage(gettext('An unexpected error occurred: ') + error.message)
+                .setType('danger')
+                .setPosition('top-right')
+                .setDuration(4000)
+                .show();
+        });
+    });
+
+    // Keyboard Escape Handler
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (!detailModal.classList.contains('hidden')) hideModal(detailModal);
+            if (!deleteModal.classList.contains('hidden')) {
+                currentDeleteId = null;
+                hideModal(deleteModal);
+            }
+        }
+    });
+
+    function showModal(modal) {
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.add('opacity-100'), 10);
+        modal.querySelector('.modal-content')?.classList.remove('scale-95');
+        document.body.classList.add('overflow-hidden');
+    }
+
+    function hideModal(modal) {
+        modal.classList.remove('opacity-100');
+        modal.querySelector('.modal-content')?.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }, 200);
+    }
+});
+</script>
+{% endblock %}
