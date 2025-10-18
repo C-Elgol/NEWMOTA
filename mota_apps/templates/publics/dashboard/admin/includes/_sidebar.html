@@ -80,11 +80,13 @@
                     <span>{% trans "Add Njangi Member" %}</span>
                   </a>
 
-                  {% url 'products:daily_output' as daily_output_url %}
-                  <a href="{{ daily_output_url }}"
-                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == daily_output_url %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-chart-line mr-2"></i>
-                      <span>{% trans "Interest" %}</span>
+                  <a href="{% url 'finance:interest_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/interest-list/' %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-percent mr-3 text-lg"></i>
+                      <span>{% trans "All Interests" %}</span>
+                  </a>
+                  <a href="{% url 'finance:new_interest' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/new-interest/' %}active{% else %}inactive{% endif %}">
+                      <i class="fas fa-plus-circle mr-3 text-lg"></i>
+                      <span>{% trans "Add New Interest" %}</span>
                   </a>
 
                   {% url 'products:category_management' as category_management_url %}

@@ -3,6 +3,7 @@ from django.urls import path
 
 from mota_apps.finance.views.admin_dashboard_view import AdminDashboardView
 from mota_apps.finance.views.expenditure_view import DeleteExpenditureView, ExpenditureDetailView, ExpenditureListView, NewExpenditureView, UpdateExpenditureView
+from mota_apps.finance.views.interest_view import CollectInterestView, DeleteInterestView, GetMemberSavingsView, InterestListView, NewInterestView, UpdateInterestView
 from mota_apps.finance.views.loan_view import DeleteLoanView, GetLoansView, LoanListView, NewLoanView, PayLoanView, UpdateLoanView
 from mota_apps.finance.views.njangi_view import AddNjangiMemberView, DeleteNjangiView, GetNjangiDetailsView, GetNjangiView, NewNjangiView, NjangiListView, UpdateNjangiView
 from mota_apps.finance.views.record_finance_view import DeleteFinanceView, FinanceListView, NewFinanceView, UpdateFinanceView
@@ -35,4 +36,12 @@ urlpatterns = [
     path('expenditures/update/<str:pk>/', UpdateExpenditureView.as_view(), name='update_expenditure'),
     path('expenditures/delete/<str:pk>/', DeleteExpenditureView.as_view(), name='delete_expenditure'),
     path('expenditures/detail/<str:pk>/', ExpenditureDetailView.as_view(), name='expenditure_detail'),
+    
+    # Interest URLs
+    path('interest-list/', InterestListView.as_view(), name='interest_list'),
+    path('new-interest/', NewInterestView.as_view(), name='new_interest'),
+    path('interest/<str:pk>/update/', UpdateInterestView.as_view(), name='interest_update'),
+    path('interest/<str:pk>/delete/', DeleteInterestView.as_view(), name='interest_delete'),
+    path('get-member-savings/<str:member_id>/', GetMemberSavingsView.as_view(), name='get_member_savings'),
+    path('collect-interest/', CollectInterestView.as_view(), name='collect_interest'),
 ]

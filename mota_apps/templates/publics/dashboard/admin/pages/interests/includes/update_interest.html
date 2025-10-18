@@ -1,0 +1,221 @@
+{% extends "publics/dashboard/admin/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">
+            {% blocktrans %}Update Interest for {{ season }}{% endblocktrans %}
+        </h2>
+        <a href="{% url 'finance:interest_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+            {% trans "Back to Interests" %}
+        </a>
+    </div>
+
+    <form id="update-interest-form" class="space-y-6">
+        {% csrf_token %}
+        <div class="bg-white shadow rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">{% trans "Interest Details" %}</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="{{ form.member.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Member" %}</label>
+                    <div class="mt-1">
+                        {{ form.member }}
+                    </div>
+                </div>
+                <div>
+                    <label for="{{ form.total_savings.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Total Savings" %}</label>
+                    <div class="mt-1">
+                        {{ form.total_savings }}
+                    </div>
+                </div>
+                <div>
+                    <label for="{{ form.interest_share.id_for_label }}" class="block text-sm font-medium text-gray-700">{% trans "Interest Share" %}</label>
+                    <div class="mt-1">
+                        {{ form.interest_share }}
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <p class="text-sm font-medium text-gray-700">{% trans "Total Interest Collected from Loans" %}</p>
+                <p class="text-lg font-semibold text-gray-900">{{ total_loan_interest }}</p>
+            </div>
+            <div class="mt-6 flex justify-end space-x-2">
+                <a href="{% url 'finance:interest_list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">
+                    {% trans "Cancel" %}
+                </a>
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark"
+                        {% if is_visitor or is_staff and not is_current_season %}disabled{% endif %}>
+                    {% trans "Update Interest" %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
+<style>
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.375rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 1.5rem;
+        color: #374151;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 2.5rem;
+    }
+    .select2-container--default .select2-selection--single:focus {
+        outline: none;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+        color: #9ca3af;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'js/common/toast_manager.js' %}"></script>
+<script src="{% static 'js/common/loader_manager.js' %}"></script>
+<script>
+$(document).ready(function() {
+    $('.select2').select2({
+        placeholder: "{% trans 'Select a member' %}",
+        allowClear: true,
+        width: '100%',
+        dropdownCssClass: 'border border-gray-200 rounded-md shadow-sm',
+        selectionCssClass: 'text-gray-700'
+    });
+
+    const loaderManager = new SectionLoaderManager();
+
+    // Fetch savings when a member is selected
+    $('#{{ form.member.id_for_label }}').on('change', function() {
+        const memberId = $(this).val();
+        if (!memberId) {
+            $('#{{ form.total_savings.id_for_label }}').val('0.00');
+            $('#{{ form.interest_share.id_for_label }}').val('0.00');
+            return;
+        }
+
+        loaderManager.showLoader();
+
+        $.ajax({
+            url: '{% url "finance:get_member_savings" member_id="placeholder" %}'.replace('placeholder', encodeURIComponent(memberId)),
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                loaderManager.hideLoader();
+                if (response.success) {
+                    $('#{{ form.total_savings.id_for_label }}').val(response.total_savings);
+                    $('#{{ form.interest_share.id_for_label }}').val(response.interest_share);
+                } else {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message || '{% trans "Failed to fetch member savings." %}')
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                    $('#{{ form.total_savings.id_for_label }}').val('0.00');
+                    $('#{{ form.interest_share.id_for_label }}').val('0.00');
+                }
+            },
+            error: function(xhr) {
+                loaderManager.hideLoader();
+                const errorMessage = xhr.responseJSON?.message || '{% trans "Failed to fetch member savings." %}';
+                window.toastManager.buildToast()
+                    .setMessage(errorMessage)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+                $('#{{ form.total_savings.id_for_label }}').val('0.00');
+                $('#{{ form.interest_share.id_for_label }}').val('0.00');
+            }
+        });
+    });
+
+    // Form Submission
+    $('#update-interest-form').on('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const csrfToken = $('[name=csrfmiddlewaretoken]').val();
+
+        loaderManager.showLoader();
+
+        $.ajax({
+            url: '{% url "finance:interest_update" pk=object.id %}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: { 'X-CSRFToken': csrfToken },
+            success: function(response) {
+                loaderManager.hideLoader();
+                if (response.success) {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message)
+                        .setType('success')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                    setTimeout(() => window.location.href = response.redirect, 4000);
+                } else {
+                    window.toastManager.buildToast()
+                        .setMessage(response.message || '{% trans "An error occurred while updating the interest record." %}')
+                        .setType('danger')
+                        .setPosition('top-right')
+                        .setDuration(4000)
+                        .show();
+                }
+            },
+            error: function(xhr) {
+                loaderManager.hideLoader();
+                const errorMessage = xhr.responseJSON?.message || '{% trans "An error occurred while updating the interest record." %}';
+                window.toastManager.buildToast()
+                    .setMessage(errorMessage)
+                    .setType('danger')
+                    .setPosition('top-right')
+                    .setDuration(4000)
+                    .show();
+            }
+        });
+    });
+
+    // Auto-Calculate Interest Share (for manual input)
+    $('#{{ form.total_savings.id_for_label }}').on('input', function() {
+        const totalSavings = parseFloat($(this).val()) || 0;
+        const totalLoanInterest = {{ total_loan_interest|floatformat:2|default:"0.00" }};
+        const totalSystemSavings = {{ total_savings|floatformat:2|default:"0.00" }};
+        let interestShare = 0;
+        if (totalSystemSavings > 0) {
+            interestShare = (totalSavings / totalSystemSavings) * totalLoanInterest;
+        }
+        $('#{{ form.interest_share.id_for_label }}').val(interestShare.toFixed(2));
+    });
+
+    // Initialize interest share display
+    const initialSavings = parseFloat($('#{{ form.total_savings.id_for_label }}').val()) || 0;
+    const totalLoanInterest = {{ total_loan_interest|floatformat:2|default:"0.00" }};
+    const totalSystemSavings = {{ total_savings|floatformat:2|default:"0.00" }};
+    let initialInterestShare = 0;
+    if (totalSystemSavings > 0) {
+        initialInterestShare = (initialSavings / totalSystemSavings) * totalLoanInterest;
+    }
+    $('#{{ form.interest_share.id_for_label }}').val(initialInterestShare.toFixed(2));
+});
+</script>
+{% endblock %}
