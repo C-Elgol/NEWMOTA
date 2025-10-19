@@ -3,10 +3,12 @@
 <div id="sidebar" class="hidden admin-nav-bar:flex admin-nav-bar:flex-shrink-0 admin-sidebar">
   <div class="flex flex-col w-64 bg-tertiary text-white">
     <!-- Logo -->
+     <a href="{% url 'users:home' %}">
     <div class="flex items-center justify-center h-16 p-4 border-b border-gray-700">
       <h1 class="text-2xl font-semibold mr-2">Mota</h1>
       <span class="text-xl font-semibold">Admin</span>
     </div>
+    </a>
 
     <!-- Navigation -->
 <div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto sidebar-scroll h-screen">
