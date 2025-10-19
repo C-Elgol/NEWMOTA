@@ -9,214 +9,189 @@
     </div>
 
     <!-- Navigation -->
-    <div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto sidebar-scroll h-screen">
-      {% with current_url=request.resolver_match.url_name %}
-        <!-- Dashboard -->
-        <div class="mb-6">
-          <a href="{% url 'finance:admin-dashboard' %}"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item">
-                <i class="fas fa-life-ring mr-3 text-lg"></i>
-                <span>{% trans "Dashboard" %}</span>
-              </a>
-        </div>
-
-        <!-- Sections -->
-        <div class="space-y-8">
-          <!-- Admin DB Section -->
-          <div>
-            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "ADMIN DB" %}</h3>
-            <div class="space-y-2">
-             <a href="{% url 'admin:index' %}"
-                  class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'admin' %}active{% else %}inactive{% endif %}">
-                  <i class="fas fa-user-shield mr-2"></i>
-                  <span>{% trans "Mota ADMIN" %}</span>
-              </a>
-
-            </div>
-          </div>
-
-          <div>
-          <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'E-commerce' %}</h3>
-          <div class="space-y-2">
-                  {% url 'finance:finance_list' as finance_list_url %}
-                  <a href="{{ finance_list_url }}"
-                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == finance_list_url %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-boxes mr-3 text-lg"></i>
-                      <span>{% trans "All Finance" %}</span>
-                  </a>
-                  {% url 'finance:new_finance' as new_finance_url %}
-                  <a href="{{ new_finance_url }}"
-                    class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_finance_url %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-plus-circle mr-3 text-lg"></i>
-                      <span>{% trans "Add New Finance" %}</span>
-                  </a>
-                  <a href="{% url 'finance:loan_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/loan-list/' %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-hand-holding-usd mr-3 text-lg"></i>
-                      <span>{% trans "All Loans" %}</span>
-                  </a>
-                  <a href="{% url 'finance:new_loan' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/new-loan/' %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-plus-circle mr-3 text-lg"></i>
-                      <span>{% trans "Add New Loan" %}</span>
-                  </a>
-                  <a href="{% url 'finance:pay_loan' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/pay-loan/' %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-money-check-alt mr-3 text-lg"></i>
-                      <span>{% trans "Pay Loan" %}</span>
-                  </a>
-
-                  <a href="{% url 'finance:njangi_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'njangi_list' %}active{% else %}inactive{% endif %}">
-                    <i class="fas fa-boxes mr-2"></i>
-                    <span>{% trans "Njangi Beneficiaries" %}</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'finance:new_njangi' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'new_njangi' %}active{% else %}inactive{% endif %}">
-                    <i class="fas fa-plus-circle mr-3 text-lg"></i>
-                    <span>{% trans "Add Njangi Beneficiary" %}</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'finance:add_njangi_member' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'add_njangi_member' %}active{% else %}inactive{% endif %}">
-                    <i class="fas fa-user-plus mr-3 text-lg"></i>
-                    <span>{% trans "Add Njangi Member" %}</span>
-                  </a>
-
-                  <a href="{% url 'finance:interest_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/interest-list/' %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-percent mr-3 text-lg"></i>
-                      <span>{% trans "All Interests" %}</span>
-                  </a>
-                  <a href="{% url 'finance:new_interest' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/new-interest/' %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-plus-circle mr-3 text-lg"></i>
-                      <span>{% trans "Add New Interest" %}</span>
-                  </a>
-
-                  <li>
-                      <a href="{% url 'finance:project_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/project-list/' %}active{% else %}inactive{% endif %}">
-                          <i class="fas fa-tags mr-3 text-lg"></i>
-                          <span>{% trans "Projects" %}</span>
-                      </a>
-                  </li>
-                  
-                  {% url 'users:admin_payment_list' as admin_payment_list_url %}
-                    <a href="{{ admin_payment_list_url }}"
-                      class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_payment_list_url %}active{% else %}inactive{% endif %}">
-                        <i class="fas fa-credit-card mr-3 text-lg"></i>
-                        <span>{% trans "Summary" %}</span>
-                    </a>
-
-                    {% url 'users:admin_order_list' as admin_order_list_url %}
-                    <a href="{{ admin_order_list_url }}"
-                      class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_order_list_url %}active{% else %}inactive{% endif %}">
-                        <i class="fas fa-shopping-cart mr-3 text-lg"></i>
-                        <span>{% trans "Add New member" %}</span>
-                    </a>
-              </div>
-          </div>
-
-          <div>
-            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'SAV' %}</h3>
-            <div class="space-y-2">
-              <a href="{% url 'users:toggle_user_status' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item">
-                  <i class="fas fa-user-check mr-3 text-lg"></i>
-                  <span>{% trans "Activate/Deactivate User" %}</span>
-              </a>
-              <a href="#"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'new_sav' %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-plus-circle mr-3 text-lg"></i>
-                <span>{% trans 'Add New user' %}</span>
-              </a>
-              <a href="{% url 'finance:expenditure_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == expenditure_list_url %}active{% else %}inactive{% endif %}">
-                  <i class="fas fa-money-bill-wave mr-3 text-lg"></i>
-                  <span>{% trans "Expenditures" %}</span>
-              </a>
-              <a href="{% url 'finance:new_expenditure' %}"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'new_sav' %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-plus-circle mr-3 text-lg"></i>
-                <span>{% trans 'Add Expenditures' %}</span>
-              </a>
-
-              <a href="{% url 'agents:finance_agent' %}"
-                class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/agent/finance-agent/' %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-rocket mr-3 text-lg"></i>
-                <span>{% trans "Agents" %}</span>
-              </a>
-              {% comment %} <a href="{% url 'agents:loan_notification' %}"
-                class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == '/agent/finance-agent/' %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-rocket mr-3 text-lg"></i>
-                <span>{% trans "loan Agents" %}</span>
-              </a> {% endcomment %}
-            </div>
-          </div>
-
-          <!-- Instance Section -->
-          <div>
-            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "Instances" %}</h3>
-            <div class="space-y-2">
-              <a href="#"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'list_instance' %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-headset mr-3 text-lg"></i>
-                <span>{% trans "Downloads PDF" %}</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Users Section -->
-          <div>
-            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">USERS</h3>
-            <div class="space-y-2">
-
-              <a href="{% url 'users:user_list' %}" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == user_list_url %}active{% else %}inactive{% endif %}">
-                  <i class="fas fa-users mr-3 text-lg"></i>
-                  <span>{% trans "Users" %}</span>
-              </a>
-
-              <a href="{% url 'users:new_user' %}"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item
-                          {% if request.resolver_match.url_name == 'user_list' and request.resolver_match.kwargs.role_slug == 'user' %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-percent mr-3 text-lg"></i>
-                <span>{% trans "New Users" %}</span>
-              </a>
-            </div>
-          </div>
-
-
-          <!-- Contact Us Section -->
-          <div>
-            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "Contact Us" %}</h3>
-            <div class="space-y-2">
-              <a href="#"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'contact_list' %}active{% else %}inactive{% endif %}">
-                <i class="fas fa-envelope mr-3 text-lg"></i>
-                <span>{% trans "Contact Messages" %}</span>
-                <span id="unread-contact-count" class="ml-2 bg-red-600 text-white text-xs font-semibold rounded-full px-2 py-1 hidden">0</span>
-              </a>
-            </div>
-          </div>
-
-        <div>
-            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'Partner Management' %}</h3>
-            <div class="space-y-2">
-                 <a href="#"
-                 class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'manage-partner-customers' %}active{% else %}inactive{% endif %}">
-                    <i class="fas fa-users mr-3 text-lg"></i>
-                    <span>{% trans 'Mota Partners' %}</span>
-              </a>
-            </div>
-        </div>
-
-          <!-- Settings Section -->
-          <div>
-            <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "SETTINGS" %}</h3>
-            <div class="space-y-2">
-                  <a href="#" class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if current_url == 'company_settings' %}active{% else %}inactive{% endif %}">
-                      <i class="fas fa-cog mr-3 text-lg"></i>
-                      <span>{% trans "General" %}</span>
-                  </a>
-              
-            </div>
-          </div>
-        </div>
-      {% endwith %}
+<div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto sidebar-scroll h-screen">
+  {% with current_url=request.resolver_match.url_name %}
+    <!-- Dashboard -->
+    <div class="mb-6">
+      {% url 'finance:admin-dashboard' as admin_dashboard_url %}
+      <a href="{{ admin_dashboard_url }}"
+         class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_dashboard_url %}active{% else %}inactive{% endif %}">
+        <i class="fas fa-life-ring mr-3 text-lg"></i>
+        <span>{% trans "Dashboard" %}</span>
+      </a>
     </div>
+
+    <!-- Sections -->
+    <div class="space-y-8">
+      <!-- Admin DB Section -->
+      <div>
+        <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "ADMIN DB" %}</h3>
+        <div class="space-y-2">
+          {% url 'admin:index' as admin_index_url %}
+          <a href="{{ admin_index_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_index_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-user-shield mr-2"></i>
+            <span>{% trans "Mota ADMIN" %}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- E-commerce Section -->
+      <div>
+        <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'E-commerce' %}</h3>
+        <div class="space-y-2">
+          {% url 'finance:finance_list' as finance_list_url %}
+          <a href="{{ finance_list_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == finance_list_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-boxes mr-3 text-lg"></i>
+            <span>{% trans "All Finance" %}</span>
+          </a>
+          {% url 'finance:new_finance' as new_finance_url %}
+          <a href="{{ new_finance_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_finance_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-plus-circle mr-3 text-lg"></i>
+            <span>{% trans "Add New Finance" %}</span>
+          </a>
+          {% url 'finance:loan_list' as loan_list_url %}
+          <a href="{{ loan_list_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == loan_list_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-hand-holding-usd mr-3 text-lg"></i>
+            <span>{% trans "All Loans" %}</span>
+          </a>
+          {% url 'finance:new_loan' as new_loan_url %}
+          <a href="{{ new_loan_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_loan_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-plus-circle mr-3 text-lg"></i>
+            <span>{% trans "Add New Loan" %}</span>
+          </a>
+          {% url 'finance:pay_loan' as pay_loan_url %}
+          <a href="{{ pay_loan_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == pay_loan_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-money-check-alt mr-3 text-lg"></i>
+            <span>{% trans "Pay Loan" %}</span>
+          </a>
+          {% url 'finance:njangi_list' as njangi_list_url %}
+          <a href="{{ njangi_list_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == njangi_list_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-boxes mr-2"></i>
+            <span>{% trans "Njangi Beneficiaries" %}</span>
+          </a>
+          {% url 'finance:new_njangi' as new_njangi_url %}
+          <a href="{{ new_njangi_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_njangi_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-plus-circle mr-3 text-lg"></i>
+            <span>{% trans "Add Njangi Beneficiary" %}</span>
+          </a>
+          {% url 'finance:add_njangi_member' as add_njangi_member_url %}
+          <a href="{{ add_njangi_member_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == add_njangi_member_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-user-plus mr-3 text-lg"></i>
+            <span>{% trans "Add Njangi Member" %}</span>
+          </a>
+          {% url 'finance:interest_list' as interest_list_url %}
+          <a href="{{ interest_list_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == interest_list_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-percent mr-3 text-lg"></i>
+            <span>{% trans "All Interests" %}</span>
+          </a>
+          {% url 'finance:new_interest' as new_interest_url %}
+          <a href="{{ new_interest_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_interest_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-plus-circle mr-3 text-lg"></i>
+            <span>{% trans "Add New Interest" %}</span>
+          </a>
+          {% url 'finance:project_list' as project_list_url %}
+          <a href="{{ project_list_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == project_list_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-tags mr-3 text-lg"></i>
+            <span>{% trans "Projects" %}</span>
+          </a>
+          {% url 'users:admin_payment_list' as admin_payment_list_url %}
+          <a href="{{ admin_payment_list_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_payment_list_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-credit-card mr-3 text-lg"></i>
+            <span>{% trans "Summary" %}</span>
+          </a>
+          {% url 'users:admin_order_list' as admin_order_list_url %}
+          <a href="{{ admin_order_list_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == admin_order_list_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-shopping-cart mr-3 text-lg"></i>
+            <span>{% trans "Add New member" %}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SAV Section -->
+      <div>
+        <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans 'SAV' %}</h3>
+        <div class="space-y-2">
+          {% url 'users:toggle_user_status' as toggle_user_status_url %}
+          <a href="{{ toggle_user_status_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == toggle_user_status_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-user-check mr-3 text-lg"></i>
+            <span>{% trans "Activate/Deactivate User" %}</span>
+          </a>
+          {% url 'users:new_user' as new_user_url %}
+          <a href="{{ new_user_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_user_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-plus-circle mr-3 text-lg"></i>
+            <span>{% trans "Add New user" %}</span>
+          </a>
+          {% url 'finance:expenditure_list' as expenditure_list_url %}
+          <a href="{{ expenditure_list_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == expenditure_list_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-money-bill-wave mr-3 text-lg"></i>
+            <span>{% trans "Expenditures" %}</span>
+          </a>
+          {% url 'finance:new_expenditure' as new_expenditure_url %}
+          <a href="{{ new_expenditure_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_expenditure_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-plus-circle mr-3 text-lg"></i>
+            <span>{% trans "Add Expenditures" %}</span>
+          </a>
+          {% url 'agents:finance_agent' as finance_agent_url %}
+          <a href="{{ finance_agent_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == finance_agent_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-rocket mr-3 text-lg"></i>
+            <span>{% trans "Agents" %}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Instances Section -->
+      <div>
+        <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{% trans "Instances" %}</h3>
+        <div class="space-y-2">
+          {% url 'finance:downloads_pdf' as downloads_pdf_url %}
+          <a href="{{ downloads_pdf_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == downloads_pdf_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-headset mr-3 text-lg"></i>
+            <span>{% trans "Downloads PDF" %}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Users Section -->
+      <div>
+        <h3 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">USERS</h3>
+        <div class="space-y-2">
+          {% url 'users:user_list' as user_list_url %}
+          <a href="{{ user_list_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == user_list_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-users mr-3 text-lg"></i>
+            <span>{% trans "Users" %}</span>
+          </a>
+          {% url 'users:new_user' as new_user_url %}
+          <a href="{{ new_user_url }}"
+             class="flex items-center px-4 py-2.5 rounded-lg nav-item {% if request.path == new_user_url %}active{% else %}inactive{% endif %}">
+            <i class="fas fa-percent mr-3 text-lg"></i>
+            <span>{% trans "New Users" %}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endwith %}
+</div>
 
     <!-- User Profile -->
     <div class="p-4 border-t border-gray-700">
