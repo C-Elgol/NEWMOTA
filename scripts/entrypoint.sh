@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e  # Exit immediately if a command exits with a non-zero status
+set -e
 
 cat << 'EOF'
 
@@ -20,17 +20,19 @@ EOF
 echo "📡 Waiting for the database to be ready..."
 sleep 5
 
-echo "🛠️ Running migrations..."
-python manage.py migrate --noinput
+# ✅ RUN MIGRATIONS ONLY IF ENABLED
+if [ "$RUN_MIGRATIONS" = "1" ]; then
+  echo "🛠️ Running migrations..."
+  python manage.py migrate --noinput
 
-echo "📦 Collecting static files..."
-python manage.py collectstatic --noinput --clear
+  echo "📦 Collecting static files..."
+  python manage.py collectstatic --noinput --clear
 
-# echo "🌐 Compiling translations..."
-python manage.py compilemessages -i .venv -i node_modules -l fr # French
+  echo "🌐 Compiling translations..."
+  python manage.py compilemessages -i .venv -i node_modules -l fr
+else
+  echo "⏭️ Skipping migrations (worker container)"
+fi
 
-# echo "✅ Translation Compilation Complete"
-
-# 🚀 Execute the container command (gunicorn, celery, etc.)
 echo "🚀 Starting: $@"
 exec "$@"
