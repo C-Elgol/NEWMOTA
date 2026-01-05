@@ -1,14 +1,14 @@
 services:
   web:
     build: .
-    container_name: nity-pulse-web
-    command: sh /app/scripts/entrypoint.sh gunicorn nitypulse_backend.wsgi:application --bind 0.0.0.0:8000 --timeout 120
+    container_name: mota-web
+    command: sh /app/scripts/entrypoint.sh gunicorn MOTA.wsgi:application --bind 0.0.0.0:8000 --timeout 120
     volumes:
-    - /opt/nity-pulse/staticfiles:/app/staticfiles
-    - /opt/nity-pulse/media:/app/media
+    - /opt/mota/staticfiles:/app/staticfiles
+    - /opt/mota/media:/app/media
 
     ports:
-      - "8003:8000"
+      - "8004:8000"
     env_file:
       - .env
     depends_on:
@@ -19,7 +19,7 @@ services:
 
   db:
     image: postgres:15
-    container_name: nity-pulse-db
+    container_name: mota-db
     restart: always
     env_file:
       - .env
@@ -30,7 +30,7 @@ services:
 
   redis:
     image: redis:7
-    container_name: nity-pulse-redis
+    container_name: mota-redis
     ports:
       - "6379"
     networks:
@@ -38,8 +38,8 @@ services:
 
   celery:
     build: .
-    container_name: nity-pulse-celery
-    command: sh /app/scripts/entrypoint.sh celery -A nitypulse_backend worker -l info
+    container_name: mota-celery
+    command: sh /app/scripts/entrypoint.sh celery -A MOTA worker -l info
     volumes:
       - .:/app
     env_file:
