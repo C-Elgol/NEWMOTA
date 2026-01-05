@@ -2,6 +2,7 @@
 {% load i18n static %}
 
 {% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
 <form id="csrf-form" style="display: none;">
     {% csrf_token %}
 </form>
@@ -64,7 +65,7 @@
         </tbody>
     </table>
 </div>
-
+</div>
 <!-- Detail Modal -->
 {% include 'publics/dashboard/admin/pages/expenditures/modals/expenditure_detail_modal.html' %}
 
