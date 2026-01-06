@@ -46,8 +46,18 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DJANGO_DEBUG", True)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    default="mota.nitypulse.com",
+    cast=lambda v: [s.strip() for s in v.split(",")]
+)
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://mota.nitypulse.com",
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
 
 # Application definition
 
@@ -233,3 +243,7 @@ LOGGING = {
 SESSION_COOKIE_AGE = 600  # 10 minutes in seconds
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Expire session when browser closes
 SESSION_SAVE_EVERY_REQUEST = True  # Update session on every request
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
