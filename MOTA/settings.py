@@ -44,7 +44,7 @@ GOOGLE_CSE_ID = config("GOOGLE_CSE_ID", default="fadfa")
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DJANGO_DEBUG", True)
+DEBUG = config("DJANGO_DEBUG", cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
@@ -247,3 +247,7 @@ SESSION_SAVE_EVERY_REQUEST = True  # Update session on every request
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
