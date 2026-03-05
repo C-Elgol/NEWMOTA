@@ -46,14 +46,26 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DJANGO_DEBUG", cast=bool)
 
-ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS",
-    default="mota.nitypulse.com",
-    cast=lambda v: [s.strip() for s in v.split(",")]
-)
+# ALLOWED_HOSTS = config(
+#     "ALLOWED_HOSTS",
+#     default="mota.nitypulse.com",
+#     cast=lambda v: [s.strip() for s in v.split(",")]
+# )
+
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://mota.nitypulse.com",
+# ]
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'cba3-102-244-197-41.ngrok-free.app',
+    '10.210.77.105',    
+]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://mota.nitypulse.com",
+    'https://cba3-102-244-197-41.ngrok-free.app',
+    'http://10.210.77.105:8000', 
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
